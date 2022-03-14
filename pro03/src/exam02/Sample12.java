@@ -13,7 +13,7 @@ public class Sample12 {
 		String s = sc.nextLine();
 		String A, B = "";
 		int c1 = 0, c2 = 0, c3 = 0, tot = 0;
-		
+		// 강사님 int result;만들고 이기면1, 지면 -1, 비기면 0으로 만듦
 		while(true) {
 			System.out.print("가위바위보 : ");
 			A = sc.nextLine();
