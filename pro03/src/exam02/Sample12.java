@@ -6,6 +6,11 @@ import java.util.Scanner;
 public class Sample12 {
 
 	public static void main(String[] args) {
+		//배열을 적용한다.
+		// 		- 컴퓨터가 생성한 정수 값을 가위, 바위, 보로 치환하기 위한 배열
+		// 		- 전적 기록을 배열을 사용하여 관리할 수 있도록 한다.
+		
+		
 		Scanner sc = new Scanner(System.in); 
 		Random random = new Random();
 		
@@ -14,6 +19,7 @@ public class Sample12 {
 		String A, B = "";
 		int c1 = 0, c2 = 0, c3 = 0, tot = 0;
 		// 강사님 int result;만들고 이기면1, 지면 -1, 비기면 0으로 만듦
+		
 		while(true) {
 			System.out.print("가위바위보 : ");
 			A = sc.nextLine();
