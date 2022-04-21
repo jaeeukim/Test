@@ -14,21 +14,30 @@ public class MenuManager {
 	private Scanner sc = new Scanner(System.in);
 	private DatabaseManager db = new DatabaseManager();
 	private Account loginAccount;
+	private Student std;
+	private TeacherDatabaseManager tDB = new TeacherDatabaseManager();
 	
 	public MenuManager(Account loginAccount) {
 		this.loginAccount = loginAccount;
 	}
 	
 	public void main() {
+		if(loginAccount instanceof Teacher) {
+			teacherMenu();
+		}else {
+			studentMenu();
+		}
+	}
+	
+	public void teacherMenu() {
+		
 		StringBuilder menu = new StringBuilder();
 		menu.append("1. 성적 조회\n");		// searchMenu()
-		if(loginAccount instanceof Teacher) {
-			menu.append("2. 학생 정보 추가\n");	// studentAddMenu()
-			menu.append("3. 성적 정보 수정\n");	// subjectModifyMenu()
-			menu.append("4. 학생 정보 삭제\n");	// studentDeleteMenu()			
-		}
-		menu.append("5. 패스워드 변경\n");
-		menu.append("9. 로그아웃\n");	// System.exit(0);
+		menu.append("2. 학생 정보 추가\n");	// studentAddMenu()
+		menu.append("3. 성적 정보 수정\n");	// subjectModifyMenu()
+		menu.append("4. 학생 정보 삭제\n");	// studentDeleteMenu()			
+		menu.append("5. 패스워드 변경\n"); 	// changePwd()
+		menu.append("9. 로그아웃\n");			// System.exit(0);
 		menu.append(">>> ");
 		while(true) {
 			System.out.print(menu);
@@ -44,6 +53,8 @@ public class MenuManager {
 				subjectModifyMenu();
 			} else if(input.equals("4")) {
 				studentDeleteMenu();
+			} else if(input.equals("5")) {
+				changePasswordMenu();
 			} else if(input.equals("9")) {
 				logout();
 				return;
@@ -51,13 +62,52 @@ public class MenuManager {
 			_clear();
 		}
 		
-		
-		
-		
-	
 	}
+
+	public void studentMenu() {
+		//본인 성적에 대한 조회만 가능한 메뉴가 나오게 한다.
+		StringBuilder menu = new StringBuilder();
+		menu.append("1. 성적 조회\n");	// searchMenu()
+		menu.append("2. 패스워드 변경\n");
+		menu.append("9. 로그아웃\n");		// System.exit(0);
+		menu.append(">>> ");
+		while(true) {	
+			System.out.print(menu);
+			
+			String input = sc.nextLine();
+	
+			if(input.equals("1")) {
+				String result = _printGrades(loginAccount.getName(), ((Student)loginAccount).getGrades());
+				System.out.println(result);
+			} else if(input.equals("2")) {
+				changePasswordMenu();
+			} else if(input.equals("9")) {
+				logout();
+				return;
+			}
+		}
+	}
+
+	private void changePasswordMenu() {
+		System.out.print("현재 패스워드 : ");
+		String curPass = sc.nextLine();
+		
+		System.out.print("변경 패스워드 : ");
+		String changePass = sc.nextLine();
+		
+		boolean result = loginAccount.changePassword(curPass, changePass);
+		if(result) {
+			System.out.println("패스워드가 변경되었습니다.");
+		}else {
+			System.out.println("패스워드 변경에 실패하였습니다.");
+		}
+	}
+
 	private void logout() {
-//		loginAccount.setLoginDate(new Date());
+		if(loginAccount instanceof Teacher) {
+			((Teacher)loginAccount).setLoginDate(new Date());			
+		}
+		
 		System.out.println(loginAccount.getName() + "님이 로그아웃 하였습니다.");
 	}
 

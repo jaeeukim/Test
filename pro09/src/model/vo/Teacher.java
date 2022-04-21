@@ -2,13 +2,14 @@ package model.vo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class Teacher extends Account{
 	private Date loginDate; // 로그인 시간
 	 
 	public Teacher(String name) {
 		setName(name);
-		setPassword("1111"); //초기 비밀번호
+		setPassword("a111"); //초기 비밀번호
 	}
 	
 	public Teacher(String name, String password) {
@@ -29,17 +30,23 @@ public class Teacher extends Account{
 		return sFormat.format(loginDate);
 	}
 
-	@Override
-	public boolean changePassword(String curPass, String changePass) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+//	public boolean changePassword(String curPass, String changePass) {
+//		if(curPass.equals(this.getPassword())) {
+//			this.setPassword(changePass);
+//			return true;
+//		}
+//		return false;
+//	}
+	
 	@Override
 	public String resetPassWord() {
-		// TODO Auto-generated method stub
-		return null;
+		String prefix = "TCH_";
+		String newPassword = super.resetPassWord();
+		setPassword(prefix + newPassword);
+		return newPassword;
 	}
+	
+	
 	
 
 }

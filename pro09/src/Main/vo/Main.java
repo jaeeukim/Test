@@ -8,7 +8,7 @@ import controller.MenuManager;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		/*
 		 * 프로그램 시작 점.
 		 */

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Arrays;
 
+import exception.GradeScoreException;
 import model.vo.Grade;
 import model.vo.Student;
 import model.vo.Teacher;
@@ -64,7 +65,11 @@ public class DatabaseManager implements ImplDatabaseManager{
 		
 		for(int i = 0; i < grades.length; i++) {
 			if(subject.equals(grades[i].getName())) {
-				grades[i].setScore(score);
+				if(score >= 0 && score <= 100) {
+					grades[i].setScore(score);										
+				} else {
+					grades[i].setScore(0);															
+				}
 				return datas[idx];				
 			}
 		}
@@ -87,7 +92,15 @@ public class DatabaseManager implements ImplDatabaseManager{
 		return true;
 	}
 	
-	public boolean _isExisted(String name) {
+	public Student getStudent(String name) {
+		return datas[_findIndex(name)];
+	}
+	
+	public boolean isExisted(String name) {
+		return _isExisted(name);
+	}
+	
+	private boolean _isExisted(String name) {
 		return _findIndex(name) != -1 ? true : false;
 	}
 	
