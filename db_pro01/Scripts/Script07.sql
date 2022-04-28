@@ -184,3 +184,82 @@ SELECT DEPARTMENT_ID
  WHERE DEPARTMENT_ID IS NOT NULL
  GROUP BY CUBE(DEPARTMENT_ID, JOB_ID, DECODE(NVL(COMMISSION_PCT, 0),0, 'NO', 'YES'))
  ORDER BY DEPARTMENT_ID , JOB_ID NULLS LAST;
+ 
+
+
+/*
+ * 부서, 고용년도 별 급여 통계(최고 급여, 최저 급여, 평균)을 구한다.
+ * 		- ROLLUP, CUBE를 적용
+ * 		- 부서가 NULL 인원은 제외한다.
+ */
+
+
+SELECT DEPARTMENT_ID AS 부서
+	, EXTRACT (YEAR FROM HIRE_DATE) AS 고용년도
+	, MAX(SALARY) AS 최대급여
+	, MIN(SALARY) AS 최소급여
+	, AVG(SALARY) AS 평균급여
+	FROM EMPLOYEES
+ WHERE DEPARTMENT_ID IS NOT NULL
+ GROUP BY ROLLUP (DEPARTMENT_ID, EXTRACT (YEAR FROM HIRE_DATE))
+ ORDER BY DEPARTMENT_ID, 고용년도;
+ 
+SELECT DEPARTMENT_ID AS 부서
+	, EXTRACT (YEAR FROM HIRE_DATE) AS 고용년도
+	, MAX(SALARY) AS 최대급여
+	, MIN(SALARY) AS 최소급여
+	, AVG(SALARY) AS 평균급여
+	FROM EMPLOYEES
+ WHERE DEPARTMENT_ID IS NOT NULL
+ GROUP BY CUBE(DEPARTMENT_ID, EXTRACT (YEAR FROM HIRE_DATE))
+  ORDER BY DEPARTMENT_ID, 고용년도;
+  
+ 
+/*
+ * - 모든 컬럼명은 한글로 별칭 부여, 조회
+ * - FIRST_NAME과 LAST_NAME을 하나의 컬럼(이름)으로 만들어서 조회
+ * - PHONE_NUMBER에서 사용한 구분자 . 은 - 로 변경하여 조회
+ * - EMAIL 주소는 @example.com을 추가로 덧붙여 조회(소문자만)
+ * - HIRE_DATE 는 YYYY년 MM월 DD일 형식으로 조회, 추가로 입사일부터 현재일까지의 근속일수 계산
+ * - SALRAY는 원화 단위로 변환시켜 조회, COMMISSION_PCT있으면 이를 계산
+ *   (100원 단위 절삭)
+ * - 입사일을 기준으로 오름차순 정렬 조회
+ */
+ 
+ SELECT CONCAT(FIRST_NAME, ' ' || LAST_NAME) AS 이름
+ 	, REPLACE(PHONE_NUMBER , '.', '-') AS 전화번호
+ 	, LOWER(CONCAT(EMAIL, '@example.com')) AS 이메일
+ 	, TO_CHAR(HIRE_DATE, 'YYYY"년" MM"월" DD"일"') AS 입사일
+ 	, FLOOR(SYSDATE - HIRE_DATE) AS 근속일
+ 	, FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)) AS 근속월
+ 	, FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE) /12) AS 근속년
+ 	, TO_CHAR(TRUNC(SALARY * (1 + NVL(COMMISSION_PCT, 0)) * 1260, -3), 'L999,999,999') AS 연봉
+ FROM EMPLOYEES 
+ORDER BY HIRE_DATE;
+
+-- TO_DATE(SYSDATE) - TO_DATE(HIRE_DATE)  AS 근속일수 -- 모르겠음
+/*
+  * 전화번호 회선을 집계하기 위한 조회 쿼리
+  * 	- 전화번호 회선은 515, 590, 650, 011, 603 별로 구분하여 얼마나 사용되고 있는지 조회
+  * 	- 번호별 회선 수에 추가로 전체 회선수가 조회 될 수 있도록
+  */
+ 
+ SELECT NVL(SUBSTR(PHONE_NUMBER, 1, 3), '총합') AS 회선번호
+ 	,COUNT(*) AS 회선수
+	FROM EMPLOYEES
+ GROUP BY ROLLUP(SUBSTR(PHONE_NUMBER, 1, 3)); 
+ 
+ /*
+  * MANAGER_ID 는 해당 EMPLOYEE_ID 를 관리하는 관리자 정보가 연결되어있는 정보
+  * 	- 한 명의 관리자가 얼마나 많은 직원을 관리하고 있는지 알 수 있도록 조회쿼리 작성
+  * 	- MANAGER_ID 가 NULL 인 경우 제외하여 조회
+  */
+ 
+
+SELECT MANAGER_ID AS 관리자 
+	, COUNT(*) AS 인원수
+	FROM EMPLOYEES
+ WHERE MANAGER_ID IS NOT NULL
+ GROUP BY MANAGER_ID;
+ 
+ 
