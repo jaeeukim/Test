@@ -4,13 +4,13 @@
 SELECT 10 * NVL(NULL, 0) AS COL1
 	FROM DUAL;
 	
--- DECODE는 지정하는것 (SWITCH문)
+-- DECODE는 특정 값 지정하는것 (SWITCH문)
 SELECT COUNTRY_ID
 	, COUNTRY_NAME
 	, DECODE(COUNTRY_ID, 'IT', '이태리', 'JP', '일본', 'US', '미국', 'CA', '캐나다', COUNTRY_NAME) AS COUNTRY_KOR
 	FROM COUNTRIES;
 	
--- CASE는 직접 수를 넣는것 (IF문)
+-- CASE는 직접 수(범위)를 넣는것 (IF문)
 SELECT EMPLOYEE_ID 
 	, FIRST_NAME 
 	, LAST_NAME 
