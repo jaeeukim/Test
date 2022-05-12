@@ -2,9 +2,7 @@ package com.conn.db;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,17 +22,13 @@ public class DBConn {
 	public DBConn(File config) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		BufferedReader br = new BufferedReader(new FileReader(config));
-		try {
-			while(br.ready()) {
-				String[] keyValue = br.readLine().split("=");
-				map.put(keyValue[0].strip(), keyValue[1].strip());  //strip 공백제거
-			}
+		while(br.ready()) {
+			String[] keyValue = br.readLine().split("=");
+			map.put(keyValue[0].strip(), keyValue[1].strip());  //strip 공백제거
+		}
+		url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));
+		this.initConnect(map.get("username"), map.get("password"));	
 			
-			url_address = String.format("%s:%s/%s", map.get("host"), map.get("port"), map.get("service"));
-			this.initConnect(map.get("username"), map.get("password"));	
-			} catch (IOException e) {
-				e.printStackTrace();
-			} 
 	}
 	
 	public DBConn(String domain, String port, String serviceName, String username, String password) throws Exception {

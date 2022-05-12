@@ -84,10 +84,7 @@ public class JoinDAO {
 				data.setAge(rs.getInt("age"));
 				data.setCreateDate(rs.getDate("createdate"));
 				return data;
-			}else {
-				
 			}
-			rs.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

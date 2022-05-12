@@ -142,7 +142,6 @@ public class JoinView {
 					System.out.println("로그아웃 중입니다.");
 					account = null;
 					System.out.println("로그아웃 완료.");
-					this.show();
 					return;
 				default:
 					System.out.println("잘못 입력하였습니다.");
