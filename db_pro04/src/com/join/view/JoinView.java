@@ -1,5 +1,6 @@
 package com.join.view;
 
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import com.join.controller.JoinController;
@@ -89,6 +90,17 @@ public class JoinView {
 		
 			switch(input) {
 				case "1":
+					System.out.println(account.getUserID());
+					System.out.println(account.getUserPW());
+					System.out.println(account.getUsername());
+					System.out.println(account.getGender());
+					System.out.println(account.getAge());
+					
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+					String sDate = dateFormat.format(account.getCreateDate().getTime());
+					System.out.println(sDate);
+					
+				case "2":
 					
 
 					System.out.println("아무것도 입력하지 않으면 이전 값을 유지합니다.");
@@ -127,7 +139,7 @@ public class JoinView {
 					break;
 					
 					
-				case "2":
+				case "3":
 					if(jc.remove(account)) {
 						System.out.println("탈퇴 처리가 완료 되었습니다.");
 						return;
@@ -138,7 +150,7 @@ public class JoinView {
 					
 					
 					
-				case "3":
+				case "4":
 					System.out.println("로그아웃 중입니다.");
 					account = null;
 					System.out.println("로그아웃 완료.");
