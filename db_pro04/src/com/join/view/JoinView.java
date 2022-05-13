@@ -1,6 +1,7 @@
 package com.join.view;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import com.join.controller.JoinController;
@@ -97,6 +98,8 @@ public class JoinView {
 					System.out.println(account.getAge());
 					
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+					java.util.Date createDate = new java.util.Date(account.getCreateDate().getTime());
+					
 					String sDate = dateFormat.format(account.getCreateDate().getTime());
 					System.out.println(sDate);
 					
