@@ -98,6 +98,7 @@ public class JoinView {
 					System.out.println(account.getAge());
 					
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+					//java.sql.Date를 java.util.Date로 변경
 					java.util.Date createDate = new java.util.Date(account.getCreateDate().getTime());
 					
 					String sDate = dateFormat.format(account.getCreateDate().getTime());
