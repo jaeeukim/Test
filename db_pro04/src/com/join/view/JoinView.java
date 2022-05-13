@@ -104,6 +104,14 @@ public class JoinView {
 					String sDate = dateFormat.format(account.getCreateDate().getTime());
 					System.out.println(sDate);
 					
+					//java.util.date가 java.sql.date로 변경
+					java.util.Date now = new java.util.Date();					
+					java.sql.Date sqlDate = new java.sql.Date(now.getTime());
+					
+					//문자열을 sql.Date 타입으로 변경
+					sqlDate = java.sql.Date.valueOf("2022-05-13"); //형식(-) 맞춰야함
+					
+					break;
 				case "2":
 					
 
