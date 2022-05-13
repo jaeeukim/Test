@@ -99,11 +99,13 @@ public class JoinView {
 					
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
 					//java.sql.Date를 java.util.Date로 변경
+	
 					java.util.Date createDate = new java.util.Date(account.getCreateDate().getTime());
 					
 					String sDate = dateFormat.format(account.getCreateDate().getTime());
 					System.out.println(sDate);
 					
+					// 주의 : sql.Date는 날짜만 다룸(시간을 다루려면 java.sql.timestamp써야함)
 					//java.util.date가 java.sql.date로 변경
 					java.util.Date now = new java.util.Date();					
 					java.sql.Date sqlDate = new java.sql.Date(now.getTime());
@@ -111,6 +113,9 @@ public class JoinView {
 					//문자열을 sql.Date 타입으로 변경
 					sqlDate = java.sql.Date.valueOf("2022-05-13"); //형식(-) 맞춰야함
 					
+					// Timestamp 형식
+					java.sql.Timestamp sqlDateTime = java.sql.Timestamp.valueOf("2022-05-13 10:19:30.12345");
+					System.out.println(sqlDateTime);
 					break;
 				case "2":
 					
