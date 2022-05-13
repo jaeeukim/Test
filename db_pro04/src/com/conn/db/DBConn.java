@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +20,7 @@ public class DBConn {
 	private String url_address;
 	private Connection conn;
 	private Statement stat;
+	private PreparedStatement pstat;
 	
 	public DBConn(File config) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
@@ -45,27 +48,59 @@ public class DBConn {
 		conn.setAutoCommit(false);
 		// "localhost:1521/XEPDB1"
 		
-		// 3. Statement 생성
-		stat = conn.createStatement();
+		// 3. Statement 생성 -> PreparedStatement 로 변경함
+		// stat = conn.createStatement();	
+	}
+	public PreparedStatement getPstat(String sql) throws SQLException {
+		pstat = conn.prepareStatement(sql);
+		return pstat;
 	}
 	
-	public ResultSet sendSelectQuery(String sql) throws Exception{
-		ResultSet rs = this.stat.executeQuery(sql);
+	
+	//statment
+//	public ResultSet sendSelectQuery(String sql) throws Exception{
+//		ResultSet rs = this.stat.executeQuery(sql);
+//		return rs;
+//	}
+	//pstat
+	public ResultSet sendSelectQuery() throws Exception{
+		ResultSet rs = this.pstat.executeQuery();
 		return rs;
 	}
 	
-	public int sendUpdateQuery(String sql) throws Exception{
-		int rs = this.stat.executeUpdate(sql);
-		return rs;
-	}
-
-	public int sendInsertQuery(String sql) throws Exception{
-		int rs = this.stat.executeUpdate(sql);
+	
+	//statment
+//	public int sendUpdateQuery(String sql) throws Exception{
+//		int rs = this.stat.executeUpdate(sql);
+//		return rs;
+//	}
+	//pstat
+	public int sendUpdateQuery() throws Exception{
+		int rs = this.pstat.executeUpdate();
 		return rs;
 	}
 	
-	public int sendDeleteQuery(String sql) throws Exception{
-		int rs = this.stat.executeUpdate(sql);
+	
+	//statment
+//	public int sendInsertQuery(String sql) throws Exception{
+//		int rs = this.pstat.executeUpdate(sql);
+//		return rs;
+//	}
+	//pstat
+	public int sendInsertQuery() throws Exception{
+		int rs = this.pstat.executeUpdate();
+		return rs;
+	}
+	
+	
+	//statment
+//	public int sendDeleteQuery(String sql) throws Exception{
+//		int rs = this.pstat.executeUpdate(sql);
+//		return rs;
+//	}
+	//pstat
+	public int sendDeleteQuery() throws Exception{
+		int rs = this.pstat.executeUpdate();
 		return rs;
 	}
 	
@@ -79,7 +114,8 @@ public class DBConn {
 	
 	public void close() throws Exception {
 		// 5. 연결 해제
-		this.stat.close();
+		//this.stat.close();
+		this.pstat.close();
 		this.conn.close();
 	}
 	
