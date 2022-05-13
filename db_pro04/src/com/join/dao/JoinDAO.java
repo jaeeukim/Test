@@ -93,6 +93,11 @@ public class JoinDAO {
 			
 			int rs = db.sendUpdateQuery();
 			// commit이나 rollback
+			if(rs == 1) {
+				db.commit();
+				return true;
+			}
+			db.rollback();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -132,12 +137,12 @@ public class JoinDAO {
 			pstat.setString(1, data.getUserID());
 			
 			int rs = db.sendDeleteQuery();
+			// commit이나 rollback
 			if(rs == 1) {
 				db.commit();
 				return true;
 			}
 			db.rollback();
-			// commit이나 rollback
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -176,8 +181,7 @@ public class JoinDAO {
 		try {
 			PreparedStatement pstat = db.getPstat(query);
 			pstat.setString(1, userid);
-			
-			
+						
 			ResultSet rs = db.sendSelectQuery();
 			if(rs.next()) {
 				JoinVO data = new JoinVO();

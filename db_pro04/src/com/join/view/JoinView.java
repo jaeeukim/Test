@@ -17,8 +17,8 @@ public class JoinView {
 	private Menu menu = new Menu();
 	
 	public void show() {
-		System.out.println(menu.getMain());
 		while(true) {
+			System.out.println(menu.getMain());
 			System.out.print(">>> ");
 			String inputNum = sc.nextLine();
 			

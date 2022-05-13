@@ -43,42 +43,14 @@ public class JoinController {
 	// 반환타입과 매개변수는 회원정보 수정에 필요한 타입으로
 
 	public boolean update(JoinVO data) {
-		String query = "UPDATE accounts"
-				+ "        SET USERPW = '" + data.getUserPW()+ "'"
-				+ "          , USERNAME = '" + data.getUsername()+ "'"
-				+ "          , GENDER = '" + data.getGender()+ "'"
-				+ "          , AGE = " + data.getAge()
-				+ "      WHERE USERID = '" + data.getUserID() + "'";
-		try {
-			int rs = db.sendUpdateQuery(query);
-			if(rs == 1) {
-				db.commit();
-				return true;
-			}
-			db.rollback();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	
+		return dao.update(data);
 	}
 	
 	
 	// 회원 탈퇴
 	// 반환타입과 매개변수는 회원정보 탈퇴에 필요한 타입으로		
 	public boolean remove(JoinVO data) {
-		String query = "DELETE FROM accounts WHERE USERID = '" + data.getUserID() + "'";
-		try {
-			int rs = db.sendDeleteQuery(query);
-			if(rs == 1) {
-				db.commit();
-				return true;
-			}
-			db.rollback();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+		return dao.remove(data);
 	}
 
 	public JoinVO login(String userid, String userpw) {
