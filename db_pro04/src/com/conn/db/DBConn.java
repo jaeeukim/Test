@@ -34,6 +34,13 @@ public class DBConn {
 			
 	}
 	
+	
+	public static void main(String[] args) throws Exception {
+		String homePath = System.getProperty("user.home");
+		DBConn db = new DBConn(new File(homePath + "/oracle_db.conf"));
+	}
+	
+	
 	public DBConn(String domain, String port, String serviceName, String username, String password) throws Exception {
 		url_address = String.format("%s:%s/%s", domain, port, serviceName);
 		this.initConnect(username, password);
@@ -51,7 +58,8 @@ public class DBConn {
 		// 3. Statement 생성 -> PreparedStatement 로 변경함
 		// stat = conn.createStatement();	
 	}
-	public PreparedStatement getPstat(String sql) throws SQLException {
+	
+	public PreparedStatement getPstat(String sql) throws Exception {
 		pstat = conn.prepareStatement(sql);
 		return pstat;
 	}
@@ -83,7 +91,7 @@ public class DBConn {
 	
 	//statment
 //	public int sendInsertQuery(String sql) throws Exception{
-//		int rs = this.pstat.executeUpdate(sql);
+//		int rs = this.stat.executeUpdate(sql);
 //		return rs;
 //	}
 	//pstat
@@ -95,7 +103,7 @@ public class DBConn {
 	
 	//statment
 //	public int sendDeleteQuery(String sql) throws Exception{
-//		int rs = this.pstat.executeUpdate(sql);
+//		int rs = this.stat.executeUpdate(sql);
 //		return rs;
 //	}
 	//pstat

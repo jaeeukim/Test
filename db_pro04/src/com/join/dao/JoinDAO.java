@@ -32,7 +32,7 @@ public class JoinDAO {
 //				, data.getAge()); 
 //			
 		// PreparedStatement 사용법
-		String query = "INSERT INTO accounts VALUES(?, ?, ?, ?, ?, SYSDATE";
+		String query = "INSERT INTO accounts VALUES(?, ?, ?, ?, ?, SYSDATE)";
 		try {
 			PreparedStatement pstat = db.getPstat(query);
 			pstat.setString(1, data.getUserID());
@@ -85,11 +85,11 @@ public class JoinDAO {
 				+ "      WHERE USERID = ?";
 		try {
 			PreparedStatement pstat = db.getPstat(query);
-			pstat.setString(1, data.getUserID());
-			pstat.setString(2, data.getUserPW());
-			pstat.setString(3, data.getUsername());
-			pstat.setString(4, Character.toString(data.getGender()));
+			pstat.setString(1, data.getUserPW());
+			pstat.setString(2, data.getUsername());
+			pstat.setString(3, Character.toString(data.getGender()));
 			pstat.setInt(5, data.getAge());
+			pstat.setString(4, data.getUserID());
 			
 			int rs = db.sendUpdateQuery();
 			// commit이나 rollback
@@ -158,7 +158,7 @@ public class JoinDAO {
 //	public JoinVO get(String userid) {
 //		String query = String.format("SELECT * FROM accounts WHERE USERID = '%s'", userid);
 //		try {
-//			ResultSet rs = db.sendSelectQuery();
+//			ResultSet rs = db.sendSelectQuery(query);
 //			if(rs.next()) {
 //				JoinVO data = new JoinVO();
 //						
