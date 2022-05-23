@@ -341,6 +341,23 @@
 	<div>
 		<iframe width="100%" weight="250px" src="https://www.iei.or.kr/main/main.kh"></iframe>
 	</div>
-
+	<div>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/rsfoqv94Oco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+	<hr>
+	
+	<!-- alt는 이미지가 제대로 출력안될경우 대체로 출력할 글자 / src="이미지주소"-->
+	<img alt="구글 이미지" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png">
+	<br>
+	
+	<!-- 비율에 맞게 늘리려면 width만 사용하면됨 -->
+	<img usemap="#imgmap" alt="구글 이미지" width="240px" src="./googlelogo_color_272x92dp.png">
+	
+	<!-- 영역 설정. 이미지를 누르면 링크에 연결되도록함 
+	(rect는 사각형 / coords="(x,y),(x,y)" 좌표)-->
+	<map name="imgmap">
+		<area shape="rect" coords="0,0,120,60" href="https://google.com">
+		<area shape="rect" coords="120,0,240,60" href="https://naver.com">
+	</map>
 </body>
 </html>
