@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSS 선택자</title>
+	<style>
+	
+		/* 전체 선택자 */
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		/* 태그 선택자 */
+		h1,h2,h3,h4,h5,h6 {
+			margin: 24px;
+			padding: 24px;
+		}
+		h1{
+			font-size: 40px;
+		}
+		h2{
+			font-size: 36px;
+		}
+		h3{
+			font-size: 32px;
+		}
+		h4{
+			font-size: 28px;
+		}
+		h5{
+			font-size: 24px;
+		}
+		h6{
+			font-size: 20px;
+		}
+		
+		/* 아이디 선택자 */
+		#main_title {
+			border-bottom: 6px double black;
+		}
+		
+		/* 클래스 선택자 */
+		.red{
+			color: red;
+		}
+		.blue{
+			color:blue;	
+		}
+		
+		/* 자손 선택자 */
+		table > tbody > tr {
+			background-color: #BFBFBF;
+		}
+		
+		/* 후손 선택자 */
+		table td {
+			padding: 12px;
+		}
+		
+		/* 동위 선택자 */
+		th  + td{
+			color: red;
+		}
+		
+		th ~ td {
+			font-size: 12px;
+		}
+		
+		/* 속성선택자 속성명 */
+		[required] {
+			background-color: #EFEFEF;
+		}
+		
+		/* 속성선택자 '=' 정확히 일치 */
+		[type=number]{
+			color: red;	
+		}
+		
+		/* 속성선택자 '~=' !공백!을 구분자로 포함확인 */
+		[class~=bgred] {
+			background-color: red;
+		}
+		[class~=fgwhite]{
+			color: white;
+		}
+		
+		/* 속성선택자 '|=' !하이픈!을 구분자로 일치 확인 */
+		[name|=user]{
+			font-weight: bold;
+		}
+		
+		/* 속성선택자 '^=' 접두사 확인 */
+		[id^=id]{
+			background-color: blue;
+			color: white;
+		}
+		
+		/* 속성선택자 '$=' 접미사 확인 */
+		[id$=id]{
+			color: orange;
+		}
+		
+		/* 속성선택자 '*=' 포함하는지 확인 */
+		[name*=green]{
+			color: green;
+			font-weight: bold;
+		}
+		
+	</style>
+	
+</head>
+<body>
+	<h1 id="main_title" class="red">제목 1</h1>
+	<h2 class="red">제목 2</h2>
+	<h3 class="red">제목 3</h3>
+	<h4 class="blue">제목 4</h4>
+	<h5 class="blue">제목 5</h5>
+	<h6 class="blue">제목 6</h6>
+	<hr>
+	<table>
+		<tr>
+			<th>1행 1열</th>
+			<td>1행 2열</td>
+			<td>1행 3열</td>
+		</tr>
+		<tr>
+			<th>2행 1열</th>
+			<td>2행 2열</td>
+			<td>2행 3열</td>
+		</tr>
+		<tr>
+			<th>3행 1열</th>
+			<td>3행 2열</td>
+			<td>3행 3열</td>
+		</tr>
+	</table>
+	<hr>
+	<div>
+		<input type="text" required><br>
+		<input type="password" required><br>
+		<input type="number"><br>
+	</div>
+	<div>
+		<textarea class="bgred fgwhite"></textarea>
+	</div>
+	<hr>
+	<div>
+		<input type="email" name="user-email">
+		<input type="tel" name="user-tel">
+	</div>
+	<hr>
+	<div>
+		<input type="text" id="id_input1"><br>
+		<input type="text" id="id_input2"><br>
+		<input type="text" id="input3_id">
+	</div>
+	<hr>
+	<div>
+		<textarea name="green"></textarea><br>
+		<textarea name="lightgreen"></textarea><br>
+		<textarea name="greendark"></textarea>
+	</div>
+	
+	
+	
+</body>
+</html>
