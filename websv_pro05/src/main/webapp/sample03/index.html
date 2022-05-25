@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSS 적용 순서</title>
+	
+	<!-- 외부스타일 -->
+	<!-- 없는 스타일은 그대로 쓰고 중복된 스타일은 뒤에사용된 애로 병합! -->
+	<link rel="stylesheet" type="text/css" href="./index1.css">
+	<link rel="stylesheet" type="text/css" href="./index2.css">
+	
+	<!-- 내부스타일 (외부스타일 위에쓰면 내부쓰고 외부 적용되니 유의) -->
+	<style>
+		h1 {
+			background-color: #EFEFEF;
+			color: green;
+		}
+	</style>
+	
+	
+</head>
+<body>
+	<h1 style="background-color: lightcoral">외부 스타일 -> 내부 스타일 -> 인라인 스타일 순으로 병합</h1>
+	<h1>CSS 스타일에 !important 키워드가 적용되면 가장 높은 우선순위를 가짐</h1>
+	<hr>
+	<h2>선택자에 의한 적용 순서</h2>
+	<h2 class="txt-blue" id="title2">태그 선택자 -> class 선택자 -> id 선택자 -> !important</h2>
+</body>
+</html>
