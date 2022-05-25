@@ -1,0 +1,153 @@
+@charset "UTF-8";
+/*
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+*/
+
+@font-face {
+	font-family: "나눔고딕코딩";
+	src: url(../static/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf);
+}
+* {
+	/* font-family: "Nanum Gothic Coding", monospace; */
+	font-family: "나눔고딕코딩";
+}
+
+.p1  {
+	font-size: 16px;
+}
+
+.p2  {
+	font-size: 2em;
+}
+
+.p3 {
+	font-size: 2em;
+}
+
+.p4  {
+	font-size: 8px;
+}
+
+.p5  {
+	font-size: 2rem;
+}
+
+.p6 {
+	font-size: 2rem;
+}
+
+.test1 > .ex1 {
+	font-variant: normal;
+}
+.test1 > .ex2 {
+	font-variant: small-caps;
+}
+
+.test2 {
+	font-family: "맑은 고딕"
+}
+.test2 > .ex1 {
+	font-style: normal;
+}
+.test2 > .ex2 {
+	font-style: italic;
+}
+.test2 > .ex3 {
+	font-style: oblique;
+}
+
+.test3 {
+	font: italic small-caps bold 24px/48px "D2Coding";
+}
+
+.test4{
+	/* color: rgba(255, 0, 0, 0.1); */
+	color: #FF000080;
+}
+
+.test5 > .ex1 {
+	text-decoration: underline;
+}
+.test5 > .ex2 {
+	text-decoration: overline;
+}
+.test5 > .ex3 {
+	text-decoration: line-through;
+}
+.test5 > .ex4 a{
+	text-decoration: none;
+}
+
+.test6 > .ex1 {
+	text-transform: capitalize;
+}
+.test6 > .ex2 {
+	text-transform: uppercase;
+}
+.test6 > .ex3 {
+	text-transform: lowercase;
+}
+
+.test7 > .ex1 {
+	text-shadow: 2px 2px 4px red;
+}
+
+.test8 > .ex1 {
+	white-space: normal;
+}
+
+.test9 > .ex1 {
+	letter-spacing: 24px;
+}
+.test9 > .ex2 {
+	word-spacing: 24px;
+}
+
+
+.test10 > .ex1 {
+	/* direction: rtl; */
+	width: 50%;
+	text-align: left; /* 정렬 */
+	text-indent: 48px; /* 들여쓰기 */
+	line-height: 24px; /* 줄 간격 */
+	white-space: nowrap; /* text-overflow 확인하기 위해*/
+	overflow: hidden;
+	text-overflow: ellipsis; /*  */
+}
+
+
+.test11 > ul {
+	/*
+	list-style-type: none;
+	list-style-image: url();
+	list-style-position: inside;
+	*/
+	
+	list-style: none inside url(./list-image.png);
+	padding-inline-start: 80px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
