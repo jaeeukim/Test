@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	margin: 0; padding: 0;
+}
+
+
+.test1 > .ex1 {
+	width: 120px;
+	height: 100px;
+	margin: 12px;
+	padding: 12px;
+	/* border-style: solid;
+	border-width: 8px;
+	border-color: blue; */
+	border: 1px solid blue;
+	border-radius: 5px;
+	box-shadow: 10px 10px 10px 10px lightskyblue; /* x축 y축 흐림 번짐 색상 [inset:그림자가 박스내부로]*/
+}
+.test2 > * {
+	display: inline-block;
+}
+
+.test2 > p {
+	border: 1px solid black;
+	padding: 4px;  margin: 4px;
+}
+
+.test2 > .rel {
+	position: relative;
+	/* top: 24px; */
+	/* left: 24px; */
+	right: 24px;
+	bottom: 24px;
+}
+
+.test3{
+	position: relative;
+}
+.test3 > * {
+	display: inline-block;
+}
+
+.test3 > p {
+	border: 1px solid red;
+	padding: 4px;  margin: 4px;
+}
+
+.test3 > .abs {
+	position: absolute;
+	top: 24px;
+	left: 24px;
+	/* right: 24px;*/
+	/* bottom: 24px;*/
+}
+
+
+.test4 > * {
+	display: inline-block;
+}
+
+.test4 > p {
+	border: 1px solid blue;
+	padding: 4px;  margin: 4px;
+}
+
+.test4 > .fix {
+	position: fixed;
+	/* top: 24px; */
+	/* left: 24px; */
+	right: 24px;
+	bottom: 24px;
+}
+
+body {
+	margin-bottom: 64px;
+}
+
+
+.test5 > * {
+	display: inline-block;
+}
+
+.test5 > p {
+	border: 1px solid blue;
+	padding: 4px;  margin: 4px;
+}
+
+.test5 > .ex1 {
+	visibility: visible;
+}
+
+.test6 > table, td {
+	border: 1px solid black;
+}
+
+.test6 .collapse {
+	visibility: collapse;
+}
+
+
+.test7 {
+	position: relative;
+}
+
+.test7 > p {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+}
+
+.test7 > .z1 {
+	background-color: lightcyan;
+	z-index: 2;
+}
+.test7 > .z2 {
+	background-color: lightcoral;
+	top: 24px;
+	left: 24px;
+	z-index: 1;
+}
+.test7 > .z3 {
+	background-color: lightgreen;
+	top: 48px;
+	left: 48px;
+	z-index: 3;
+}
+
+
+
+
+
+
+
+
+

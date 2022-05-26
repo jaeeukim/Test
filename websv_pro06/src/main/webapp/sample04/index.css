@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+	display: inline-box;
+	margin:0; padding: 0;
+}
+
+.test1 > p {
+	display: inline-block;
+	vertical-align: top;
+	width: 200px;
+	height: 200px;
+	padding: 12px;
+	margin: 8px;
+	border: 1px solid black;
+}
+
+.test1 > .f-right {
+	float: right;
+}
+.test2 > p {
+	display: inline-block;
+	vertical-align: top;
+	width: 200px;
+	height: 200px;
+	padding: 12px;
+	margin: 8px;
+	border: 1px solid black;
+}
+
+.test2  > .f-left {
+	float: left;
+}
+
+
+.test3 .box {
+	width: 48px;
+	height: 48px;
+	background-color: red;
+	float: right;
+}
+
+
+.test4 section {
+	width: 75%;
+	height: 360px;
+	background-color: lightcyan;
+	float: right;
+}
+.test4 aside {
+	width: 25%;
+	height: 360px;
+	background-color: lightcoral;
+	display: inline-block;
+}
+
+
+.test5 aside {
+	width: 25%;
+	height: 360px;
+	background-color: lightcoral;
+	display: inline-block;	
+}
+.test5 section {
+	width: 50%;
+	height: 360px;
+	background-color: lightcyan;	
+	display: inline-block;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.test6 {
+	/* column-width: 250px; */
+	column-count: 3;
+	column-gap: 60px;
+	column-rule: 1px solid red;
+}
+
+.test7 {
+	column-count: 3;
+	column-rule: 1px solid red;
+}
+
+.test7 > h3 {
+	column-span: all;
+}	
+
+.test8  table,td,th {
+	border: 1px solid black;
+	/* border-collapse: collapse; */
+	border-spacing: 8px 16px;
+}
+.test8 table {
+	width: 100%;
+	caption-side: bottom;
+	table-layout: fixed;
+	word-break: break-all; 
+}
+.test8 table > caption {
+	text-align: right;
+}
+
+.test8 td,th {
+	text-align: left;
+	vertical-align: top;
+	padding: 6px 12px;
+	empty-cells: hide;
+	height: auto;
+}
+
+col.w-60 {
+	width : 60px;
+}
+col.w-120 {
+	width : 120px;
+}
+col.w-240 {
+	width : 240px;
+}
+
+
+
