@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+form {
+	width: 360px;
+	margin: 0 auto;
+}
+
+
+form * {
+	margin: 0;
+	padding: 0;
+	box-sizing: 0;
+	display: inline-block;
+}
+
+.form-control {
+	margin: 0.4em 0;
+	width: 100%;
+}
+
+.form-control .form-label {
+	width: 100%;
+	color: gray;
+	font-size: 0.8em;
+	margin-bottom: 0.4em;
+}
+.form-control .form-input {
+	width: 100%;
+	border-style: none;
+	outline-style: none;
+	padding: 0.4em 0.2em;
+	border-radius: 4px;
+}
+
+.form-input:focus {
+	/* outline-color: skyblue; */
+	box-shadow: 0 0 6px 2px skyblue;
+}
+
+button {
+	background-color: #EFEFEF;
+	border-style: none;
+	padding: 1em;
+}
+.btn {
+	position: relative;
+	width: 100%;
+	background-color: skyblue;
+	border-radius: 4px;
+}
+
+.btn:hover {
+	background-color: #7BD3F7;
+	cursor: pointer;
+}
+
+/* 시각적으로 클릭하는 느낌 주기*/
+.btn:active {
+	top: 1px;
+	left: 1px;
+}
+
+
+
+
+
