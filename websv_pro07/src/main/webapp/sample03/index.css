@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+.test1 {
+	width: 500px;
+	height: 500px;
+	border: 1px solid black;
+	/* 해당 컨테이너를 flex를 사용하는 영역으로 설정*/	
+	display: flex;
+}
+
+.test1 div{
+	/* flex 컨테이너 안의 요소에 대해 부모 요소에 맞추어
+	   너비를 자동 조정(균등) 되도록 함*/
+	flex: 1;
+}
+
+.test2 {
+	width: 500px;
+	height: 300px;
+	border: 1px solid black;	
+	display: flex;
+}
+.test3 {
+	width: 100%;
+	height: 300px;
+	border: 1px solid black;	
+	display: flex;
+}
+/* flex 방향 설정*/
+.test4 {
+	width: 100%;
+	height: 300px;
+	border: 1px solid black;	
+	display: flex;
+	flex-direction: row;
+}
+
+/* 동적 페이지 만들때 사용 - 창크기가 480px 이하일 때 column 형식으로 바뀜*/
+@media all and (min-width: 0px) and (max-width: 480px) {
+	/*
+	 * 미디어 쿼리에서 사용하는 min-width, max-width 의미
+	 * min-width <= 브라우저 크기 <= max-width
+	 *
+	 * 예)
+	 *		(min-width: 1024px) 만 사용
+ 	 * 		1024 <= 브라우저크기
+	 * 		
+	 * 		(max-width: 1024px)만 사용
+	 * 		브라우저크기 <= 1024
+	 * 		
+	 * 		(min-width: 640px) and (max-width: 1024px)인 경우
+	 * 		640 <= 브라우저크기 <= 1024
+	 */ 			
+	.test4 {
+		width: 100%;
+		height: 300px;
+		border: 1px solid black;	
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.test5 {
+	width: 100%;
+	height: 300px;
+	border: 1px solid black;	
+	display: flex;
+	flex-wrap: wrap;
+}
+
+
+.test3 div {
+	/* 기본 크기를 지정함 */
+	flex-basis: 200px;
+}
+
+ .g1 {
+    /* 요소의 크기를 비율로 늘이거나 줄이기 위해 사용 */
+	flex-grow: 1;
+}
+ .g2 {
+    /* 요소의 크기를 비율로 늘이거나 줄이기 위해 사용 */
+	flex-grow: 2;
+}
+ .g3 {
+    /* 요소의 크기를 비율로 늘이거나 줄이기 위해 사용 */
+	flex-grow: 3;
+}
+
+.sr3 {
+	/* 다른 요소보다 더 많이 줄어들게 만듦. n배 (기본크기를 벗어나서 줄어들면) */
+	flex-shrink: 3;
+}
+
+
+
+
+.box-red {
+	background-color: red;
+}
+.box-blue {
+	background-color: blue;
+}
+.box-green {
+	background-color: green;
+}
+
+
+.box-normal {
+	border: 2px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

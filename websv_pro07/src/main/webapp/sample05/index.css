@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+.flex-menu .menu{
+	display: flex;
+}
+
+.flex-menu .list {
+	flex-grow: 1;
+}
+
+
+
+@media screen and (max-width: 500px){
+	.flex-menu .menu{
+		flex-wrap: wrap;
+	}
+	.flex-menu .list{
+		flex-basis: 480px;
+	}
+}
+
+ul.menu {
+	list-style-type: none;
+	padding: 0;
+}
+
+.menu .list {
+	text-align: center;
+	width: 120px;
+}
+
+
+.menu-link {
+	display: inline-block;
+	text-decoration: none;
+	padding: 1rem 2rem;
+	width: 100%;
+}
+
+.bg-red{
+	background-color: red;
+}
+
+.bg-red :hover {
+	background-color: darkred;
+}
+.fg-white * {
+	color: white;
+}
+
+.fg-white :hover {
+	color: white;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
