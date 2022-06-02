@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>중고나라 사이트 만들기</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">	
+</head>
+<body>
+<!-- 미친.. table로 만들면 되는걸.... -->
+	<section class="all">
+		<div class="align-right">
+			<div class="hide">
+				<input id="chk-box" type="checkbox">
+				<label for="chk-box"></label>
+				<label for="chk-box">공지 숨기기</label>
+			</div>
+			<span class="separator"></span>
+			<div class="list-type">
+				<span class="material-symbols-outlined">view_agenda</span>
+				<span class="material-symbols-outlined">grid_view</span>
+				<span class="material-symbols-outlined">article</span>
+			</div>
+			<select>
+				<option value="5">5개씩</option>
+				<option value="10">10개씩</option>
+				<option value="20">20개씩</option>
+			</select>
+		</div>
+		<table>
+			<tr>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>작성일</td>
+				<td>조회</td>
+				<td>좋아요</td>
+			</tr>
+		</table>
+		
+		
+		<form action="">
+			<hr class="bold">
+			<div class="first">
+				<label class="title1 w45">제목</label>
+				<label class="who1 w20">작성자</label>
+				<label class="date1 w15">작성일</label>
+				<label class="look1 w10">조회</label>
+				<label class="good1 w10">좋아요</label>
+			</div>
+			<hr class="c-light">
+			<div class="substance">
+				<label class="btn w10 ">추천</label>
+				<label class="title2 w35">봉지네 소소한 나눔 감사합니다 [59]</label>
+				<label class="who2 w20">몽자</label>
+				<label class="date2 w15">2022.05.25</label>
+				<label class="look2 w10">428</label>
+				<label class="good2 w10">35</label>
+			</div>			
+			<div class="substance">
+				<label class="btn w10">추천</label>
+				<label class="title2 w35">(마감)흑청 레깅스[27]</label>
+				<label class="who2 w20">칠학이</label>
+				<label class="date2 w15">2022.05.25</label>
+				<label class="look2 w10">569</label>
+				<label class="good2 w10">30</label>
+			</div>
+			<div class="substance">
+				<label class="w10">920326660</label>
+				<label class="title2 w35">무언가를 나눔할예정이다</label>
+				<label class="who2 w20">과실수</label>
+				<label class="date2 w15">09:17</label>
+				<label class="look2 w10">14</label>
+				<label class="good2 w10">0</label>
+			</div>
+			<div class="substance">
+				<label class="w10">920325618</label>
+				<label class="title2 w35">무언가를 찾고있다</label>
+				<label class="who2 w20">학생</label>
+				<label class="date2 w15">09:16</label>
+				<label class="look2 w10">13</label>
+				<label class="good2 w10">0</label>
+			</div>
+			
+			<div class="bg-gray">
+				<hr>
+				<a href="#" class="link">1</a>
+				<a href="#" class="link">2</a>
+				<a href="#" class="link">3</a>
+				<a href="#" class="link">4</a>
+				<a href="#" class="link">5</a>
+				<a href="#" class="link">6</a>
+				<a href="#" class="link">7</a>
+				<a href="#" class="link">8</a>
+				<a href="#" class="link">9</a>
+				<a href="#" class="link">10</a>
+				<a href="#" class="link">| 다음 ></a>
+				<hr>
+				
+				<div class="search">
+					<select class="option">
+						<option>전체기간</option>
+						<option value="오늘">오늘</option>
+						<option value="이번달">이번달</option>
+						<option value="3개월">3개월</option>
+						<option value="1년">1년</option>
+					</select>
+					<select class="option">
+						<option value="제목만" selected>제목만</option>
+						<option value="작성자">작성자</option>
+						<option value="댓글">댓글</option>
+						<option value="제목/내용">제목/내용</option>
+					</select>
+					<input type="text" placeholder="검색어를 입력해주세요">
+					<button type="button" class="btn-green">검색</button>
+				</div>
+			</div>
+			<div>
+				<div>
+					<ul class="paging-list align-center">
+						<li class="paging-item active">
+							<a href="#">1</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">2</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">3</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">4</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">5</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">6</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">7</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">8</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">9</a>
+						</li>
+						<li class="paging-item">
+							<a href="#">10</a>
+						</li>
+						<li class="paging-item prev-item">
+							<a href="#">다음</a>
+						</li>
+					
+					</ul>
+				</div>
+			</div>
+			
+			
+		</form>
+	</section>
+</body>
+</html>

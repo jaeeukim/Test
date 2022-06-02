@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+* {
+	margin: 16px; padding: 0;
+	box-sizing: border-box;
+}
+.all {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.align-right {
+	text-align: right;
+	display: block;
+	height: 2em;
+}
+
+.chk-box {
+	display : none;
+}
+
+input[type=checkbox] + label {
+	position: relative;
+	top: 3px;
+	display: inline-block;
+	border: 1px solid gray;
+	width: 1rem; height: 1rem;
+}
+input[type=checkbox]:checked + label {
+	position: relative;
+	top: 7px;
+	display: inline-block;
+	border: 1px solid gray;
+	width: 1rem; height: 1rem;
+}
+
+input[type=checkbox]:checked + label::after {
+	position: relative;
+	top: -3px; left: -1px;
+	font-family: "Material Symbols Outlined";
+	font-size: 1rem;
+	content: "\e876"
+}
+
+/* after나 before에서 content를 사용할 수 있다. 
+(역슬러시 사용후)사이트에서 code poing를 복사해서 사용하면 된다.*/
+
+/*-------------------------------------------------*/
+.first {
+	text-align: center;
+}
+.substance {
+	text-align: left;
+}
+.substance > .search {
+	text-align: center;
+}
+
+.c-light {
+	color: #e6e4e3;
+}
+.bold {
+	border: solid 2px black;
+}
+.btn {
+	color: black;
+	text-align: center;
+	background-color: #e6e4e3;
+	border: solid 1px #8b8b8b;
+	border-radius: 3px;
+	padding: 0 1rem;
+}
+
+.title1 {
+	padding: 2rem;
+}
+
+.title2 {
+	padding: 1.5rem;
+	block-size: 100px;
+}
+
+.w10 {
+	width: 10%;
+}
+.w15 {
+	width: 15%;
+}
+.w20 {
+	width:20%;
+}
+.w35 {
+	margin: 40px;
+}
+
+.w45 {
+	margin: 200px;
+}
+
+.link {
+	text-decoration: none;
+	margin: 0.4rem;
+	color: black;
+}
+
+.bg-gray {
+	background-color: lightgray;
+}
+.search > * {
+	padding: 1rem;
+	height: 30px;
+}
+.btn-green {
+	background-color: #00ff00;
+	color: white;
+	border: 0px;
+}
+
+/*-------------------------------------------------*/
+.paging-list {
+	list-style-type: none;
+	font-size: 12px;
+}
+
+.paging-list .paging-item {
+	display: inline-block;
+	padding: 0.3rem 0.5rem;
+}
+
+.paging-list a {
+	text-decoration: none;
+	color: black;
+}
+
+.paging-list a:hover {
+	text-decoration: underline;
+}
+.paging-list .active {
+	border: 1px solid black;
+}
+
+.paging-list .active a {	
+	color: rgb(0, 216, 80);
+}
+
+.paging-list .next-item::after {
+	font-family: "Material Symbols Outlined"
+	font-size: 1em;
+	content: "\e5e1";
+}
+
+.paging-list .prev-item::after {
+	font-family: "Material Symbols Outlined"
+	font-size: 1em;
+	content: "\e5e0";
+}
+
+
+.align-center {
+	text-align: center;
+}
