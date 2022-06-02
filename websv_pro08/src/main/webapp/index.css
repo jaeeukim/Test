@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+* {
+	position:absoulte;
+	
+}
+
+.bold {
+	text-align: center;
+	width: 80px;
+}
+
+.submit{
+	text-align:center;
+	padding: 10px;
+}
+
+.w300 {
+	width: 300px;
+}
+.h16 {
+	height: 16px;
+}
+
+.h200 {
+	height: 200px;
+}
+
+.typing {
+	width: 300px;
+}
+
+.first {
+	text-align: center;
+}
+

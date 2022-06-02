@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+<body>
+	<form action="insert.no" method="POST">
+		<fieldset style="width:600px">
+			<legend>공지사항 작성하기</legend>
+				<table>
+				<tr>
+					<td class="bold"><b>제목</b></td>
+					<td><textarea class="w300 h16" required style="resize:none" placeholder="제목을 입력하세요."></textarea></td>
+					<!-- 
+					<td><input  class="w300" name="title" placeholder="제목을 입력하시오." required></td> -->
+				</tr>
+				<tr class="h200">
+					<td class="bold"><b>내용</b></td>
+					<td><textarea class="w300 h200" required style="resize:none" placeholder="내용을 입력하세요."></textarea></td>
+				</tr>
+				<tr>
+					<td class="bold"><b>첨부파일</b></td>
+					<td><input type="file"></input></td>
+				</tr>
+				<tr class="submit">
+					<td colspan="2" style="padding: 20px 0px 0px 0px;"><button type="submit" >작성하기</button></td>
+				</tr>
+			</table>
+		</fieldset>
+		<br>
+		<hr>
+		<br>
+		<table class="table2" border="1" style="width:630px; font-size:14px">
+			<colgroup>
+				<col>
+				<col width="300px">
+				<col width="12%">
+				<col>
+				<col>			
+			</colgroup>
+			<thead>
+				<tr class="first" style="background-color:#FFA873; height:35px; color:white;">
+					<td><b>번호</b></td>
+					<td colspan="2"><b>제목</b></td>
+					<td><b>작성자</b></td>
+					<td><b>작성일</b></td>
+					<td><b>조회수</b></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr style="background-color:lightyellow">
+					<td>9</td>
+					<td>공지사항 제목9</td>
+					<td><button type="button">바로가기</button>
+					<td>user01</td>
+					<td>2021-03-29</td>
+					<td>34</td>
+				</tr>
+				<tr style="background-color:lightyellow">
+					<td>6</td>
+					<td>공지사항 제목6</td>
+					<td><button type="button">바로가기</button>
+					<td>answ445</td>
+					<td>2021-03-12</td>
+					<td>67</td>
+				</tr>
+				<tr style="background-color:lightyellow">
+					<td>3</td>
+					<td>공지사항 제목3</td>
+					<td><button type="button">바로가기</button>
+					<td>testg12</td>
+					<td>2021-03-01</td>
+					<td>98</td>
+				</tr>
+				<tr style="background-color:lightyellow">
+					<td>2</td>
+					<td>공지사항 제목2</td>
+					<td><button type="button">바로가기</button>
+					<td>palwe3</td>
+					<td>2021-01-02</td>
+					<td>85</td>
+				</tr>
+				<tr style="background-color:lightyellow">
+					<td>1</td>
+					<td>공지사항 제목1</td>
+					<td><button type="button">바로가기</button>
+					<td>xml23</td>
+					<td>2020-12-24</td>
+					<td>124</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr class="first" style="background-color:#FFA873; color:white;">
+					<td colspan="4"><b>전체공지사항 갯수</b></td>
+					<td colspan="2"><b>5개</b></td>
+				</tr>
+			</tfoot>
+		</table>	
+	</form>
+</body> 
+</html>
