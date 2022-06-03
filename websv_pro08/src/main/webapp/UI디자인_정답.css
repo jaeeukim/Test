@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+label {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 5em;
+	font-weight: bold;
+	text-align: center;
+}
+form {
+	width: 480px;
+}
+div {
+	margin: 0.5em;
+}
+
+input {
+	width: 25em;
+}
+
+textarea {
+	width: 25em;
+}
+
+.align-center {
+	text-align: center;
+}
+
+tabale,td,th {
+	border: 1px solid black;
+}
+table thead,tfoot tr {
+	background-color: lightcoral;
+}
+
+thead,tfoot th {
+	color: white;
+}
+tbody tr {
+	background-color: lightyellow;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
