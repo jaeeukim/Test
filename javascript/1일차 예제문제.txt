@@ -1,0 +1,14 @@
+prompt로 사용자 입력을 받아서 순서 없는 목록(ul) 태그를 브라우저에 출력하게 한다.
+
+	- 사용자 입력은 쉼표(,)를 구분자로 사용하여 입력받게 된다.
+	- 쉼표(,)를 구분자로 사용하여 입력한 정보를 li태그의 텍스트 값으로 사용한다.
+	- 브라우저에 출력하게 한다.
+
+var input = prompt("사용자 입력");
+var arr = input.split(",");
+var htmlCode = "<ul>"
+for(var item of arr) {
+    htmlCode += "<li>" + item.trim() + "</li>";
+}
+htmlCode += "</ul>";
+document.write(htmlCode);
