@@ -11,82 +11,93 @@
  res1.innerHTML += "arr1[1] = " + arr1[1] + "<br>";
  res1.innerHTML += "arr1[2] = " + arr1[2] + "<br>";
  
- 
- 
  arr1[0] = 10;
  arr1[1] = 20;
  arr1[2] = 30;
  res1.innerHTML += arr1 + "<br>";
  
  // .indexof 인덱스번호 반환
- res1.innerHTML += "arr1.indexof(10) ->" + arr1.indexOf(10) + "<br>";
- res1.innerHTML += "arr1.indexof(20) ->" + arr1.indexOf(20) + "<br>";
- res1.innerHTML += "arr1.indexof(20) ->" + arr1.indexOf(30) + "<br>";
+  var res2 = document.getElementById("res2");
+ res2.innerHTML += "arr1.indexof(10) ->" + arr1.indexOf(10) + "<br>";
+ res2.innerHTML += "arr1.indexof(20) ->" + arr1.indexOf(20) + "<br>";
+ res2.innerHTML += "arr1.indexof(20) ->" + arr1.indexOf(30) + "<br>";
  
  // .push 뒤에 추가로 붙임 ''사용하면 문자열로 들어감
- res1.innerHTML += "arr1.push(40)" + "<br>"; 
+   var res3 = document.getElementById("res3");
+ res3.innerHTML += "arr1.push(40)" + "<br>"; 
  arr1.push(40);
- res1.innerHTML += "arr1.push(50)" + "<br>";
+ res3.innerHTML += "arr1.push(50)" + "<br>";
  arr1.push(50);
- res1.innerHTML += "arr1.push(60)" + "<br>";
+ res3.innerHTML += "arr1.push(60)" + "<br>";
  arr1.push(60);
  
- res1.innerHTML += arr1 + "<br>";
+ res3.innerHTML += arr1 + "<br>";
+
 
 // .unshift 앞에 추가로 붙임
- res1.innerHTML += "arr1.unshift(0)" + "<br>";
+  var res4 = document.getElementById("res4");
+
+ res4.innerHTML += "arr1.unshift(0)" + "<br>";
  arr1.unshift(0);
  
- res1.innerHTML += arr1 + "<br>";
+ res4.innerHTML += arr1 + "<br>";
  
  // .pop 맨뒤에 요소를 제거 (반환도 함)
- res1.innerHTML += "arr1.pop()" + "<br>";
+   var res5 = document.getElementById("res5");
+ res5.innerHTML += "arr1.pop()" + "<br>";
  arr1.pop();
  
- res1.innerHTML += arr1 + "<br>";
+ res5.innerHTML += arr1 + "<br>";
  
  // .shift 맨 앞에 요소를 제거 (반환도 함)
- res1.innerHTML += "arr1.shift()" + "<br>";
+ var res6 = document.getElementById("res6");
+ res6.innerHTML += "arr1.shift()" + "<br>";
  arr1.shift();
  
- res1.innerHTML += arr1 + "<br>";
+ res6.innerHTML += arr1 + "<br>";
  
  // .reverse 배열 역순 정렬
- res1.innerHTML += "arr1.reverse()" + "<br>";
+ var res7 = document.getElementById("res7");
+ res7.innerHTML += "arr1.reverse()" + "<br>";
  arr1.reverse();
  
- res1.innerHTML += arr1 + "<br>";
+ res7.innerHTML += arr1 + "<br>";
  
  // .sort 배열 정렬
- res1.innerHTML += "arr1.sort()" + "<br>";
+ var res8 = document.getElementById("res8");
+ res8.innerHTML += "arr1.sort()" + "<br>";
  arr1.sort();
  
- res1.innerHTML += arr1 + "<br>";
- 
+ res8.innerHTML += arr1 + "<br>";
+
  
  arr1.sort(function(x, y) { return y - x; });
- 
- 
- 
 
  // .slice (시작, 끝) 시작과 끝 index 요소만 잘라오기
- res1.innerHTML += "arr1.slice(0, 3)" + "<br>";
+ var res9 = document.getElementById("res9");
+ res9.innerHTML += "arr1.slice(0, 3)" + "<br>";
  arr1 = arr1.slice(0, 3);
  
- res1.innerHTML += arr1 + "<br>";
+ res9.innerHTML += arr1 + "<br>";
   
  // .concat 배열 결합
- res1.innerHTML += "arr1.concat(['a', 'b', 'c'])" + "<br>";
+ var res10 = document.getElementById("res10");
+ res10.innerHTML += "arr1.concat(['a', 'b', 'c'])" + "<br>";
  arr1.concat(['a', 'b', 'c']);
  
- res1.innerHTML += arr1 + "<br>";
+ res10.innerHTML += arr1 + "<br>";
  
  // .toString 문자열로 반환
+ var res11 = document.getElementById("res11");
  arr1.toString();
  
+ res11.innerHTML += arr1.toString();
+ 
  // .join ""안에 있는값을 기준으로 결합, 문자열로 반환
+ var res12 = document.getElementById("res12");
  arr1.join(", ");
  
+ res12.innerHTML += arr1.join(", ");
  
 /*
  * 문제풀기
