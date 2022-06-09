@@ -63,12 +63,17 @@ function f8(x, y=0, ...args) {
 // 함수에 내장된 arguments
 function f9() {
 	console.log(arguments);
+	for(let c of arguments) {
+		console.log(v);
+	}
 }
  
  
+var f10 = (x) => {
+	return x + 10;
+}
  
- 
- 
+ // var f10 = (x) => x + 10; 가능
  
  
  
