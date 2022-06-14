@@ -346,6 +346,123 @@
 					</script>
 				</td>
 			</tr>
+			<tr>
+				<td>change</td>
+				<td>값이 변경되었을 때(input, select, textarea)</td>
+				<td>
+					<div>
+						<input id="input16" type="text">
+						<select id="input17">
+							<option value="opt1">옵션1</option>
+							<option value="opt2">옵션2</option>
+							<option value="opt3">옵션3</option>
+						</select>
+					</div>
+					<label id="res16">...</label>
+					<script type="text/javascript">
+						var input16 = document.getElementById("input16");
+						var input17 = document.getElementById("input17");
+						var res16 = document.getElementById("res16");
+						
+						input16.addEventListener("change", function(e){
+							res16.innerText = "input 값이 변경되었습니다."
+						});
+						input17.addEventListener("change", function(e){
+							res16.innerText = "select의 option 선택이 변경되었습니다."
+						});
+					</script>
+				</td>
+			</tr>
+				<tr>
+				<td>select</td>
+				<td>텍스트가 선택되었을 때(input type="text, textarea")</td>
+				<td>
+					<textarea id="input18">select 이벤트 테스트용 textarea</textarea>
+					<br>
+					<label id="res18">...</label>
+					<script type="text/javascript">
+						var input18 = document.getElementById("input18");
+						var res18 = document.getElementById("res18");
+						input18.addEventListener("select", function(e){
+								res18.innerText = this.value.substring(this.selectionStart, this.selectionEnd);
+						}); //드래그로 선택한 부분만 text로 출력됨
+					</script>
+				</td>
+			</tr>
+			<tr>
+				<td>input</td>
+				<td>입력이 발생할 때(input, select, textarea)</td>
+				<td>
+					<div>
+						<input id="input19" type="text">
+						<select id="input20">
+							<option value="opt1">옵션1</option>
+							<option value="opt2">옵션2</option>
+							<option value="opt3">옵션3</option>
+						</select>
+					</div>
+					<label id="res19">...</label>
+					<script type="text/javascript">
+						var input19 = document.getElementById("input19");
+						var input20 = document.getElementById("input20");
+						var res19 = document.getElementById("res19");
+						
+						input19.addEventListener("input", function(e){
+							res19.innerText = this.value;
+						});
+						input20.addEventListener("input", function(e){
+							res19.innerText = this.value;
+						});
+					</script>
+				</td>
+			</tr>
+			<tr>
+				<!-- reset은 form에 등록하는 형태로 사용 -->
+				<td>reset</td>
+				<td>리셋버튼을 클릭 했을 때</td>
+				<td>
+					<form id="f1">
+						<input type="text">
+						<button type="reset">리셋</button>
+						<input type="reset" value="리셋">
+					</form>
+					<label id="res20">...</label>
+					<script type="text/javascript">
+						var f1 = document.getElementById("f1");
+						var res20 = document.getElementById("res20");
+						f1.addEventListener("reset", function(e){
+							this.username.value = "지정된 초기값";
+							res20.innerText = "입력값이 초기화 되었습니다.";
+							e.preventDefault(); //지정된 초기값 때문에 사용
+							console.log(e);
+						})
+						
+					</script>
+				</td>
+			</tr>
+			<tr>
+				<td>submit</td>
+				<td>전송(submit)버튼을 눌렀을 때 발생</td>
+				<td>
+					<form id="f2" action="./" method="get">
+						<input type="text">
+						<button type="submit">전송</button>
+						<input type="submit" value="전송">
+					</form>
+					<label id="res21">...</label>
+					<script type="text/javascript">
+						var f2 = document.getElementById("f2");
+						var res21 = document.getElementById("res21");
+						f2.addEventListener("submit", function(e){
+							res21.innerText = "입력값을 전송합니다.";
+							// alert("일시정지");  //실행되면 사이트가 reload되기 때문에 실행
+							e.submit();
+							e.preventDefault();
+						})
+						
+					</script>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	
