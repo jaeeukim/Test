@@ -57,6 +57,39 @@ function createOptionDate(e1, e2){
 	}
 }
 
+function prevMenu(){
+	var sliderMenu = document.getElementsByClassName("slide-menu")[0];
+	var sliderItems = sliderMenu.children;
+	var activeIdx;
+	
+	for(let idx = 0; idx < sliderItems.length; idx++) {
+		let classname = sliderItems[idx].getAttribute("class");
+		if(classname.indexOf("active") != -1) {
+			sliderItems[idx].setAttribute("class", "slide-item");
+			activeIdx = idx - 1;
+			break;
+		}
+	}
+	sliderItems[activeIdx].setAttribute("class", "slide-item active");
+}
+
+
+function nextMenu(){
+	var sliderMenu = document.getElementsByClassName("slide-menu")[0];
+	var sliderItems = sliderMenu.children;
+	var activeIdx;
+	
+	for(let idx = 0; idx < sliderItems.length; idx++) {
+		let classname = sliderItems[idx].getAttribute("class");
+		if(classname.indexOf("active") != -1) {
+			sliderItems[idx].setAttribute("class", "slide-item");
+			activeIdx = idx + 1;
+			break;
+		}
+	}
+	sliderItems[activeIdx].setAttribute("class", "slide-item active");
+}
+
 
 
 
