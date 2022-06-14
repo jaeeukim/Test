@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>자바스크립트 이벤트 - 활용</title>
+	<link rel="stylesheet" type="text/css" href="./static/css/sample07.css">
+	<script type="text/javascript" src="../static/js/sample07.js"></script>	
+</head>
+<body>
+	<h2>선택박스 전체 선택/해제</h2>
+	<div>
+		<input type="checkbox" name="chk1" value="a">a
+		<input type="checkbox" name="chk1" value="b">b
+		<input type="checkbox" name="chk1" value="c">c
+		<input type="checkbox" name="chk1" value="d">d
+		<input type="checkbox" name="chk1" value="all" onclick="toggleAll(this);">전체선택
+	</div>
+	<hr>
+	<h2>1 ~ 12월 까지의 select/option 자동 생성</h2>
+	<div>
+		<select class="sel-month" name="month">
+			<option>월</option>
+		</select>
+	</div>
+	<hr>
+	<h2>1 ~ 28, 29, 30, 31일 select/option 자동생성</h2>
+	<div>
+		<select class="sel-month" onchange="createOptionDate(this, this.nextElementSibling);">
+			<option>월</option>
+			<!-- 1 ~ 12월 까지의 option을 스크립트로 생성 -->
+		</select>
+		<select>
+			<option>일</option>
+			<!-- 1 ~ 28, 29, 30, 31을 선택한 월에 맞추어 자동 생성(년도는 현재년) -->
+		</select>
+	</div>
+	
+	
+	
+	
+</body>
+</html>
