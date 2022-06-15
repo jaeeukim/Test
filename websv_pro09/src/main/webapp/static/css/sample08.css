@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+* {
+	background-color: whitesmoke;
+}
+
+.color-blue {
+	color: blue;
+}
+
+.color-white {
+	color: white;
+}
+
+.color-red {
+	color: red;
+}
+
+.bg-white {
+	background-color: white;
+}
+
+.bg-black {
+	background-color: black;
+}
