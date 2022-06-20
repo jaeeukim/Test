@@ -21,7 +21,7 @@ function requiredCheckHandle() {
 function passwordInfoHandle(){
 	var passwordElements = document.querySelectorAll("input[type='password']");
 	for(element of passwordElements) {
-		element.addEvenetListener("focus", passwordInfo);
+		element.addEventListener("focus", passwordInfo);
 	}
 }
 
