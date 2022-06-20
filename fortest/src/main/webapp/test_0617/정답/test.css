@@ -52,3 +52,12 @@ body {
 	background-color: rgb(180, 240, 140);
 	color: rgb(80, 170, 20);
 }
+
+.message-control {
+	display: none;
+}
+
+.message-control .message-label {
+	margin-left: 125px;
+	color: red;
+}
