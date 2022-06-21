@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- <properties url="file:///C:/Users/USER/oracle_db.conf"> -->
+	<!-- <properties resource="resources/oracle_db.conf">
+		<property name = "driver" value="oracle.jdbc.driver.OracleDriver"/>
+	</properties> --> 
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/> <!-- Null발생했을 때 oracle의 NULL로 변환 -->
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.data.vo.EmpVO" alias="empVO"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+		<!--    <property name="driver" value="${driver}"/> 이렇게 위에서 작성하고 변수처럼 사용가능-->
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+		<!--    <property name="url" value="${url}"/> 이렇게 위에서 작성하고 변수처럼 사용가능-->
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521/XEPDB1"/>
+				<property name="username" value="puser1"/>
+				<property name="password" value="puser1"/>
+				<property name="poolMaximumIdleConnections" value="5"/>
+				<property name="poolMaximumActiveConnections" value="10"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="resources/mapper/mapper.xml"/>
+	</mappers>
+</configuration>
