@@ -5,7 +5,7 @@
 	<!-- <properties url="file:///C:/Users/USER/oracle_db.conf"> -->
 	<!-- <properties resource="resources/oracle_db.conf">
 		<property name = "driver" value="oracle.jdbc.driver.OracleDriver"/>
-	</properties> --> 
+	</properties> -->  
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/> <!-- Null발생했을 때 oracle의 NULL로 변환 -->
 	</settings> 
