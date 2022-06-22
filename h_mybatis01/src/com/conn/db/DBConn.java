@@ -135,7 +135,7 @@ public class DBConn {
 //		         //testVO 사용방식
 //		TestVO objectData = new TestVO();
 //	    objectData.setId(1); objectData.setName("object");
-//		int res13 = session.update("testMapper.test12", updateData);
+//		int res13 = session.update("testMapper.test13", updateData);
 //		System.out.println(res13 + " 개의 행이 업데이트 되었습니다.");
 //		
 //		
