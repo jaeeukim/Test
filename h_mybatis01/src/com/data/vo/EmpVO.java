@@ -1,27 +1,27 @@
 package com.data.vo;
 
 public class EmpVO {
-	private int employee_id;
-	private String first_name;
-	private String last_name;
+	private int empId;
+	private String fname;
+	private String lname;
 	
-	public int getEmployee_id() {
-		return employee_id;
+	public int getEmpId() {
+		return empId;
 	}
-	public void setEmployee_id(int employee_id) {
-		this.employee_id = employee_id;
+	public void setEmpId(int empId) {
+		this.empId = empId;
 	}
-	public String getFirst_name() {
-		return first_name;
+	public String getfName() {
+		return fname;
 	}
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setfName(String fname) {
+		this.fname = fname;
 	}
-	public String getLast_name() {
-		return last_name;
+	public String getlName() {
+		return lname;
 	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setlName(String lname) {
+		this.lname = lname;
 	}
 	
 	

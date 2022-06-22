@@ -10,7 +10,9 @@
 		<setting name="jdbcTypeForNull" value="NULL"/> <!-- Null발생했을 때 oracle의 NULL로 변환 -->
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.data.vo.EmpVO" alias="empVO"/>
+		<typeAlias type="com.data.vo.EmpVO" alias="empVo"/>
+		<typeAlias type="com.data.vo.TestVO" alias="testVo"/>
+		<typeAlias type="com.data.vo.EmpSelectVO" alias="empSelectVo"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

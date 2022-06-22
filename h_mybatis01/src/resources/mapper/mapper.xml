@@ -2,23 +2,169 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="testMapper"> <!-- 하나의 namespace에 여러개의 id가 추가됨 -->
-	<select id="test" resultType="string">
-		select 'Mybatis Connect Success!!' from dual <!-- 성공시 나올 select query 문 -->
-	</select>
+	<resultMap type="empVo" id="empVoMap">
+		<result column="employee_id" property="empId"/> <!-- column에는 컬럼명 property에는 자바에서 사용한 객체명 -->
+		<result column="first_name" property="fname"/>
+		<result column="last_name" property="lname"/>
+	</resultMap>
+	
 	<select id="test1" resultType="_int"> <!-- int형 -->
 		select 1234 from dual 
 	</select>
-	<select id="test2" resultType="map"> <!-- map형 -->
+	
+	<select id="test2" resultType="string">
+		select 'Mybatis Connect Success!!' from dual <!-- 성공시 나올 select query 문 -->
+	</select>
+	
+	
+	<select id="test3" resultType="map"> <!-- map형 -->
+		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES	
+	</select>
+	
+	<!-- mybatis-config.xml 파일에 TypeAliases를 설정하여 com.data.vo.EmpVO대신 empVo사용 -->
+	<!-- <select id="test3" resultType="com.data.vo.EmpVO"> -->
+	<select id ="test4" resultType="empVo">
+		SELECT EMPLOYEE_ID AS empid
+		     , FIRST_NAME AS fname
+		     , LAST_NAME AS lname
+		  FROM EMPLOYEES
+	</select>
+	<select id ="test5" resultMap="empVoMap"> <!-- 위에 작성한 resultMap사용 (resultType 둘중 하나만 써야함) -->
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+	</select>
+	
+	
+		<select id="test6" resultMap="empVoMap"> <!-- parameterType 기본형은 _int이다.(생략됨) -->
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{id}
+	</select>
+	
+	<select id="test7" parameterType="string" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE FIRST_NAME = #{id}
+	</select>
+	
+	<select id="test8" parameterType="string" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE FIRST_NAME LIKE '%' || #{id} || '%'
+	</select>
+	
+	<select id="test9" parameterType="map" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID BETWEEN #{start} AND #{end} <!-- DBConn에 작성된 key를 불러온다. -->
+	</select>
+	
+	<select id="test10" parameterType="empVo" resultMap="empVoMap"> <!-- parameterType이 객체가 될 수 있다. -->
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{empId} <!-- 멤버변수명을 사용하면 된다 empData.getEmpId()사용된다 -->
+	</select>
+	
+	<select id="test20" resultType="map"> <!-- map형 -->
 		select 1 as n1, 2 as n2, 3 as n3, 4 as n4 from dual 
 		union all
 		select 5 as n1, 6 as n2, 7 as n3, 8 as n4 from dual
 	</select>
-	<!--  <select id="employee" parameterType="_int" resultType="empVO">
-		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID = #{id}
-	</select> -->	
-	<select id="employee" parameterType="map" resultType="empVO">
-		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID BETWEEN #{id1} AND #{id2}
+	
+	
+	<insert id="test11" parameterType="testVo">
+		INSERT INTO T_MYBATIS VALUES (SEQ_MYBATIS.NEXTVAL, #{name}, #{today})
+	</insert>
+	
+	<update id="test12" parameterType="map">
+		UPDATE T_MYBATIS
+		   SET NAME = #{name}
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="test13" parameterType="testVo">
+		UPDATE T_MYBATIS
+		   SET NAME = #{name}
+		 WHERE ID = #{id}
+	</update>
+	
+	<delete id="test14" parameterType="_int">
+		DELETE FROM T_MYBATIS
+		 WHERE ID = #{id}
+	</delete>
+	
+	<select id="test15" resultType="testVo">
+		SELECT ID
+			 , NAME
+			 , TODAY
+		  FROM T_MYBATIS
+		 WHERE ID = #{id}
 	</select>
+	
+	
+	<select id="test16" parameterType="empSelectVo" resultType="empVo">
+		SELECT EMPLOYEE_ID 
+	 		 , FIRST_NAME
+	 		 , LAST_NAME
+	 		 , HIRE_DATE
+	  		 , SALARY
+  		  FROM EMPLOYEES 
+  		<!--  WHERE 1 = 1    //deptId만 실행할 경우 WHERE 존재할 수 있게 --> 
+  		<where> </where>     <!-- WHERE 1 = 1 대신사용한다. 안에 적용될문장이 있다면 앞에 WHERE을 추가한다 WHERE AND가 되어버릴수있으니 주의 -->
+ 	 	 
+ 	 	 <trim prefix="WHERE" prefixOverrides = "AND"> <!-- 최초의 prefixOverrides값을 prefix값으로 변환시킨다. -->
+	 	 	 <if test="salary != 0"> <!-- 밑에있는 #{salary}지칭 -->
+		 	 	AND SALARY >= #{salary}
+	 	 	 </if>
+	 	 	 <choose>
+	 	 	 	<when test="deptId != 0">
+		   		    AND DEPARTMENT_ID = #{deptId}	 	 	 	
+	 	 	 	</when>
+	 	 	 	<when test="deptIdList != null">
+	 	 	 		<!-- 반복문 사용하기-->
+	 	 	 		<foreach collection="deptIdList" item="item"
+	 	 	 		 		 open="AND DEPARTMENT_ID IN (" close=")" separator=", ">
+	 	 	 				#{item}
+	 	 	 		</foreach>
+	 	 	 	</when>
+	 	 	 </choose>
+	   		 <choose>  <!-- else if 까지 사용하고 싶을때 -->
+	   		   		<when test="startDate != null and endDate != null">  <!--  if -->
+			   		   AND HIRE_DATE BETWEEN #{startDate} AND #{endDate}  	 	 	 	 	    		   		
+	   		   		</when>     
+	   		   		<when test="startDate == null and endDate != null">  <!--  else if -->
+			   		   AND HIRE_DATE &lt;= #{endDate}  	 
+			   		</when>
+	   		   		<when test="startDate != null and endDate == null">  <!--  else if -->
+			   		   AND HIRE_DATE >= #{StartDate}  	 	 	 	 	    		   		   		   		   		   		</when>     
+	   				<!-- 왜 </when>하면 오류가 나지...? -->
+	   		   		<!--   else
+	   		   		<otherwise></otherwise>     
+	   		   		-->
+	   		 </choose>
+ 	 	 </trim>
+  		
+   	<!--  <foreach collection=""></foreach> -->
+	</select>
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>
