@@ -8,7 +8,7 @@
 	</properties> --> 
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/> <!-- Null발생했을 때 oracle의 NULL로 변환 -->
-	</settings>
+	</settings> 
 	<typeAliases>
 		<typeAlias type="com.data.vo.EmpVO" alias="empVo"/>
 		<typeAlias type="com.data.vo.TestVO" alias="testVo"/>
