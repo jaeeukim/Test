@@ -170,8 +170,33 @@ public class DBConn {
 		System.out.println(res15.size() + "개 행 데이터가 조회되었습니다.");
 		
 		
+		// 1개만 사용
+		 Map<String, Integer> mapParam = new HashMap<String, Integer>();
+		 mapParam.put("deptId", 80);
+		
+		// IN 사용
+//		Map<String, List<Integer>> mapParam = new HashMap<String, List<Integer>>();
+//		List<Integer> deptList2 = new ArrayList<Integer>();
+//		deptList2.add(80); deptList2.add(90); deptList2.add(100);
+//		mapParam.put("deptList", deptList2);
+		
+		// BETWEEN 사용
+//		Map<String, Integer> mapParam = new HashMap<String, Integer>();
+//		mapParam.put("stDeptId", 80);
+//		mapParam.put("edDeptId", 100);
 		
 		
+		List<Map<String, Object>> res16 = session.selectList("exampleMapper.empOfDeptCount", mapParam);	
+		
+		if(res16.size() != 0) {
+			for(Map<String, Object> record: res16) {
+				System.out.println("총원 : "+ record.get("TOTAL"));
+				System.out.println("부서명 : "+ record.get("DEPT_NAME"));
+				System.out.println("부서코드 : "+ record.get("DEPT_CODE"));
+			}			
+		} else {
+			System.out.println("해당 부서는 존재하지 않습니다.");
+		}
 		
 		
 	}
