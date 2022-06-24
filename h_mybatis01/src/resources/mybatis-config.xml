@@ -13,6 +13,9 @@
 		<typeAlias type="com.data.vo.EmpVO" alias="empVo"/>
 		<typeAlias type="com.data.vo.TestVO" alias="testVo"/>
 		<typeAlias type="com.data.vo.EmpSelectVO" alias="empSelectVo"/>
+		<typeAlias type="com.data.vo.EmpComplexVO" alias="empComplexVo"/>
+		<typeAlias type="com.data.vo.DeptVO" alias="deptVo"/>
+		<typeAlias type="com.data.vo.JobVO" alias="jobVo"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.data.vo.EmpComplexVO;
 import com.data.vo.EmpSelectVO;
 import com.data.vo.EmpVO;
 import com.data.vo.TestVO;
@@ -126,6 +127,8 @@ public class DBConn {
 		}
 		*/
 		
+		
+		
 //		//update (map이용방식)
 //		Map<String, Object> updateData = new HashMap<String, Object>();
 //		updateData.put("id", 1);
@@ -197,6 +200,22 @@ public class DBConn {
 		} else {
 			System.out.println("해당 부서는 존재하지 않습니다.");
 		}
+		
+		
+		
+		TestVO insertData2 = new TestVO();
+		insertData2.setName("getSeq");
+		insertData2.setToday(new java.sql.Date(new java.util.Date().getTime()));;
+		
+		int res17 = session.insert("testMapper.seqGetInsert", insertData2);
+		session.commit();      //커밋하기
+		System.out.println(res17 + " 개의 행이 추가되었습니다." + "자동생성된 ID는 " + insertData2.getId() +" 입니다.");		
+		// 실행했을 때 숫자가 갑자기 20이상으로 커진이유는 cache(메모리상에서 seq값)때문		
+		
+		
+		
+		EmpComplexVO res18 = session.selectOne("testMapper.empComplexSelect", 100);
+		System.out.println(res18);
 		
 		
 	}
