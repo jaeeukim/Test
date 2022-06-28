@@ -43,6 +43,5 @@
 		// response.setContentType("text/javascript");
 		// response.setContentType("text/html");
 	%>
-	<hr>
 </body>
 </html>
