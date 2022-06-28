@@ -12,9 +12,28 @@
   </servlet-mapping>
   
   
+  <filter>
+  	<filter-name>EncodingFilter</filter-name>
+  	<filter-class>filter.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>EncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
   
-  
-  
+  <!-- 에러페이지를 지정할 수 있음
+   <error-page>
+  	<error-code>404</error-code>
+  	<location>/WEB-INF/error/404.html</location>
+  </error-page>
+   -->
+ 
+  <!-- 
+   <error-page>
+   	<exception-type>java.lang.NullPointerException</exception-type>
+  	<location>/WEB-INF/error/exception.html</location>
+  </error-page>
+  -->
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
