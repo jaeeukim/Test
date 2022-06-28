@@ -36,7 +36,7 @@ public class jspRequestController extends HttpServlet {
 	}
 	
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String view = "/WEB-INF/jsp/jsp_request.jsp";
 		request.getRequestDispatcher(view).forward(request, response);
 	}

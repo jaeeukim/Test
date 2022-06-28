@@ -80,5 +80,27 @@
 		</div>
 	</form>
 	<hr>
+	<h2>setCharacterEncoding()</h2>
+	<p>
+		<%=request.getParameter("username") %>
+		request.setCharacterEncoding : 클라이언트에서 서버로 전송한 한글 데이터에 문제가 발생했을 때 servlet의 가장<br>
+		첫번째 줄에 적용을 하거나 Filter 를 만들어 적용할 것. -> request.setCharacterEncoding("UTF-8")
+	</p>
+	<form action="./jsp_request" method="post">
+		<div>
+			<input type="text" name="username">
+		</div>
+		<div>
+			<button type="submit">전송</button>
+		</div>
+	</form>
+	<hr>
+	<h2>getSession()</h2>
+	<p>
+		세션 객체 : <%=request.getSession() %><br>
+		세션 ID : <%=request.getSession().getId() %><br>
+		<!-- 세션ID는 개발자모드(F12)에서 Application, cookies, value 값 -->
+		<!-- 로그인상태 유지할때 이러한 session을 저장해두고 사용하는 것 -->		
+	</p>
 </body>
 </html>
