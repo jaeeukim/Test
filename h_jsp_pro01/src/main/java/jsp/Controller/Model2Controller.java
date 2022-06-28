@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Model2")
+@WebServlet("/model2")
 public class Model2Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
