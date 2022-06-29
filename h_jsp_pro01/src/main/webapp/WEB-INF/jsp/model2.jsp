@@ -42,6 +42,7 @@
 		<li>모든 작업이 완료되면 완성된 HTML코드를 클라이언트에게 응답 메시지로 전송한다.</li>
 	</ol>
 	<button type="button" onclick="location.href='/jsp01/depts'">부서 조회</button>
+	<button type="button" onclick="location.href='/jsp01/locs'">location 조회</button>
 	
 	
 	

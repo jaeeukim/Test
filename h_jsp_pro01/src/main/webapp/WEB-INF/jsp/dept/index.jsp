@@ -48,7 +48,7 @@ function formCheck(e) {
 			<td><%=data.getDeptId() %></td>
 			<td><%=data.getDeptName() %></td>
 			<td><%=data.getMngId() %></td>
-			<td><%=data.getLocId() %></td>
+			<td><a href="./locs?search=<%=data.getLocId() %>"><%=data.getLocId() %></a></td>
 		</tr>
 	
 	<%
