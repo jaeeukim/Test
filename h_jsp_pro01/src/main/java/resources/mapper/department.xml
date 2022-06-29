@@ -11,4 +11,9 @@
 	<select id="deptSelectAll" resultMap="deptDtoMap">
 		SELECT * FROM DEPARTMENTS
 	</select>
+	
+	<select id="deptSelectId" resultMap="deptDtoMap">
+		SELECT * FROM DEPARTMENTS
+		 WHERE DEPARTMENT_ID = #{id}
+	</select>
 </mapper>

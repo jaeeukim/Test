@@ -20,5 +20,10 @@ public class DeptDAO {
 		System.out.println("DeptDAO.searchAll : " + datas);
 		return datas;
 	}
+	
+	public DeptDTO searchId(int id) {
+		DeptDTO data = session.selectOne("deptMapper.deptSelectId", id);
+		return data;
+	}
 
 }

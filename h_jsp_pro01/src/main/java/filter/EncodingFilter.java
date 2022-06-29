@@ -14,7 +14,7 @@ import javax.servlet.http.HttpFilter;
 public class EncodingFilter extends HttpFilter implements Filter {
        
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		System.out.println("필터 확인용");
+		// System.out.println("필터 확인용");
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		

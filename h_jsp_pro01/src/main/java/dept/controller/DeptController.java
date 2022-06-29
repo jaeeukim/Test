@@ -1,6 +1,7 @@
 package dept.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,10 +21,45 @@ public class DeptController extends HttpServlet {
 	private DeptService service = new DeptService(); 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<DeptDTO> deptDatas = service.getAll();
+		String search = request.getParameter("search");
+		
+		/* 숫자아닌 다른 타입이 들어온 경우 -> matches로 한줄정리 가능한
+		boolean isNumber = true;
+		for(int i = 0; i < search.length(); i++) {
+			char c = search.charAt(i);
+			if(!(c >= '0' && c <= '9')) {
+				isNumber = false;
+				break;
+			}
+		}
+		*/
+		
+		
+		List<DeptDTO> deptDatas = null;
+		if(search == null) {
+			deptDatas = service.getAll();			
+		} else {
+			boolean isNumber = search.matches("\\d+"); //정규표현식
+			if(isNumber) {
+				DeptDTO data = service.getId(search); //얘는 DTO형식
+				if(data != null) {
+					deptDatas = new ArrayList<DeptDTO>();
+					deptDatas.add(data);				
+				}				
+			}
+			
+			
+			
+			/* DeptService에서 getId 매개변수타입이 DeptDTO일 경운
+			DeptDTO dto = new DeptDTO();
+			dto.setDeptId(Integer.parseInt(search));
+			DeptDTO data = service.getId(dto);
+			*/
+		}
+		
 		
 		//request객체에다가 속성을 설정한다. ->이후 forward할때 request 객체가 같이 전달됨
-		request.setAttribute("deptDatas", deptDatas);
+		 request.setAttribute("deptDatas", deptDatas);
 		// setAttribute로 전달되면 object로 업캐스팅이됨
 		
 		
