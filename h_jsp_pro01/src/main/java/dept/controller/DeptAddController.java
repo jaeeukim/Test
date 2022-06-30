@@ -63,5 +63,4 @@ public class DeptAddController extends HttpServlet {
 	 * service에서는 필요한 경우 전달받은 데이터에 대한 비지니스 로직을 수행 후 dao에 전달 할 수 있다.
 	 * dao에서는 전달받은 데이터를 처리하기에 적절한 SQL 구문을 찾아서 처리 할 수 있게 한다.
 	 */
-
 }
