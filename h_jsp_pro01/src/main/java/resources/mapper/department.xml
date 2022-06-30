@@ -17,15 +17,22 @@
 		 WHERE DEPARTMENT_ID = #{id}
 	</select>
 	<select id="existManager" resultType="_int">
-		SELECT COUNT(*) FROM EMPLOYEES WEHRE EMPLOYEE_ID = #{id}
+		SELECT COUNT(*) FROM EMPLOYEES WHERE EMPLOYEE_ID = #{id}
 	</select>
 	<select id="existLocation" resultType="_int">
-		SELECT COUNT(*) FROM LOCATIONS WEHRE LOCATION_ID = #{id}
+		SELECT COUNT(*) FROM LOCATIONS WHERE LOCATION_ID = #{id}
 	</select>
 	
 	<insert id="deptInsert" parameterType="deptDto">
 		INSERT INTO DEPARTMENTS VALUES (#{deptId}, #{deptName}, #{mngId}, #{locId})
 	</insert>
 	
+	<update id="deptUpdate" parameterType="deptDto">
+		UPDATE DEPARTMENTS
+		   SET DEPARTMENT_NAME = #{deptName}
+		     , MANAGER_ID = #{mngId}
+		     , LOCATION_ID = #{locId}
+		 WHERE DEPARTMENT_ID = #{deptId}
+	</update>
 	
 </mapper>

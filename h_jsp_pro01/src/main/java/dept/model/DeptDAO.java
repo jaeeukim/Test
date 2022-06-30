@@ -54,4 +54,20 @@ public class DeptDAO {
 		return false;
 	}
 
+
+	public boolean updateDept(DeptDTO deptDto) {
+		int result = session.update("deptMapper.deptUpdate", deptDto);
+		if(result == 1) {
+			session.commit();
+			return true;
+		}
+		session.rollback();
+		return false;
+	}
+	
+	public void close() {
+		session.close();
+	}
+	
+
 }

@@ -42,6 +42,7 @@ function formCheck(e) {
 			<th>DeptName</th>
 			<th>MngId</th>
 			<th>LocId</th>
+			<th></th>
 		</tr>
 	<%
 		if(request.getAttribute("deptDatas") != null) {
@@ -54,6 +55,9 @@ function formCheck(e) {
 			<td><%=data.getDeptName() %></td>
 			<td><%=data.getMngId() %></td>
 			<td><a href="./locs?search=<%=data.getLocId() %>"><%=data.getLocId() %></a></td>
+			<td>
+				<button type="button" onclick="location.href='./depts/mod?id=<%=data.getDeptId()%>'">수정</button>
+			</td>
 		</tr>
 	
 	<%
