@@ -16,4 +16,16 @@
 		SELECT * FROM DEPARTMENTS
 		 WHERE DEPARTMENT_ID = #{id}
 	</select>
+	<select id="existManager" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEES WEHRE EMPLOYEE_ID = #{id}
+	</select>
+	<select id="existLocation" resultType="_int">
+		SELECT COUNT(*) FROM LOCATIONS WEHRE LOCATION_ID = #{id}
+	</select>
+	
+	<insert id="deptInsert" parameterType="deptDto">
+		INSERT INTO DEPARTMENTS VALUES (#{deptId}, #{deptName}, #{mngId}, #{locId})
+	</insert>
+	
+	
 </mapper>
