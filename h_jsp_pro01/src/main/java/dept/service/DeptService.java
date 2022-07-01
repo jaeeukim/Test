@@ -20,6 +20,21 @@ public class DeptService {
 		return datas;
 	}
 	
+	//mybatis를 이용한 paging
+	public List<DeptDTO> getPage(int pageNumber) {
+		int start, end;
+		start = (pageNumber - 1) * 10;
+		end = start + 10;
+		
+		dao = new DeptDAO();
+		List<DeptDTO> datas = dao.searchPage(start, end);
+		dao.close();
+		return datas;
+	}
+	
+	
+	/*
+	 * paging 하는법
 	public List<DeptDTO> getPage(int pageNumber) {
 		Map<String, Integer> page = new HashMap<String, Integer>();
 		page.put("start", (pageNumber - 1) * 10 + 1);
@@ -31,6 +46,7 @@ public class DeptService {
 		
 		return datas;
 	}
+	*/
 	
 	public List<Integer> getPageList(){ 
 		dao = new DeptDAO();
