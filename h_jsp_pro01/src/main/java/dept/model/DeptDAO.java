@@ -65,9 +65,21 @@ public class DeptDAO {
 		return false;
 	}
 	
+	public boolean delteDept(int id) {
+		int result = session.delete("deptMapper.deptDelete", id);
+		if(result == 1) {
+			session.commit();
+			return true;
+		}
+		return false;
+	}
+
+	
 	public void close() {
 		session.close();
 	}
+
+
 	
 
 }

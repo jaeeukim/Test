@@ -35,4 +35,10 @@
 		 WHERE DEPARTMENT_ID = #{deptId}
 	</update>
 	
+	<delete id="deptDelete" parameterType="_int">
+		DELETE FROM DEPARTMENTS
+		 WHERE DEPARTMENT_ID = #{id} 
+	</delete>
+	
+	
 </mapper>

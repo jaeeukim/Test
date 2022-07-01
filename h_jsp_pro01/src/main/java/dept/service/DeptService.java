@@ -118,6 +118,22 @@ public class DeptService {
 		return 0;
 		
 	}
+
+
+	public int deleteDept(String id) {
+		dao = new DeptDAO();
+		if(dao.searchId(Integer.parseInt(id)) == null) {
+			dao.close();
+			return -1; // 삭제 대상이 없음을 알림 
+		}	
+		
+		boolean result = dao.delteDept(Integer.parseInt(id));
+		dao.close();
+		if(result) {
+			return 1;
+		} 
+		return 0;
+	}
 	
 	
 }
