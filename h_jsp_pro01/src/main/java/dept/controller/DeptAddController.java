@@ -53,6 +53,8 @@ public class DeptAddController extends HttpServlet {
 				/* response.sendRedirect("/jsp01/depts?search=" + data.getDeptId());							
 					-> 위에있는 애는 servlet의 contextpath가 변경되었을때 오류 발생할수 있다  
 					   contextpath를 /로 지정하면 생략해서 검색도 가능하다.*/
+				
+				//절대경로일때는 request.getContextPath()를 활용하자!
 				response.sendRedirect(request.getContextPath() +  "/depts?search=" + data.getDeptId());							
 			}
 		} else {

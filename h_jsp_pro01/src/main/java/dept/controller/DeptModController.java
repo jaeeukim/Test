@@ -47,7 +47,7 @@ public class DeptModController extends HttpServlet {
 		
 		switch(result) {
 			case 1:
-				response.sendRedirect("/jsp01/depts?search=" + data.getDeptId());
+				response.sendRedirect(request.getContextPath() + "/depts?search=" + data.getDeptId());
 				break;
 			case 0:
 				request.setAttribute("errorMsg", "수정 작업 중 알수 없는 문제가 발생하였습니다..");

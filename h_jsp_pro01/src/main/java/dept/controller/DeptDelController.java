@@ -41,7 +41,7 @@ public class DeptDelController extends HttpServlet {
 		
 		switch(result) {
 		case 1:
-			response.sendRedirect("/jsp01/depts");
+			response.sendRedirect(request.getContextPath() + "/depts");
 			return;
 		case 0:
 			request.setAttribute("error", true);
