@@ -48,8 +48,12 @@ public class DeptAddController extends HttpServlet {
 				// 성공 후 리다이렉트를 사용하여 페이지 이동
 				// 1번 -> 다시 이전화면으로
 					// response.sendRedirect("/jsp01/depts/");
+				
 				// 2번 -> 추가한 결과 화면
-				response.sendRedirect("/jsp01/depts?search=" + data.getDeptId());							
+				/* response.sendRedirect("/jsp01/depts?search=" + data.getDeptId());							
+					-> 위에있는 애는 servlet의 contextpath가 변경되었을때 오류 발생할수 있다  
+					   contextpath를 /로 지정하면 생략해서 검색도 가능하다.*/
+				response.sendRedirect(request.getContextPath() +  "/depts?search=" + data.getDeptId());							
 			}
 		} else {
 			// 실패 후 기존 페이지를 유지하면서 사용자가 입력했던 데이터도 최대한 보존
