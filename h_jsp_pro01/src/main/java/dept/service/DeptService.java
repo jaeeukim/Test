@@ -1,6 +1,9 @@
 package dept.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dept.model.DeptDAO;
 import dept.model.DeptDTO;
@@ -16,6 +19,32 @@ public class DeptService {
 		dao.close();
 		return datas;
 	}
+	
+	public List<DeptDTO> getPage(int pageNumber) {
+		Map<String, Integer> page = new HashMap<String, Integer>();
+		page.put("start", (pageNumber - 1) * 10 + 1);
+		page.put("end", pageNumber * 10);
+		
+		dao = new DeptDAO(); 
+		List<DeptDTO> datas = dao.searchPage(page);
+		dao.close();
+		
+		return datas;
+	}
+	
+	public List<Integer> getPageList(){ 
+		dao = new DeptDAO();
+		
+		List<Integer> pageList = new ArrayList<Integer>();
+		int total = dao.totalRow();
+		
+		for(int num = 0; num <= (total - 1) / 10 ; num++) {
+			pageList.add(num + 1);
+		}
+		return pageList;
+		
+	}
+	
 	
 	
 	// 외부에서 전달하는 매개변수 타입이 다른 오버로딩이지만

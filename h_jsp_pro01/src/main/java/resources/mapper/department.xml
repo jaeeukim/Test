@@ -40,5 +40,21 @@
 		 WHERE DEPARTMENT_ID = #{id} 
 	</delete>
 	
+	<select id="deptSelectPage" resultMap="deptDtoMap">
+			SELECT *
+			  FROM (SELECT ROWNUM AS NUM
+						  , DEPARTMENT_ID  
+						  , DEPARTMENT_NAME
+						  , MANAGER_ID
+						  , LOCATION_ID
+			 		   FROM DEPARTMENTS)
+			 WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="deptTotalRow" resultType="_int">
+		SELECT COUNT(*) FROM DEPARTMENTS
+	
+	</select>
+	
 	
 </mapper>

@@ -37,7 +37,18 @@ public class DeptController extends HttpServlet {
 		
 		List<DeptDTO> deptDatas = null;
 		if(search == null) {
-			deptDatas = service.getAll();			
+			int page = 1;
+			if(request.getParameter("page") == null) {
+				deptDatas = service.getPage(page);				
+			} else if(request.getParameter("page").isEmpty()) {
+				deptDatas = service.getPage(page);
+			} else {
+				if(request.getParameter("page").matches("\\d+")) {
+					page = Integer.parseInt(request.getParameter("page"));
+				}
+				deptDatas = service.getPage(page);					
+			}
+			request.setAttribute("pageList", service.getPageList());
 		} else {
 			boolean isNumber = search.matches("\\d+"); //정규표현식
 			if(isNumber) {
