@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Welcome JSP/Servlet</title>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/default.css">
 </head>
 <body>
 	<h1>Welcome JSP/Servlet</h1>

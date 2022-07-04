@@ -37,7 +37,7 @@ public class DeptService {
 	 * paging 하는법
 	public List<DeptDTO> getPage(int pageNumber) {
 		Map<String, Integer> page = new HashMap<String, Integer>();
-		page.put("start", (pageNumber - 1) * 10 + 1);
+		page.pfut("start", (pageNumber - 1) * 10 + 1);
 		page.put("end", pageNumber * 10);
 		
 		dao = new DeptDAO(); 
@@ -118,17 +118,20 @@ public class DeptService {
 			//DeptId는 pk
 			if(dao.searchId(deptDto.getDeptId()) != null) {
 				deptDto.setDeptId(-1);
+				dao.rollback();
 				dao.close();
 				return deptDto;
 			}		
 			//MngId와 LocId는 fk
 			if(!dao.existManager(deptDto.getMngId())) {
 				deptDto.setMngId(-1);
+				dao.rollback();
 				dao.close();
 				return deptDto;
 			}		
 			if(!dao.existLocation(deptDto.getLocId())) {
 				deptDto.setLocId(-1);
+				dao.rollback();
 				dao.close();
 				return deptDto;
 			}		
@@ -136,10 +139,12 @@ public class DeptService {
 			
 			boolean isSaved = dao.insertDept(deptDto);
 			if(!isSaved) {
+				dao.rollback();
 				dao.close();
 				return null;
 			}
 		}
+		dao.commit();
 		dao.close();
 		return deptDto;
 	}
@@ -147,19 +152,24 @@ public class DeptService {
 	public int modifyDept(DeptDTO data) {
 		dao = new DeptDAO();
 		if(!dao.existManager(data.getMngId())) {
+			dao.rollback();
 			dao.close();
 			return -1;
 		}		
 		if(!dao.existLocation(data.getLocId())) {
+			dao.rollback();
 			dao.close();
 			return -2;
 		}		
 		
 		boolean isSaved = dao.updateDept(data);
-		dao.close();		
 		if(isSaved) {
+			dao.commit();
+			dao.close();		
 			return 1;
 		}
+		dao.rollback();
+		dao.close();		
 		return 0;
 		
 	}
@@ -168,15 +178,19 @@ public class DeptService {
 	public int deleteDept(String id) {
 		dao = new DeptDAO();
 		if(dao.searchId(Integer.parseInt(id)) == null) {
+			dao.rollback();
 			dao.close();
 			return -1; // 삭제 대상이 없음을 알림 
 		}	
 		
 		boolean result = dao.delteDept(Integer.parseInt(id));
-		dao.close();
 		if(result) {
+			dao.commit();
+			dao.close();
 			return 1;
-		} 
+		}
+		dao.rollback();
+		dao.close();
 		return 0;
 	}
 	

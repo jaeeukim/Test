@@ -59,10 +59,8 @@ public class DeptDAO {
 	public boolean insertDept(DeptDTO deptDto) {
 		int result = session.insert("deptMapper.deptInsert", deptDto); //result값만큼 insert됨
 		if(result == 1) {
-			session.commit();
 			return true;
 		}
-		session.rollback();
 		return false;
 	}
 
@@ -88,10 +86,8 @@ public class DeptDAO {
 	public boolean updateDept(DeptDTO deptDto) {
 		int result = session.update("deptMapper.deptUpdate", deptDto);
 		if(result == 1) {
-			session.commit();
 			return true;
 		}
-		session.rollback();
 		return false;
 	}
 	
@@ -99,16 +95,12 @@ public class DeptDAO {
 	public boolean delteDept(int id) {
 		int result = session.delete("deptMapper.deptDelete", id);
 		if(result == 1) {
-			session.commit();
 			return true;
 		}
 		return false;
 	}
 
 	
-	public void close() {
-		session.close();
-	}
 
 
 	public int totalRow() {
@@ -116,6 +108,16 @@ public class DeptDAO {
 		return rowCount;
 	}
 
+	public void close() {
+		session.close();
+	}
+	// 직접 commit하게하지말고 service에서 commit호출하도록 수정해주기
+	public void commit() {
+		session.commit();
+	}
+	public void rollback() {
+		session.rollback();
+	}
 	
 
 	
