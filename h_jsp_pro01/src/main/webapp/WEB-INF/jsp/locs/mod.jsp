@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>수정 페이지</title>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/test.css">
 </head>
 <body>
 	<%

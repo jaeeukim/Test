@@ -25,6 +25,13 @@ public class LocsController extends HttpServlet {
 		
 		List<LocsDTO> locsDatas = null;
 		if(search == null) {
+			int page = 1;
+			if(request.getParameter("page") == null) {
+				locsDatas = service.getPage(page);
+			}
+			
+			
+			
 			locsDatas = service.getAll();
 		} else {
 			boolean isNumber = search.matches("\\d+");

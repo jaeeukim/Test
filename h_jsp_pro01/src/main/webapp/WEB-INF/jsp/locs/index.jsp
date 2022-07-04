@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>location 테이블 조회</title>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/test.css">	
 	<style type="text/css">
 		.required-box {
 			margin: 0; padding: 0.3rem 0.6rem;

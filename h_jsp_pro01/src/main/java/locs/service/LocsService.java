@@ -119,6 +119,15 @@ public class LocsService {
 		dao.close();
 		return 0;
 	}
+
+	public List<LocsDTO> getPage(int page) {
+		
+		
+		
+		
+		
+		return null;
+	}
 	
 	
 }
