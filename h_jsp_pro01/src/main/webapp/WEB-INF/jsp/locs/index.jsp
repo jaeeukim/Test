@@ -83,6 +83,9 @@ function requiredBox(element, message) {
 </script>
 <body>
 	<h1>locations 조회</h1>
+	<div>
+		<button type="button" onclick="location.href='./locs/add'">추가</button>
+	</div>
 	<form action="./locs" method="get">
 		<div>
 			<input type="text" name="search" data-required="지역코드를 입력하세요.">
@@ -98,6 +101,7 @@ function requiredBox(element, message) {
 			<th>CITY</th>
 			<th>STATE_PROVINCE</th>
 			<th>COUNTRY_ID</th>
+			<th></th>
 		</tr>
 		<%
 			if(request.getAttribute("locsDatas") != null) {
@@ -110,7 +114,11 @@ function requiredBox(element, message) {
 				<td><%=data.getPosCode() %></td>
 				<td><%=data.getCity() %></td>
 				<td><%=data.getStaPro() %></td>
-				<td><%=data.getCtrId() %></td>				
+				<td><%=data.getCtrId() %></td>		
+				<td>
+					<button type="button" onclick="location.href='./locs/mod?id=<%=data.getLocId() %>'">수정</button>
+					<button type="button" onclick="location.href='./locs/del?id=<%=data.getLocId() %>'">삭제</button>
+				</td>		
 			</tr>
 		<%
 				}

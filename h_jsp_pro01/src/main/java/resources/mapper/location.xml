@@ -18,4 +18,32 @@
 		SELECT * FROM LOCATIONS
 		 WHERE LOCATION_ID = #{id}
 	</select>
+	
+	<insert id="locsInsert" parameterType="locsDto">
+		INSERT INTO LOCATIONS VALUES
+		 (#{locId}, #{streetAd}, #{posCode}, #{city}, #{staPro}, #{ctrId})
+	</insert>
+	
+	<select id ="existCtrId" resultType="_int">
+		SELECT COUNT(*) FROM COUNTRIES WHERE COUNTRY_ID = #{ctrId}
+	</select>
+	
+	<update id="locsUpdate" parameterType="locsDto">
+		UPDATE LOCATIONS 
+		   SET STREET_ADDRESS = #{streetAd}
+		     , POSTAL_CODE = #{posCode}
+		     , CITY = #{city}
+		     , STATE_PROVINCE = #{staPro}
+		     , COUNTRY_ID = #{ctrId}
+		 WHERE LOCATION_ID = #{locId}
+	</update>
+	
+	<delete id="locsDelete" parameterType="_int"> 
+		DELETE FROM LOCATIONS
+		 WHERE LOCATION_ID = #{id}
+	
+	</delete>
+	
+	
+	
 </mapper>

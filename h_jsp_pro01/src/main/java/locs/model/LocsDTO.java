@@ -44,13 +44,5 @@ public class LocsDTO {
 	public void setCtrId(String ctrId) {
 		this.ctrId = ctrId;
 	}
-	@Override
-	public String toString() {
-		return "LocsDTO [locId=" + locId + ", streetAd=" + streetAd + ", posCode=" + posCode + ", city=" + city
-				+ ", staPro=" + staPro + ", ctrId=" + ctrId + "]";
-	}
-	
-	
-	
-	
+			
 }

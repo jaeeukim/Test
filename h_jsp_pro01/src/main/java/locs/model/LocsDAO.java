@@ -16,7 +16,7 @@ public class LocsDAO {
 	
 	public List<LocsDTO> searchAll() {
 		List<LocsDTO> datas = session.selectList("locsMapper.locsSelectAll");
-		System.out.println("LocsDAO.searchAll : " + datas);
+		// System.out.println("LocsDAO.searchAll : " + datas);
 		return datas;
 	}
 	
@@ -25,7 +25,54 @@ public class LocsDAO {
 		return data;
 	}
 	
+	public boolean insertLocs(LocsDTO locsDto) {
+		int result = session.insert("locsMapper.locsInsert", locsDto);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean existCtrId(String ctrId) {
+		int result = session.selectOne("locsMapper.existCtrId", ctrId);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
 	
+	public boolean updateLocs(LocsDTO data) {
+		int result = session.update("locsMapper.locsUpdate", data);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean deleteLocs(int id) {
+		int result = session.delete("locsMapper.locsDelete", id);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public void close() {
+		session.close();
+	}
+	
+	public void commit() {
+		session.commit();
+	}
+	
+	public void rollback() {
+		session.rollback();
+	}
+
+
+
+
 }
 
 
