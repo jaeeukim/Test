@@ -127,5 +127,25 @@ function requiredBox(element, message) {
 		%>
 	</table>
 	
+	<div id="nav">
+		<ul>
+			<li><a href="">Prev</a></li>
+			<%
+				if(request.getAttribute("pageList") != null) {
+					List<Integer> pageList = (List<Integer>) request.getAttribute("pageList");
+					for(Integer n : pageList) {
+			%>
+				<li><a href="./locs?page=<%=n%>"><%=n %></a></li>
+			<%						
+					}
+				}
+			%>
+			
+			<li><a href="">Next</a></li>
+		</ul>
+	
+	</div>
+	
+	
 </body>
 </html>

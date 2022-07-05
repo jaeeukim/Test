@@ -44,6 +44,9 @@
 	
 	</delete>
 	
+	<select id="locsTotalRow" resultType="_int">
+			SELECT COUNT(*) FROM LOCATIONS
+	</select>
 	
 	
 </mapper>

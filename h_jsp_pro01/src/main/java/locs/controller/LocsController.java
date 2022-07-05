@@ -28,11 +28,16 @@ public class LocsController extends HttpServlet {
 			int page = 1;
 			if(request.getParameter("page") == null) {
 				locsDatas = service.getPage(page);
+			} else if(request.getParameter("page").isEmpty()) {
+				locsDatas = service.getPage(page);
+			} else {
+				if(request.getParameter("page").matches("\\d+")) {
+					page = Integer.parseInt(request.getParameter("page"));					
+				}
+				locsDatas = service.getPage(page);
 			}
-			
-			
-			
-			locsDatas = service.getAll();
+			request.setAttribute("pageList", service.getPageList());
+			//locsDatas = service.getAll();
 		} else {
 			boolean isNumber = search.matches("\\d+");
 			if(isNumber) {

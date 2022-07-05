@@ -1,5 +1,6 @@
 package locs.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import locs.model.LocsDAO;
@@ -120,14 +121,32 @@ public class LocsService {
 		return 0;
 	}
 
-	public List<LocsDTO> getPage(int page) {
+	// mybatis를 활용한 paging 기법
+	public List<LocsDTO> getPage(int pageNumber) {
+		int start, end;
+		start = (pageNumber - 1) * 10;
+		end = start + 10;
 		
-		
-		
-		
-		
-		return null;
+		dao = new LocsDAO();
+		List<LocsDTO> datas = dao.searchPage(start, end);
+		dao.close();
+		return datas;
 	}
+	
+	
+	public List<Integer> getPageList() {
+		dao = new LocsDAO();
+		
+		List<Integer> pageList = new ArrayList<Integer>();
+		int total = dao.totalRow();
+		
+		for(int num = 0; num <= (total - 1) / 10; num++) {
+			pageList.add(num + 1);
+		}
+		return pageList;
+	}
+
+
 	
 	
 }
