@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- <properties url="file:///C:/Users/USER/oracle_db.conf"> -->
+	<!--  <properties resource="resources/oracle_db.conf">
+		<property name = "driver" value="oracle.jdbc.driver.OracleDriver"/>
+	</properties> -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/> <!-- Null발생했을 때 oracle의 NULL로 변환 -->
+	</settings> 
+	<typeAliases>
+		<typeAlias type="dept.model.DeptDTO" alias="deptDto"/>
+		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@128.168.25.30:1521:XE"/>	
+				<property name="username" value="puser1"/>
+				<property name="password" value="puser1"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="resources/mapper/mapper.xml"/>
+	</mappers>
+</configuration>
