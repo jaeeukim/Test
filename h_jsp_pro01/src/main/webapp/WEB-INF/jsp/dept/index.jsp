@@ -6,6 +6,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>부서 조회 결과</title>
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/default.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/navigation.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/required.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/form.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/table.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/paging.css">
+	<script type="text/javascript" src="<%=request.getContextPath() %>/static/js/required.js"></script>	
 </head>
 <script type="text/javascript">
 window.onload = function() {
