@@ -21,7 +21,8 @@ public class DeptService {
 	}
 	
 	//mybatis를 이용한 paging
-	public List<DeptDTO> getPage(int pageNumber) {
+	public List<DeptDTO> getPage(String page) {
+		int pageNumber = Integer.parseInt(page);
 		int start, end;
 		start = (pageNumber - 1) * 10;
 		end = start + 10;

@@ -34,12 +34,12 @@
 				<a class="nav-link" href="./locs">지역</a>
 			</li>
 			
-			<!--  이런식으로 어딘가에 선언된 변수를 사용하면 선언되지 않은곳에서는 오류가 발생할수 있기 때문에
+			<%--  이런식으로 어딘가에 선언된 변수를 사용하면 선언되지 않은곳에서는 오류가 발생할수 있기 때문에
 			      만약 가져와서 쓰고 싶다면 getAttribute를 응용하는걸로 하자
 				 <li class="nav-item<%=url.contains("/locs") ? " active" : "" %>"> 
-					<a class="nav-link" href="./locs"> <!--<%=test %> --></a>
+					<a class="nav-link" href="./locs"> <%=test %></a>
 				</li>
-			 -->
+			--%>	
 		</ul>
 	</nav>
 </header>

@@ -50,10 +50,12 @@ public class DeptModController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/depts?search=" + data.getDeptId());
 				break;
 			case 0:
+				request.setAttribute("errorCode", "error");
 				request.setAttribute("errorMsg", "수정 작업 중 알수 없는 문제가 발생하였습니다..");
 				request.getRequestDispatcher(view).forward(request, response);
 				break;
-			case -1:
+			case -1:				
+				request.setAttribute("errorCode", "error");
 				request.setAttribute("errorMsg", "관리자가 존재하지 않습니다.");
 				request.getRequestDispatcher(view).forward(request, response);
 				break;

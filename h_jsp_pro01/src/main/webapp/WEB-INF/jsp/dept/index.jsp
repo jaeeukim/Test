@@ -6,30 +6,83 @@
 <head>
 	<meta charset="UTF-8">
 	<title>부서 조회 결과</title>
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/default.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/navigation.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/required.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/form.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/table.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/css/paging.css">
-	<script type="text/javascript" src="<%=request.getContextPath() %>/static/js/required.js"></script>	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/default.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/navigation.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/required.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/form.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/table.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/paging.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/required.js"></script>
 </head>
-<script type="text/javascript">
-window.onload = function() {
-	var form = document.forms[0];
-	form.addEventListener("submit", formCheck);
-}
-
-function formCheck(e) {
-	if(this.search.value === "") {
-		e.preventDefault();
-	} else {
-		this.submit();
-	}
-}
-</script>
 <body>
-	<h1>부서 조회 결과</h1>
+	<%@ include file="../module/navigation.jsp" %>
+	<section class="container">
+		<div>
+			<form action="./depts" method="get">
+				<div class="input-form form-left">
+					<button class="btn btn-outline" type="button" onclick="location.href='./depts/add'">추가</button>
+				</div>
+				<div class="input-form form-right">
+					<input class="input-text" type="text" name="search" data-required="부서코드를 입력하세요.">
+					<button class="btn btn-outline" type="submit">조회</button>
+					<!-- div class="required-box show">부서코드를 입력하세요.</div -->
+				</div>
+			</form>
+		</div>
+		<table class="table wide vertical-hidden hover">
+			<colgroup>
+				<col class="col-60">
+				<col class="col-auto">
+				<col class="col-60">
+				<col class="col-60">
+				<col class="col-120">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>DeptId</th>
+					<th>DeptName</th>
+					<th>MngId</th>
+					<th>LocId</th>
+					<th class="border-hidden-right"></th>
+				</tr>
+			</thead>
+			<tbody>
+			<%
+				if(request.getAttribute("deptDatas") != null) {
+					List<DeptDTO> datas = (List<DeptDTO>) request.getAttribute("deptDatas");
+					for(DeptDTO data: datas) {
+		%>
+						<tr>
+							<td><%=data.getDeptId() %></td>
+							<td><%=data.getDeptName() %></td>
+							<td><%=data.getMngId() %></td>
+							<td><a href="./locs?search=<%=data.getLocId() %>"><%=data.getLocId() %></a></td>
+							<td class="border-hidden-right">
+								<button type="button" class="btn btn-icon" onclick="location.href='./depts/mod?id=<%=data.getDeptId() %>'">
+									<span class="material-symbols-outlined">edit</span>
+								</button>
+								<button type="button" class="btn btn-icon" onclick="location.href='./depts/del?id=<%=data.getDeptId() %>'">
+									<span class="material-symbols-outlined">delete</span>
+								</button>
+							</td>
+						</tr>
+		<%
+					}
+				}
+		%>
+			</tbody>
+		</table>
+		<% if(request.getAttribute("pageList") != null) { %>
+			<%@ include file="../module/paging.jsp" %>
+		<% } else { %>
+			<div class="input-form wide form-left">
+				<button class="btn btn-outline btn-ok" type="button" onclick="location.href='<%=request.getContextPath() %>/depts'">전체보기</button>
+			</div>
+		<% } %>
+	</section>
+
+
+	<%-- 기존 방식
 	<div>
 		<button type="button" onclick="location.href='./depts/add'">추가</button>
 	</div>
@@ -89,5 +142,6 @@ function formCheck(e) {
 			<li><a href="">Next</a></li>
 		</ul>
 	</div>
+	--%>
 </body>
 </html>
