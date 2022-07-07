@@ -36,10 +36,12 @@
 		
 	</c:if>
 	<c:choose>
-		<c:when test="${param.x == 'a'}"></c:when>
+		<c:when test="${param.x == 'a'}">
 			파라미터 x의 값이 a면 실행 
-		<c:when test="${param.x == 'b' }"></c:when>
+		</c:when>
+		<c:when test="${param.x == 'b' }">
 			파라미터 x의 값이 b면 실행 
+		</c:when>
 		<c:when test="${param.x == 'c' }">
 			파라미터 x의 값이 c면 실행 
 		</c:when>
@@ -63,7 +65,7 @@
 	</ul>
 	<br>
 	<ul>
-		<c:forEach items="${lst} var="v">
+		<c:forEach items="${lst}" var="v">
 			<li>${v}</li>
 		</c:forEach>
 	</ul>

@@ -39,16 +39,18 @@
 			Map<String, String> error = request.getAttribute("error") != null ? (Map<String, String>)request.getAttribute("error") : new HashMap<String, String>();
 			// DeptDTO data = request.getAttribute("data") != null ? (DeptDTO)request.getAttribute("data") : null; 생략가능
 		%>
+		<section class="container">
+
 		<form class="small-form" action="./add" method="post">
 			<div class="input-form wide">
 				<label class="input-label">부서ID</label>
-					<input type="text" class="input-text" name="deptId" value="${data.deptId  == -1 ? '' : data.deptId}" data-required="부서 ID를 입력하세요.">
+				<input type="text" class="input-text" name="deptId" value="${data.deptId  == -1 ? '' : data.deptId}" data-required="부서 ID를 입력하세요.">
 															<!-- < %=data == null ? "" : data.getDeptId() %> 대신 ${}사용 -->
 				<!--  	<input type="text" class="input-text" name="deptId" value="${param.deptId}" data-required="부서 ID를 입력하세요."> -->
 															<!--< %=data.getLocId() == -1 ? "" : data.getDeptId() %> 대신 ${}사용 -->
-					<c:if test="${not empty error.deptId }">
-						<label class="input-label-error">${error.deptId }</label>
-					</c:if>
+				<c:if test="${not empty error.deptId }">
+					<label class="input-label-error">${error.deptId }</label>
+				</c:if>
 					<%-- <% if(error.get("deptId") != null) { 
 						<label class="input-label-error">${error.deptId }</label>
 													<!--  < %=error.get("deptId") %>대신 ${}사용 -->
