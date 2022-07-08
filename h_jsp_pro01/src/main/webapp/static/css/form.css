@@ -18,7 +18,8 @@
 	width: 100%;
 }
 
-.input-text {
+.input-text,
+.select-form {
 	padding: 0.4rem 0.8rem;
 	border: 1px solid gray;
 	outline-style: none;
@@ -29,6 +30,17 @@
 .input-text:focus {
 	border: 1px solid #66BFBF;
 }
+
+.select-form:hover,
+.select-form:focus {
+	border: 1px solid #66BFBF;
+}
+
+.select-form > option {
+	padding: 0.4rem 0.8rem;
+	min-height: 1.8rem;
+}
+
 
 .input-label-error {
 	color: #FF0063

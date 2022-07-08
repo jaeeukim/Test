@@ -22,8 +22,8 @@
 					<button class="btn btn-outline" type="button" onclick="location.href='./locs/add'">추가</button>
 				</div>
 				<div class="input-form form-right">
-							<input class="input-text" type="text" name="search" data-required="지역코드를 입력하세요.">
-							<button class="btn btn-outline" type="submit">조회</button>
+						<input class="input-text" type="text" name="search" data-required="지역코드를 입력하세요.">
+						<button class="btn btn-outline" type="submit">조회</button>
 				</div>
 			</form>
 		</div>	

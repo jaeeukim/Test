@@ -23,6 +23,12 @@
 					<input class="input-text" type="text" name="search" data-required="부서코드를 입력하세요.">
 					<button class="btn btn-outline" type="submit">조회</button>
 					<!-- div class="required-box show">부서코드를 입력하세요.</div -->
+					<select class="select-form" onchange="location.href='./depts?pgc=' + this.value">
+						<option value="5" ${pageCount == 5 ? 'selected' : ''} >5 개</option>
+						<option value="10" ${pageCount == 10 ? 'selected' : '' } >10 개</option>
+						<option value="15" ${pageCount == 15 ? 'selected' : ''} >15 개</option>
+						<option value="20" ${pageCount == 20 ? 'selected' : '' }>20 개</option>
+					</select>
 				</div>
 			</form>
 		</div>

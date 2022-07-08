@@ -158,7 +158,7 @@
 	<hr>
 	
 	<!-- 날짜, 시간 동시 포멧 -->
-	<fmt:formatDate value="${date}" type="both"/><br>   <!-- 2022. 7. 8. 오전 11:47:55  -->
+	<fmt:formatDate value="${date}" type="both"/><br>             <!-- 2022. 7. 8. 오전 11:47:55  -->
 	<fmt:formatDate value="${date}" type="both" dateStyle="full" timeStyle="short"/><br> <!-- 2022년 7월 8일 금요일 오전 11:47 -->
 	
 </body>
