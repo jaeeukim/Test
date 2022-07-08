@@ -45,13 +45,13 @@
 			<div class="input-form wide">
 				<label class="input-label">부서ID</label>
 				<input type="text" class="input-text" name="deptId" value="${data.deptId  == -1 ? '' : data.deptId}" data-required="부서 ID를 입력하세요.">
-															<!-- < %=data == null ? "" : data.getDeptId() %> 대신 ${}사용 -->
-				<!--  	<input type="text" class="input-text" name="deptId" value="${param.deptId}" data-required="부서 ID를 입력하세요."> -->
-															<!--< %=data.getLocId() == -1 ? "" : data.getDeptId() %> 대신 ${}사용 -->
+															<%-- < %=data == null ? "" : data.getDeptId() %> 대신 ${}사용 --%>
+				<%--  	<input type="text" class="input-text" name="deptId" value="${param.deptId}" data-required="부서 ID를 입력하세요."> --%>
+															<%--< %=data.getLocId() == -1 ? "" : data.getDeptId() %> 대신 ${}사용 --%>
 				<c:if test="${not empty error.deptId }">
 					<label class="input-label-error">${error.deptId }</label>
 				</c:if>
-					<%-- <% if(error.get("deptId") != null) { 
+					<%-- < % if(error.get("deptId") != null) { 
 						<label class="input-label-error">${error.deptId }</label>
 													<!--  < %=error.get("deptId") %>대신 ${}사용 -->
 					<% } %> --%>
@@ -64,25 +64,25 @@
 					</c:if>
 			</div>
 			<div class="input-form wide">
-				<label class="input-label">관리자ID</label> 
-					<input type="text" class="input-text" name="mngId" value="${data.mngId == -1 ? '' : data.mngId}" data-required="관리자 ID를 입력하세요.">
-					<c:if test="${not empty error.mngId }">
-						<label class="input-label-error">${error.mngId }</label>
-					</c:if>
+				<label class="input-label">관리자ID</label>
+				<input type="text" class="input-text" name="mngId" value="${data.mngId == -1 ? '' : data.mngId}" data-required="관리자 ID를 입력하세요.">
+				<c:if test="${not empty error.mngId}">
+					<label class="input-label-error">${error.mngId}</label>
+				</c:if>
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">지역ID</label>
-					<input type="text" class="input-text" name="locId" value="${data.locId  == -1 ? '' : data.locId}" data-required="지역 ID를 입력하세요.">
-					<c:if test="${not empty error.locId }">
-						<label class="input-label-error">${error.locId }</label>
-					</c:if>
+				<input type="text" class="input-text" name="locId" value="${data.locId == -1 ? '' : data.locId}" data-required="지역 ID를 입력하세요.">
+				<c:if test="${not empty error.locId}">
+					<label class="input-label-error">${error.locId}</label>
+				</c:if>
 			</div>
 			<div class="input-form wide form-right">
 				<button class="btn btn-outline btn-ok" type="submit">저장</button>
 				<button class="btn btn-outline btn-cancel" type="button" onclick="location.href='<%=request.getContextPath() %>/depts'">취소</button>
 			</div>
 		</form>
-		<!-- <h1>부서 추가</h1>
+		<%-- <h1>부서 추가</h1>
 		< %
 			String deptId = "";
 			String deptName = "";
@@ -119,7 +119,7 @@
 			<button type="submit">저장</button>
 		
 		</form>
-		-->
+		--%>
 	
 	</section>
 	

@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, dept.model.DeptDTO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>부서 조회 결과</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/default.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/navigation.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/required.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/form.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/table.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/paging.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/required.js"></script>
+	<%@ include file="../module/head.jsp" %> <!-- 온갖 css와 jsp연결을 모은곳 -->
 </head>
 <body>
 	<%@ include file="../module/navigation.jsp" %>
@@ -47,11 +44,46 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${not empty deptDatas }">
+					<c:forEach items="${deptDatas }" var = "data"> <%-- var = 반복문 안에서 사용될 el문의 이름 --%>
+							<tr>
+							<td>${data.deptId }</td>
+							<td>${data.deptName }</td>
+							<td>${data.mngId }</td>
+							<td><a href="./locs?search=${data.locId }">${data.locId}</a></td>
+							<td class="border-hidden-right">
+								<c:url var="modUrl" value="./depts/mod">
+									<c:param name="id" value="${data.deptId }"/>
+								</c:url>
+								<button type="button" class="btn btn-icon" onclick="location.href='${modUrl}'">
+									<span class="material-symbols-outlined">edit</span>
+								</button>
+								<c:url var="delUrl" value="./depts/del">
+									<c:param name="id" value="${data.deptId }" />
+								</c:url>
+								<button type="button" class="btn btn-icon" onclick="location.href='${delUrl}'">
+									<span class="material-symbols-outlined">delete</span>
+								</button>
+							
+								<%-- jstl의 url을 사용하여 위에 정리함.
+									<button type="button" class="btn btn-icon" onclick="location.href='./depts/mod?id=${data.deptId }'">
+										<span class="material-symbols-outlined">edit</span>
+									</button>
+									<button type="button" class="btn btn-icon" onclick="location.href='./depts/del?id=${data.deptId }'">
+										<span class="material-symbols-outlined">delete</span>
+									</button>
+								 --%>
+							</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			
+			<%-- 위에 jstl 문으로 작성한 것과 동일한 문단
 			<%
 				if(request.getAttribute("deptDatas") != null) {
 					List<DeptDTO> datas = (List<DeptDTO>) request.getAttribute("deptDatas");
 					for(DeptDTO data: datas) {
-		%>
+			%>
 						<tr>
 							<td><%=data.getDeptId() %></td>
 							<td><%=data.getDeptName() %></td>
@@ -70,15 +102,30 @@
 					}
 				}
 		%>
+		--%>
 			</tbody>
 		</table>
-		<% if(request.getAttribute("pageList") != null) { %>
-			<%@ include file="../module/paging.jsp" %>
-		<% } else { %>
-			<div class="input-form wide form-left">
-				<button class="btn btn-outline btn-ok" type="button" onclick="location.href='<%=request.getContextPath() %>/depts'">전체보기</button>
-			</div>
-		<% } %>
+		<c:choose>
+			<c:when test="${not empty pageList }">
+				<%@ include file="../module/paging.jsp" %>
+			</c:when>
+			<c:otherwise>
+				<div class="input-form wide form-left">
+					<button class="btn btn-outline btn-ok" type="button" onclick="location.href='<%=request.getContextPath() %>/depts'">전체보기</button>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		
+		
+		<%-- 위에 jstl문과 동일함 
+			<% if(request.getAttribute("pageList") != null) { %>
+				<%@ include file="../module/paging.jsp" %>
+			<% } else { %>
+				<div class="input-form wide form-left">
+					<button class="btn btn-outline btn-ok" type="button" onclick="location.href='<%=request.getContextPath() %>/depts'">전체보기</button>
+				</div>
+			<% } %>
+		 --%>
 	</section>
 
 

@@ -52,11 +52,6 @@
 	
 	<hr>
 	
-	<%
-		List<String> lst = new ArrayList<String>();
-		lst.add("a"); lst.add("b"); lst.add("c"); lst.add("d");
-		request.setAttribute("lst", lst);
-	%>
 	
 	<ul>
 		<c:forEach begin="1" end="5" var="v">
@@ -64,10 +59,107 @@
 		</c:forEach>
 	</ul>
 	<br>
+	<%
+		List<String> lst = new ArrayList<String>();
+		lst.add("a"); lst.add("b"); lst.add("c"); lst.add("d");
+		request.setAttribute("lst", lst);
+	%>
 	<ul>
 		<c:forEach items="${lst}" var="v">
 			<li>${v}</li>
 		</c:forEach>
 	</ul>
+	<br>
+	
+	<%
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("a", "가"); map.put("b", "나"); map.put("c", "다");
+		request.setAttribute("map", map);
+	%>
+	<ul>
+		<c:forEach items="${map}" var="v">
+			<li>${v}</li> 
+		</c:forEach>
+	</ul>
+	<!-- map의 경우 v로만 출력하면 'a=가' 로 나옴.
+	     v.key로 출력하면 a,b,c같은 키만 / v.value하면 가,나,다 같은 값만 나온다-->
+	
+	
+	
+	<%-- scope 영역 설정 
+	     page : 한 페이지 영역에서의 지역 변수
+	     request : 하나의 요청 영역에서 사용 가능 (사용자가 요청->지나는 서버 내부 가능) - 요청간의 공유 안됨
+	     session : 하나의 세션영역 (request에서 요청간의 정보가 공유될 수 있게함)  - 톰캣 프로세스 안에서 공유 안됨
+	     application : (session에서 하나의 톰캣프로세스안에서 공유 될수있게함)
+	     접근은 page부터해서 출력함 (같은 var명이면 page부터)
+	 --%>
+	<c:set var="data" value="Hello1" scope="page"/> <%-- setAttribute대신 사용 가능 --%>
+	<c:set var="data" value="Hello2" scope="request"/> 
+	<c:set var="data" value="Hello3" scope="session"/> 
+	<c:set var="data" value="Hello4" scope="application"/> 
+	${data }<br>
+	${data }<br>
+	${data }<br>
+	${application.data }<br> <!-- 이런식으로 지정도 가능함 -->
+	
+	<c:set var="arr"> <!-- 배열도 가능한 -->
+		가, 나, 다, 라
+	</c:set>
+	${arr }<br>
+	
+	<!-- set한거 지우기 -->
+	<c:remove var="data" scope="page"/> 
+	<c:remove var="data" scope="request"/> 
+	<c:remove var="data" scope="session"/> 
+	<c:remove var="data" scope="application"/> 
+	${page.data }<br>
+	${request.data}<br>
+	${session.data }<br>
+	${application.data }<br>
+	
+	<hr>
+	
+	<c:url var="url" value="./depts">
+		<c:param name="x" value="Hello" />
+		<c:param name="y" value="Hello" />
+	</c:url>
+	
+	<!-- fmt---------------------------------------------------------------------- -->
+	<!-- 숫자 관련 포멧 -->
+	<fmt:formatNumber value="1000" /><br>   <!-- 1,000 -->
+	<fmt:formatNumber value="0.1"  type="percent"/><br>   <!-- 10% -->
+	<fmt:formatNumber value="1000"  type="percent"/><br>  <!-- 100,000% -->
+	<fmt:formatNumber value="1000"  type="currency"/><br>  <!-- \1,000 (원화) 지역에 따라 다름 -->
+	<fmt:formatNumber value="1000"  type="currency" currencySymbol="$"/><br>  <!-- $1,000 (원화) 지역에 따라 다름 -->
+	
+	<hr>
+	<% 
+		Date date = new Date(); 
+		request.setAttribute("date", date);
+	%>
+	
+	<!--  날짜 관련 포멧 -->
+	<fmt:formatDate value="${date }" type="date" /><br>					 <!-- 2022. 7. 8 -->
+	<fmt:formatDate value="${date }" type="date" dateStyle="full"/><br>  <!-- 2022년 7월 8일 금요일 -->
+	<fmt:formatDate value="${date }" type="date" dateStyle="long"/><br>  <!-- 2022년 7월 8일 -->
+	<fmt:formatDate value="${date }" type="date" dateStyle="medium"/><br><!-- 2022. 7. 8 -->
+	<fmt:formatDate value="${date }" type="date" dateStyle="short"/><br> <!-- 22. 7. 8 -->
+	<fmt:formatDate value="${date }" type="date" pattern="YYYY-MM-dd E EEEE"/><br> <!-- 2022-07-08 금 (pattern으로 원하는 형식지정가능)-->
+	
+	<hr>
+	
+	<!-- 시간 관련 포멧 -->
+	<fmt:formatDate value="${date }" type="time" /><br>					 <!-- 오전 11:41:00 -->
+	<fmt:formatDate value="${date }" type="time" timeStyle="full"/><br>  <!-- 오전 11시 41분 0초 대한민국 표준시 -->
+	<fmt:formatDate value="${date }" type="time" timeStyle="long"/><br>  <!-- 오전 11시 41분 0초 KST -->
+	<fmt:formatDate value="${date }" type="time" timeStyle="medium"/><br><!-- 오전 11:41:00 -->
+	<fmt:formatDate value="${date }" type="time" timeStyle="short"/><br> <!-- 오전 11:41 -->
+	<fmt:formatDate value="${date }" type="time" pattern="a hh:mm:ss.SSS Z z zzzz"/><br> <!-- (pattern으로 원하는 형식지정가능)-->
+	<hr>
+	
+	<!-- 날짜, 시간 동시 포멧 -->
+	<fmt:formatDate value="${date}" type="both"/><br>   <!-- 2022. 7. 8. 오전 11:47:55  -->
+	<fmt:formatDate value="${date}" type="both" dateStyle="full" timeStyle="short"/><br> <!-- 2022년 7월 8일 금요일 오전 11:47 -->
+	
 </body>
 </html>
