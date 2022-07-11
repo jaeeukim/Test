@@ -100,7 +100,7 @@
 	${data }<br>
 	${data }<br>
 	${data }<br>
-	${application.data }<br> <!-- 이런식으로 지정도 가능함 -->
+	${applicationScope.data }<br> <!-- 이런식으로 지정도 가능함 -->
 	
 	<c:set var="arr"> <!-- 배열도 가능한 -->
 		가, 나, 다, 라
@@ -112,10 +112,10 @@
 	<c:remove var="data" scope="request"/> 
 	<c:remove var="data" scope="session"/> 
 	<c:remove var="data" scope="application"/> 
-	${page.data }<br>
-	${request.data}<br>
-	${session.data }<br>
-	${application.data }<br>
+	${pageScope.data }<br>
+	${requestScope.data}<br>
+	${sessionScope.data }<br>
+	${applicationScope.data }<br>
 	
 	<hr>
 	

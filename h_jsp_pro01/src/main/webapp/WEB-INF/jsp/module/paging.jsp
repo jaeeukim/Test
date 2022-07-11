@@ -17,7 +17,7 @@
 					<a class="page-link disabled material-symbols-outlined" href="#">keyboard_arrow_left</a>					
 				</c:when>
 				<c:otherwise>
-					<a class="page-link material-symbols-outlined" href="./depts?page=${prevPage }">keyboard_arrow_left</a>				
+					<a class="page-link material-symbols-outlined" href="${pageUrl}?page=${prevPage }">keyboard_arrow_left</a>				
 				</c:otherwise>
 			</c:choose>
 			
@@ -25,7 +25,7 @@
 		
 		<c:forEach items="${pageList }" var="item">
 				<li class="page-item">
-					<a class="page-link ${currentPage == item ? ' active' : '' }" href="./depts?page=${item }">${item }</a>
+					<a class="page-link ${currentPage == item ? ' active' : '' }" href="${pageUrl}?page=${item }">${item }</a>
 				</li>
 			
 		</c:forEach>
@@ -35,7 +35,7 @@
 					<a class="page-link disabled material-symbols-outlined" href="#">keyboard_arrow_right</a>					
 				</c:when>
 				<c:otherwise>
-					<a class="page-link material-symbols-outlined" href="./depts?page=${nextPage }">keyboard_arrow_right</a>				
+					<a class="page-link material-symbols-outlined" href="${pageUrl}?page=${nextPage }">keyboard_arrow_right</a>				
 				</c:otherwise>
 			</c:choose>
 			

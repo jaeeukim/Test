@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.util.Parameter;
 import dept.model.DeptDTO;
@@ -39,7 +40,36 @@ public class DeptController extends HttpServlet {
 		int page = param.defaultIntValue(request, "page", "1");		
 		int pageCount = 0;
 		
+		// 세션 (보안성 보완) - 서버에 저장
+		HttpSession session = request.getSession();
+		boolean pageCountCookieExist = false;
+
 		
+		if(session.getAttribute("pageCount") != null) {
+			pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+			pageCountCookieExist = true;
+		} // 세션에 저장된 정보를 가져온다.
+		
+		if(request.getParameter("pgc") != null || pageCountCookieExist) {
+			pageCount = param.defaultIntValue(request, "pgc", "10");
+		}
+		
+		session.setAttribute("pageCount", pageCount);
+		request.setAttribute("page", page);
+		request.setAttribute("pageCount", pageCount);
+		
+		/*
+		session.setAttribute("pageCount", page); // 세션 설정
+		session.removeAttribute("pageCount"); // 세션에 설정한 pageCount 제거
+		session.setMaxInactiveInterval(pageCount); // (초단위) 서버에 저장되는 세션에 시간을 지정가능
+		session.invalidate(); // 세션을 만료시켜 새로운 세션을 만들 수 있게 한다.
+		
+		request.getSession(true); // 유효한 세션이 없는 경우 새로 만들고, 유효한 세션이 있는 경우 해당 세션 정보를 가져온다.
+								  // 위에 선언과 같다 (true쓰는것과 생략한것)
+		request.getSession(false); // 유효한 세션이 없는 경우 null을 반환, 유효한 세션이 있는 경우 해당 세션 정보를 가져온다.
+		*/
+		
+		/*  쿠키 (보안성낮음) - 클라이언트에 저장
 		boolean pageCountCookieExist = false;
 		Cookie[] cookies = request.getCookies();
 		
@@ -60,8 +90,14 @@ public class DeptController extends HttpServlet {
 			
 		// 쿠키 재설정 
 		Cookie cookie = new Cookie("pageCount", String.valueOf(pageCount));  //순서대로 쿠키이름, 쿠키값
+		
+		// 쿠키에 제한을 줄 수 있다
+		cookie.setMaxAge(60*60*24*12);  // 초단위로 유지시간을 지정할 수 있다. -1이면 무한 : session / 0이면 즉시 만료
+		cookie.setPath("/"); //특정경로의 하위에 쿠키가 적용되도록 하는 것
+		
 		response.addCookie(cookie);
-				
+			
+		*/
 		List<DeptDTO> deptDatas = null;
 		if(search == null) {
 			deptDatas = service.getPage(page, pageCount);

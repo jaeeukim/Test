@@ -113,6 +113,7 @@
 		</table>
 		<c:choose>
 			<c:when test="${not empty pageList }">
+				<c:url var="pageUrl" value="./depts" />			
 				<%@ include file="../module/paging.jsp" %>
 			</c:when>
 			<c:otherwise>
