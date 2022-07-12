@@ -5,6 +5,27 @@
 	margin: 0 auto;
 }
 
+.normal-form {
+	width: 960px;
+	margin: 0 auto;
+}
+
+.large-form {
+	width: 1260px;
+	margin: 0 auto;
+}
+
+.img-form.left {
+	padding: 0.5rem;
+	float: left;
+}
+
+.img-form .img-360 {
+	display: inline-block;
+	width: 360px;
+	height: 360px;
+}
+
 .input-form {
 	margin: 0.5rem 0;
 	position: relative;
@@ -12,10 +33,31 @@
 }
 
 .input-form.wide .input-label,
-.input-form.wide .input-text {
+.input-form.wide .input-text,
+.input-form.wide .select-form{
 	display: block;
 	margin: 0.4rem 0;
 	width: 100%;
+}
+
+.input-form.inline {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: nowrap;
+}
+
+.input-form.inline .input-form {
+	display: flex;
+	justify-content: flex-start;
+	margin-left: 1rem;
+	flex: 1 1 auto;
+}
+
+.input-form.inline .input-label,
+.input-form.inline .input-text,
+.input-form.inline .select-form {
+	display: inline-block;
+	align-self: baseline;
 }
 
 .input-text,
@@ -116,3 +158,23 @@
 	text-align: right;
 	float: right;
 }
+
+.text-right {
+	text-align: right;
+}
+
+.w-100 {
+	width: 100px;
+}
+
+.w-auto {
+	width: 100%;
+}
+
+
+
+
+
+
+
+

@@ -6,6 +6,7 @@ import java.util.List;
 
 import emps.model.EmpDAO;
 import emps.model.EmpDTO;
+import emps.model.EmpDetailDTO;
 
 
 public class EmpService {
@@ -37,6 +38,11 @@ public class EmpService {
 		
 		dao.close();
 		return pageList;
+	}
+
+	public EmpDetailDTO getDetail(int empId) {
+		
+		return null;
 	}
 	
 }

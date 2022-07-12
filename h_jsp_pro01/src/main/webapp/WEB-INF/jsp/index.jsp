@@ -6,15 +6,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- jstl의 tag기능을 사용하기 위해서 taglib를 등록했다. 
      가독성과 코드량에서 이득을 볼 수 있다.-->
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>Welcome JSP/Servlet</title>	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath} /static/css/default.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/navigation.css">
-	<!--  < %= request.getContextPath() %>를 $ {pageContext.request.contextPath}로 변경한것 -->
+	<%@ include file = "./module/head.jsp" %>
 </head>
 <body>
 	<%
@@ -25,13 +22,88 @@
 	<!-- 액션태그 : 실행된 결과 코드를 삽입 (동적페이지에 사용) -분산효과
 	     지시자   : 코드를 삽입한 후에 실행 (정적페이지에 사용) -->
 
+	<section class="container">
+		<c:url var="loginUrl" value="/login"/>
+		<form class="small-form" action="${loginUrl }" method="post">
+			<div class="input-form wide">
+				<label class="input-label">직원ID</label>
+				<input type="text" class="input-text" name="empId" value="" data-required="직원 ID를 입력하세요.">
+				<c:if test="${not empty error }">
+					<label class="input-label-error">${error }</label>
+				</c:if>
+			</div>
+			<div class="input-form wide">
+				<label class="input-label">부서명</label>
+					<select class="select-form" name="deptId" data-required="부서명을 선택하세요.">
+						<c:forEach items="${deptList}" var="deptDto">
+							<c:choose>
+								<c:when test="${deptDto.deptId == param.deptId }">
+									<option value="${deptDto.deptId }" selected>
+										[${deptDto.deptId}] ${deptDto.deptName}
+									</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${deptDto.deptId }">
+										[${deptDto.deptId}] ${deptDto.deptName}
+									</option>
+								</c:otherwise>
+							</c:choose>
+							
+							
+							
+							<%-- <option value="${deptDto.deptId}" ${deptDto.deptId == param.deptId? '' : 'selected' }>[${deptDto.deptId}]${deptDto.deptName}</option> --%>
+						</c:forEach>
+					</select>
+			</div>
+			<div class="input-form wide">
+				<label class="input-label">이름</label>
+				<input type="text" class="input-text" name="empName" value="${param.empName }" data-required="이름을 입력하세요.">
+			</div>
+			<div class="input-form wide form-right">
+				<button class="btn btn-outline btn-ok" type="submit">로그인</button>
+			</div>
+		</form>
+	</section>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<%-- 로그인 기능 구현을 위해 주석처리를 한다.
 	<h1>Welcome JSP/Servlet</h1>	
-	<%-- <c:xxx> 제어문 
+		 <c:xxx> 제어문 
 		 <fmt:xxx> 포멧 (날짜, 숫자)
 		 ${fn:xxx } 함수(문자열)
-	--%>
+	
 	<c:if test="조건식(EL 사용)">
 		
 	</c:if>
@@ -86,14 +158,14 @@
 	
 	
 	
-	<%-- scope 영역 설정 
+	<!-- scope 영역 설정 
 	     page : 한 페이지 영역에서의 지역 변수
 	     request : 하나의 요청 영역에서 사용 가능 (사용자가 요청->지나는 서버 내부 가능) - 요청간의 공유 안됨
 	     session : 하나의 세션영역 (request에서 요청간의 정보가 공유될 수 있게함)  - 톰캣 프로세스 안에서 공유 안됨
 	     application : (session에서 하나의 톰캣프로세스안에서 공유 될수있게함)
 	     접근은 page부터해서 출력함 (같은 var명이면 page부터)
-	 --%>
-	<c:set var="data" value="Hello1" scope="page"/> <%-- setAttribute대신 사용 가능 --%>
+	 --!>
+	<c:set var="data" value="Hello1" scope="page"/> <!-- setAttribute대신 사용 가능 --!>
 	<c:set var="data" value="Hello2" scope="request"/> 
 	<c:set var="data" value="Hello3" scope="session"/> 
 	<c:set var="data" value="Hello4" scope="application"/> 
@@ -160,6 +232,7 @@
 	<!-- 날짜, 시간 동시 포멧 -->
 	<fmt:formatDate value="${date}" type="both"/><br>             <!-- 2022. 7. 8. 오전 11:47:55  -->
 	<fmt:formatDate value="${date}" type="both" dateStyle="full" timeStyle="short"/><br> <!-- 2022년 7월 8일 금요일 오전 11:47 -->
+	 --%>
 	
 </body>
 </html>
