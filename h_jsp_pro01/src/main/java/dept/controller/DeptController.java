@@ -25,6 +25,9 @@ public class DeptController extends HttpServlet {
 	private Parameter param = new Parameter();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	
+		
 		String search = request.getParameter("search");
 		
 		/* 숫자아닌 다른 타입이 들어온 경우 -> matches로 한줄정리 가능한

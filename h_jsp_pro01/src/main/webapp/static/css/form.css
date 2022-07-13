@@ -101,6 +101,18 @@
 	cursor: pointer;
 }
 
+.btn.disable {
+	color: gray;
+	border-color: gray;
+}
+
+.btn.disable:hover {
+	color: gray;
+	border-color: gray;
+	cursor: default;
+	background-color: transparent;
+}
+
 .btn-outline {
 	border: 1px solid gray;
 	border-radius: 4px;

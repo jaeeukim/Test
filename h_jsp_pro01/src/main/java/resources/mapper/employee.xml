@@ -11,6 +11,26 @@
 		<result column="DEPARTMENT_NAME" property="deptName"/>
 		<result column="DEPARTMENT_ID" property="deptId"/>
 	</resultMap>
+	<update id="updateEmployee" parameterType="empDto">
+		UPDATE EMPLOYEES
+		   SET EMAIL = #{email}
+		 WHERE EMPLOYEE_ID = #{empId}
+	</update>
+	<update id="updateEmployeeDetail" parameterType="empDetailDto">
+		UPDATE EMPLOYEES
+		   SET PHONE_NUMBER = #{phone}
+		 WHERE EMPLOYEE_ID = #{empId}
+	</update>
+	<select id="selectDetail" parameterType="_int" resultType="empDetailDto">
+		SELECT EMPLOYEE_ID AS empId
+			 , PHONE_NUMBER AS phone
+			 , SALARY AS salary
+			 , HIRE_DATE as hireDate
+			 , COMMISSION_PCT AS commission
+			 , MANAGER_ID AS mngId
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = ${id}
+	</select>
 	<select id="selectAll" resultMap="empDtoMap">
 		SELECT E.EMPLOYEE_ID
 			 , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME) AS EMPLOYEE_NAME
