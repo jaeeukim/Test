@@ -12,17 +12,56 @@
 	<meta charset="UTF-8">
 	<title>Welcome JSP/Servlet</title>	
 	<%@ include file = "./module/head.jsp" %>
+	<link rel="shortcut icon" href="#">
 </head>
+<script type="text/javascript">
+	function sendAjax() {
+		$.ajax({
+			type: "get",  // method방식 - POST도 가능 
+			url: "/ajax/test", //Ajax를 처리할 서버 주소
+			data: {
+				x: 1, y:"A"
+			},
+			dataType: "json", // 서버로 부터 전달 받을 데이터 타입(json, text, xml, html...)
+			success: function(data, status) { // 인자가 필요함
+				// 응답이 성공(응답코드 200일때)적으로 이루어졌을때 동작할 함수
+				console.log("success: " + data);
+				for(d of data) {
+					console.log("success: " + data.msg);
+					console.log("success: " + data.kor);
+					console.log("success: " + data.empId);
+					console.log("success: " + data.deptName);					
+				}
+			},
+			error: function(data, status){
+				// 응답코드가 200이 아닌 모든 응답일 때 동작할 함수
+				console.log(data);
+				console.log(status);
+			},
+			complete: function() {
+				// 성공/실패 여부와 관계없이 동작할 함수
+				console.log("complete 무조건 실행");
+			},
+			beforeSend: function() {
+				// 서버에 데이터를 전송하기 전에 동작할 함수
+				console.log("beforeSend 데이터 전송 전");
+			}
+		});
+	}
+</script>
+
+
+
 <body>
-	<%
-		String test = "Hello";	
-	%>
 	<%-- <jsp:incliude page="./module/navigation.jsp" %> 아래 식과 동일함 (jsp:include 액션 태그)--%>
 	<%@ include file="./module/navigation.jsp" %> <!-- inlcude 지시자 -->
 	<!-- 액션태그 : 실행된 결과 코드를 삽입 (동적페이지에 사용) -분산효과
 	     지시자   : 코드를 삽입한 후에 실행 (정적페이지에 사용) -->
 
 	<section class="container">
+		<div>
+			<button type="button" onclick="sendAjax()">전송</button>	
+		</div>
 		<c:url var="loginUrl" value="/login"/>
 		<form class="small-form" action="${loginUrl }" method="post">
 			<div class="input-form wide">
@@ -34,26 +73,23 @@
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">부서명</label>
-					<select class="select-form" name="deptId" data-required="부서명을 선택하세요.">
-						<c:forEach items="${deptList}" var="deptDto">
-							<c:choose>
-								<c:when test="${deptDto.deptId == param.deptId }">
-									<option value="${deptDto.deptId }" selected>
-										[${deptDto.deptId}] ${deptDto.deptName}
-									</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${deptDto.deptId }">
-										[${deptDto.deptId}] ${deptDto.deptName}
-									</option>
-								</c:otherwise>
-							</c:choose>
-							
-							
-							
+				<select class="select-form" name="deptId" data-required="부서명을 선택하세요.">
+					<c:forEach items="${deptList}" var="deptDto">
+						<c:choose>
+							<c:when test="${deptDto.deptId == param.deptId }">
+								<option value="${deptDto.deptId }" selected>
+									[${deptDto.deptId}] ${deptDto.deptName}
+								</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${deptDto.deptId }">
+									[${deptDto.deptId}] ${deptDto.deptName}
+								</option>
+							</c:otherwise>
+						</c:choose>
 							<%-- <option value="${deptDto.deptId}" ${deptDto.deptId == param.deptId? '' : 'selected' }>[${deptDto.deptId}]${deptDto.deptName}</option> --%>
-						</c:forEach>
-					</select>
+					</c:forEach>
+				</select>
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">이름</label>
@@ -64,35 +100,6 @@
 			</div>
 		</form>
 	</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

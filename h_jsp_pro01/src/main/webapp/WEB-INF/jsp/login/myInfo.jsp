@@ -30,7 +30,7 @@
 		<form class="large-form" action="${updateUrl }" method="post">
 			<div class="img-form left">
 				<c:url var="imgUrl" value="/static/img/emp/${sessionScope.loginData.empId}.png" />
-				<img class="img-360" alt="여기에 증명사진이 배치됩니다." src="${imgUrl}" >
+				<img class="img-360" alt="여기에 증명사진이 배치됩니다." src="/static/img/emp/default.png" >
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
