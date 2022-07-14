@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,11 +46,21 @@ public class LoginController extends HttpServlet {
 		String deptId = request.getParameter("deptId");
 		String empName = request.getParameter("empName");
 		
+
+		String deptRe = request.getParameter("deptRe");
+		
 		LoginService service = new LoginService();
 		boolean result = service.login(request.getSession(), empId, deptId, empName);
 		
+
+		
 		if(result) {
 			// 로그인 성공
+			if(deptRe != null) {
+				Cookie cookie = new Cookie("deptRe", deptId);
+				cookie.setMaxAge(60 * 60 * 24 * 5);
+				response.addCookie(cookie);
+			}
 			response.sendRedirect(request.getContextPath() + "/");
 		} else {
 			// 로그인 실패
