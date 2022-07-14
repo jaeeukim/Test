@@ -27,10 +27,14 @@
 				// 응답이 성공(응답코드 200일때)적으로 이루어졌을때 동작할 함수
 				console.log("success: " + data);
 				for(d of data) {
-					console.log("success: " + data.msg);
-					console.log("success: " + data.kor);
-					console.log("success: " + data.empId);
-					console.log("success: " + data.deptName);					
+				//	console.log("success: " + data.msg);
+				//	console.log("success: " + data.kor);
+					console.log("success: " + d.empId);
+					console.log("success: " + d.empName);
+					console.log("success: " + d.deptId);
+					console.log("success: " + d.deptName);
+					console.log("success: " + d.jobId);
+					console.log("success: " + d.jobName);				
 				}
 			},
 			error: function(data, status){

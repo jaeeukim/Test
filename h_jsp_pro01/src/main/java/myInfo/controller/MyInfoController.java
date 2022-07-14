@@ -82,10 +82,6 @@ public class MyInfoController extends HttpServlet {
 		String phone = request.getParameter("phone"); //EmpDetailDTO에 저장된 정보
 		
 		
-		if(session.getAttribute("loginData") == null ) {
-			response.sendRedirect(request.getContextPath() + "/login");
-			return;
-		}
 		int empId = ((EmpDTO)session.getAttribute("loginData")).getEmpId();
 		EmpDTO updateEmpData = new EmpDTO();
 		updateEmpData.setEmpId(empId);

@@ -20,8 +20,33 @@
 			btnImage.click();
 		});
 		
-		btnImage.addEventListener("change", showPreview);
+		btnImage.addEventListener("change", ajaxUploadImage);
 	}
+	
+	function ajaxUploadImage(e) {
+		var file = e.target.files[0];
+		var fData = new FormData();
+		fData.append("uploadImage", file, file.name);
+		
+		$.ajax({
+			type: "post",
+			url: "/jsp01/ajax/imageUpload",
+			enctype: "multipart/form-data",
+			data: fData,
+			processData: false,		// 문자열 제외 데이터 전송할때 false (like 이미지)(기본 true)
+			contentType: false,		
+			success: function(data, status) {
+				prevImage.src = data.loc;
+			},
+			error: function(data, status) {
+				prevImage.src = data.loc;
+			},
+			complete: function() {
+				console.log("무조건실행")
+			}
+		});
+	}
+	
 	
 	function showPreview(e) {
 		var file = e.target.files[0]; 		// 선택한 이미지의 파일 객체 정보가 저장되는 곳 (파일이 여러개일 수 있으니까 배열로 받아서 한개 가져오기)
@@ -44,7 +69,7 @@
 				<c:url var="imgUrl" value="${imagePath}" />
 				<img id="prevImage" class="img-360" alt="여기에는 증명 사진이 배치됩니다." src="${imgUrl}">
 				<br>
-				<input type="file" id="btnImage" name="uploadImage">
+				<input type="file" id="btnImage" name="uploadImage" >
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
