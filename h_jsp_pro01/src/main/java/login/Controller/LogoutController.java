@@ -17,9 +17,8 @@ public class LogoutController extends HttpServlet {
 		
 		if(session.getAttribute("loginData") != null ) {
 			session.invalidate(); //세션을 만료시켜버림
-			response.sendRedirect(request.getContextPath() + "/");
-		}
-	
+		}	
+		response.sendRedirect(request.getContextPath() + "/");
 	
 	}
 

@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>내 정보</title>
 	<%@ include file = "../module/head.jsp" %>
 </head>
 <script type="text/javascript">
@@ -15,6 +15,18 @@
 		var form = document.forms[0];
 		form.email.addEventListener("input", enableSaveButton);
 		form.phone.addEventListener("input", enableSaveButton);
+		
+		prevImage.addEventListener("click", function(e) {
+			btnImage.click();
+		});
+		
+		btnImage.addEventListener("change", showPreview);
+	}
+	
+	function showPreview(e) {
+		var file = e.target.files[0]; 		// 선택한 이미지의 파일 객체 정보가 저장되는 곳 (파일이 여러개일 수 있으니까 배열로 받아서 한개 가져오기)
+		var imgUrl = URL.createObjectURL(file);		// 파일에 대한 URL 정보를 가져옴 
+		prevImage.src = imgUrl;						// 해당 이미지의 경로 정보를 prevImage.src에 저장시킴
 	}
 	
 	function enableSaveButton(e) {
@@ -27,10 +39,12 @@
 	<%@ include file="../module/navigation.jsp" %> 
 	<section class="container">
 		<c:url var="updateUrl" value="/myInfo"/> <!-- contextPath가 자동으로 들어가는 c:url을 사용하자 -->
-		<form class="large-form" action="${updateUrl }" method="post">
+		<form class="large-form" action="${updateUrl }" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" 업로드를 하기 위해 사용 -->
 			<div class="img-form left">
-				<c:url var="imgUrl" value="/static/img/emp/${sessionScope.loginData.empId}.png" />
-				<img class="img-360" alt="여기에 증명사진이 배치됩니다." src="/static/img/emp/default.png" >
+				<c:url var="imgUrl" value="${imagePath}" />
+				<img id="prevImage" class="img-360" alt="여기에는 증명 사진이 배치됩니다." src="${imgUrl}">
+				<br>
+				<input type="file" id="btnImage" name="uploadImage">
 			</div>
 			<div class="input-form inline">
 				<div class="input-form">
