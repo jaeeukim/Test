@@ -87,6 +87,9 @@
 .input-label-error {
 	color: #FF0063
 }
+.input-label-ok {
+	color: lightgreen;
+}
 
 .btn {
 	padding: 0.4rem 0.8rem;

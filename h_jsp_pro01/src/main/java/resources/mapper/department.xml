@@ -53,7 +53,15 @@
 	
 	<select id="deptTotalRow" resultType="_int">
 		SELECT COUNT(*) FROM DEPARTMENTS
+	</select>
 	
+	
+	
+	<select id="existsManager" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEES WHERE EMPLOYEE_ID = #{id}
+	</select>
+	<select id="existsLocation" resultType="_int">
+		SELECT COUNT(*) FROM LOCATIONS WHERE LOCATION_ID = #{id}
 	</select>
 	
 	

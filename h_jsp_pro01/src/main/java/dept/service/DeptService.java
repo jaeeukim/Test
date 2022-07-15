@@ -194,6 +194,22 @@ public class DeptService {
 		dao.close();
 		return 0;
 	}
+
+	public boolean existsManager(String value) {
+		dao = new DeptDAO();
+		
+		boolean result = dao.selectManager(Integer.parseInt(value));
+		dao.close();
+		return result;
+	}
+
+	public boolean existsLocation(String value) {
+		dao = new DeptDAO();
+		
+		boolean result = dao.selectLocation(Integer.parseInt(value));
+		dao.close();
+		return result;
+	}
 	
 	
 }
