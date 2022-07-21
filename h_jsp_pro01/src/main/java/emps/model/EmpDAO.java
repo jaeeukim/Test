@@ -10,10 +10,18 @@ import org.apache.ibatis.session.SqlSession;
 
 import common.util.AbstractDAO;
 import conn.db.DBConn;
+import dept.model.DeptDTO;
 
 public class EmpDAO extends AbstractDAO{
 
 	private String mapper = "empMapper.%s";
+	
+	public EmpDTO selectId(int id) {
+		String mapId = String.format(mapper, "selectId");
+		EmpDTO data = session.selectOne(mapId, id);
+		return data;
+	}
+
 	
 	public List<EmpDTO> selectAll() {
 		String mapId = String.format(mapper, "selectAll");
@@ -53,11 +61,33 @@ public class EmpDAO extends AbstractDAO{
 		return result == 1 ? true : false;
 	}
 
-	public boolean updateEmployee(EmpDetailDTO updateEmpDetailData) {
+	public boolean updateEmployeeDetail(EmpDetailDTO updateEmpDetailData) {
 		String mapId = String.format(mapper, "updateEmployeeDetail");
 		int result = session.update(mapId, updateEmpDetailData);
 		return result == 1 ? true : false;
 	}
+
+//	public EmpDTO searchId(int deptId) {
+//		String mapId = String.format(mapper, "empSelectId");
+//		EmpDTO datas = session.selectOne(mapId, deptId);
+//		return datas;
+//	}
+
+//	public boolean insertDept(EmpDTO empDto) {
+//		String mapId = String.format(mapper, "empInsert");
+//		int result = session.insert(mapId, empDto);
+//		return result == 1 ? true : false;
+//	}
+
+
+	public boolean insertEmployee(EmpDTO empData) {
+		String mapId = String.format(mapper, "insertEmployee");
+		int result = session.insert(mapId, empData);
+		return result == 1 ? true : false;
+	}
+
+
+
 
 	
 

@@ -53,7 +53,10 @@ public class MyInfoController extends HttpServlet {
 			
 			// 로그인을 한 사원의 이미지 /static/img/emp/사원ID.png가 있는지 확인 후
 			// 있으면 사원ID.png를 사용, 없으면 default.png를 사용한다.
+			String imagePath = empService.getProfileImage(request, "/static/img/emp/", empData);
+			request.setAttribute("imagePath", imagePath);
 			
+			/* empService에 몰아 넣었음
 			String realPath = request.getServletContext().getRealPath("/static/img/emp/"); //서버의 실제 주소
 			File file = new File(realPath + empData.getEmpId() + ".png"); //파일 존재를 확인하기 위해 사용
 
@@ -63,6 +66,7 @@ public class MyInfoController extends HttpServlet {
 			} else {
 				request.setAttribute("imagePath", "/static/img/emp/default.png");
 			}
+			*/
 			
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);			

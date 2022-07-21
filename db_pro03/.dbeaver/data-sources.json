@@ -64,18 +64,18 @@
 		"oracle_thin-1808ce0797f-7fa3c9e4c463a7f5": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "ORCL",
-			"save-password": false,
+			"name": "CHOIYOUNGWON",
+			"save-password": true,
 			"read-only": false,
 			"configuration": {
-				"host": "localhost",
+				"host": "152.67.221.48",
 				"port": "1521",
-				"database": "ORCL",
-				"url": "jdbc:oracle:thin:@db202204211241_medium?TNS_ADMIN=C:\\\\Users\\\\USER\\\\eclipse\\\\oracle\\\\Wallet_DB202204211241",
+				"database": "XE",
+				"url": "jdbc:oracle:thin:@//152.67.221.48:1521/XE",
 				"home": "C:\\app\\USER\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
 				"provider-properties": {
-					"@dbeaver-connection-type@": "CUSTOM",
+					"@dbeaver-connection-type@": "BASIC",
 					"show-only-one-schema@": "false",
 					"@dbeaver-check-schema-content@": "false",
 					"@dbeaver-always-show-dba@": "false",
@@ -88,7 +88,8 @@
 					"oracle.meta-search-in-synonyms": "false",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
-				"auth-model": "oracle_native"
+				"auth-model": "oracle_native",
+				"handlers": {}
 			}
 		},
 		"oracle_thin-1808ce079d4-5c9cfa2d570bb51d": {
@@ -148,8 +149,7 @@
 					"@dbeaver-connection-type@": "BASIC",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
-				"auth-model": "oracle_native",
-				"handlers": {}
+				"auth-model": "oracle_native"
 			}
 		}
 	},
@@ -158,7 +158,7 @@
 			"name": "Development",
 			"color": "255,255,255",
 			"description": "Regular development database",
-			"auto-commit": true,
+			"auto-commit": false,
 			"confirm-execute": false,
 			"confirm-data-change": false,
 			"auto-close-transactions": false

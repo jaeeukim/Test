@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.Parameter;
+import dept.model.DeptDTO;
+import dept.service.DeptService;
 import emps.model.EmpDTO;
 import emps.service.EmpService;
 
@@ -33,7 +35,6 @@ public class EmpsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int page = param.defaultIntValue(request, "page", "1");
 		int pageCount = param.defaultSessionIntValue(request, "pageCount", "10");				
-		
 		
 		
 		List<EmpDTO> datas = service.getEmpPage(page, pageCount);

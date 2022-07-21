@@ -16,7 +16,7 @@
 		<div>
 			<form action="./emps" method="get">
 				<div class="input-form form-left">
-					<button class="btn btn-outline" type="button" onclick="location.href='./emps/add'">추가</button>
+					<button class="btn btn-outline" type="button" name="addbuttons" onclick="location.href='./emps/add'">추가</button>
 				</div>
 				<div class="input-form form-right">
 					<input class="input-text" type="text" name="search" data-required="부서코드를 입력하세요.">
@@ -52,13 +52,22 @@
 			</thead>
 			<tbody>
 				<c:if test="${not empty datas }">
+					<c:url var="detailUrl" value="/emps/detail"/>
 					<c:forEach items="${datas }" var = "data"> <%-- var = 반복문 안에서 사용될 el문의 이름 --%>
-							<tr>
+						<%--
+							<c:url var="detailUrl" value="/emps/detail">
+								<c:param name="id" value="${data.empId}"/>
+							</c:url>  로도 사용 가능하다.							
+						 --%>
+					
+					
+						<tr onclick="location.href='${detailUrl}?id=${data.empId}'">
 							<td>${data.empId }</td>
 							<td>${data.empName }</td>
 							<td>${data.email }</td>
 							<td>${data.jobName }</td>
 							<td>${data.deptName }</td>
+							<%-- 수정 및 삭제는 페이지 상세내역안에 넣을 예정
 							<td class="border-hidden-right">
 								<c:url var="modUrl" value="./emps/mod">
 									<c:param name="id" value="${data.empId }"/>
@@ -73,6 +82,7 @@
 									<span class="material-symbols-outlined">delete</span>
 								</button>
 							</td>
+							 --%>
 						</tr>
 					</c:forEach>
 				</c:if>

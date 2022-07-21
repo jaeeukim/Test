@@ -9,36 +9,64 @@ public class EmpDetailDTO {
 	private int salary;
 	private double commission;
 	private int mngId;
+	
 	public int getEmpId() {
 		return empId;
 	}
 	public void setEmpId(int empId) {
 		this.empId = empId;
 	}
+	public void setEmpId(String empId) {
+		this.empId = Integer.parseInt(empId);
+	}
+	
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
 	public Date getHireDate() {
 		return hireDate;
 	}
 	public void setHireDate(Date hireDate) {
 		this.hireDate = hireDate;
 	}
+	public void setHireDate(String hireDate) {
+		if(hireDate != null) {
+			if(hireDate.isEmpty()) {
+				this.hireDate = new Date(new java.util.Date().getTime());							
+			} else {
+				this.hireDate = Date.valueOf(hireDate);				
+			}
+		} else {
+			this.hireDate = new Date(new java.util.Date().getTime());			
+		}
+	}
+	
 	public int getSalary() {
 		return salary;
 	}
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
+	public void setSalary(String salary) {
+		if(salary == null) salary = "0";
+		this.salary = Integer.parseInt(salary);
+	}
+	
 	public double getCommission() {
 		return commission;
 	}
 	public void setCommission(double commission) {
 		this.commission = commission;
 	}
+	public void setCommission(String commission) {
+		if(commission == null) commission = "0";
+		this.commission = Double.parseDouble(commission);
+	}
+	
 	public int getMngId() {
 		return mngId;
 	}
