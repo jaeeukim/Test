@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import job.service.JobService;
 
 
 @WebServlet("/emps/modify")
+@MultipartConfig
 public class EmpModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private String view = "/WEB-INF/jsp/emps/modify.jsp";
