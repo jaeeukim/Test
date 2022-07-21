@@ -65,11 +65,11 @@
 							<button type="button" class="btn btn-icon" onclick="location.href='${modUrl}'">
 								<span class="material-symbols-outlined">edit</span>
 							</button>
-							<c:url var="delUrl" value="./depts/del">
+							<c:url var="delUrl" value="./locs/del">
 								<c:param name="id" value="${data.locId }" />
 							</c:url>
 							<button type="button" class="btn btn-icon" onclick="location.href='${delUrl}'">
-								<span class="material-symbols-outlined">edit</span>
+								<span class="material-symbols-outlined">delete</span>
 							</button>
 					</td>		
 				</tr>

@@ -27,18 +27,18 @@ public class AjaxExistsController extends HttpServlet {
 				
 		String errCode =  "\"code\": \"%s\"";;
 		String errMsg =  "\"message\": \"%s\"";
-		if(name.equals("mngId")) {
+		if(name.equals("mngId") && !value.isEmpty()) {
 			boolean isExists = deptService.existsManager(value);
-			if(isExists) {		// 중복체크
+			if(!isExists) {		// 중복체크
 				errCode = String.format(errCode, "error");
 				errMsg = String.format(errMsg, "관리자 ID가 존재하지 않습니다.");
 			} else {
 				errCode = String.format(errCode, "success");
 				errMsg = String.format(errMsg, "사용 가능한 부서ID 입니다.");
 			}
-		} else if (name.equals("locId")) {
+		} else if (name.equals("locId") && !value.isEmpty()) {
 			boolean isExists = deptService.existsLocation(value);
-			if(isExists) {		// 중복체크
+			if(!isExists) {		// 중복체크
 				errCode = String.format(errCode, "error");
 				errMsg = String.format(errMsg, "지역 ID가 존재하지 않습니다.");
 			} else {

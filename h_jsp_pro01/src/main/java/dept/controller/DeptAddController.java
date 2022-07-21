@@ -33,13 +33,14 @@ public class DeptAddController extends HttpServlet {
 		String locId = request.getParameter("locId");
 		
 		DeptDTO data =  service.addDept(deptId, deptName, mngId, locId);
-		
 		request.setAttribute("data", data);
 		
 		String view = "/WEB-INF/jsp/dept/add.jsp";
 		if(data != null) {
 			if(data.getDeptId() != -1 && data.getMngId() != -1 && data.getLocId() != -1) {
 				response.sendRedirect(request.getContextPath() + "/depts?search=" + data.getDeptId());
+				
+				return;
 			} else {
 				Map<String, String> error = new HashMap<String, String>();
 				
