@@ -11,6 +11,12 @@
 		<result column="DEPARTMENT_NAME" property="deptName"/>
 		<result column="DEPARTMENT_ID" property="deptId"/>
 	</resultMap>
+	
+	<delete id="deleteId">
+		DELETE FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{id}
+	</delete>
+	
 	<insert id="insertEmployee" parameterType="empDto">
 		INSERT INTO EMPLOYEES(EMPLOYEE_ID
 							, FIRST_NAME

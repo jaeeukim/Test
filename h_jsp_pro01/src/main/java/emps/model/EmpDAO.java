@@ -87,6 +87,13 @@ public class EmpDAO extends AbstractDAO{
 	}
 
 
+	public boolean deleteId(int id) {
+		String mapId = String.format(mapper, "deleteId");
+		int result = session.insert(mapId, id);
+		return result == 1 ? true : false;
+	}
+
+
 
 
 	
