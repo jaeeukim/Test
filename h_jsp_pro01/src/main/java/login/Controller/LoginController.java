@@ -27,7 +27,7 @@ public class LoginController extends HttpServlet {
 		RequestDispatcher rd = null;
 		// 만약 세션으로 가져온 속성이 비어있다면 (로그인 X)
 		if(session.getAttribute("loginData") == null) {
-			List<DeptDTO> deptList =deptService.getAll();
+			List<DeptDTO> deptList = deptService.getAll();
 			request.setAttribute("deptList", deptList);			
 			rd = request.getRequestDispatcher(view);
 		} else {

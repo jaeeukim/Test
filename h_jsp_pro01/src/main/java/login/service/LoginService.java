@@ -8,6 +8,7 @@ import javax.websocket.Session;
 
 import emps.model.EmpDTO;
 import login.model.LoginDAO;
+import login.model.PermDTO;
 
 public class LoginService {
 
@@ -34,6 +35,12 @@ public class LoginService {
 		if(data == null) {
 			return false;
 		} else {
+			Map<String, PermDTO> permData = new HashMap<String, PermDTO>();
+			for(PermDTO perm: dao.selectPermission(data.getEmpId())) {
+				permData.put(perm.getTableName(), perm);
+			}
+			// System.out.println(permData); //구조확인용 
+			session.setAttribute("permData", permData);
 			session.setAttribute("loginData", data);
 			return true;
 		}

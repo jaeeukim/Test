@@ -1,20 +1,38 @@
 package dept.controller;
 
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
+import login.model.PermDTO;
 
 @WebServlet("/depts/del")
 public class DeptDelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private DeptService service = new DeptService();
+	
+	//필터로 기능 이동함
+//	@Override
+//	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		// req.getMethod(); // post냐 get이냐 구분
+//
+//		HttpSession session = req.getSession();
+//		PermDTO perm = ((Map<String, PermDTO>)session.getAttribute("permData")).get("departments");
+//		
+//		if(perm.ispRead()) {
+//			super.service(req, resp);			
+//		} else {
+//			resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+//		}
+//	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");

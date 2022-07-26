@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dept.model.DeptDAO;
@@ -50,18 +51,23 @@ public class EmpService {
 		return datas;
 	}
 
-	public List<EmpDTO> getEmpPage(int page, int count) {
+	public List<EmpDTO> getEmpPage(HttpSession session, int page, int count) {
 		EmpDAO dao = new EmpDAO();
-		List<EmpDTO> datas = dao.selectPage((page - 1) * count, count);
+		EmpDTO loginUser = (EmpDTO) session.getAttribute("loginData");
+		int deptId = loginUser.getDeptId();
+		
+		List<EmpDTO> datas = dao.selectPage(loginUser, (page - 1) * count, count);
 		dao.close();
 		return datas;
 	}
 
-	public List<Integer> getPageList(int pageCount) {
+	public List<Integer> getPageList(HttpSession session,int pageCount) {
 		EmpDAO dao = new EmpDAO();
+		EmpDTO loginUser = (EmpDTO) session.getAttribute("loginData");
+
 		List<Integer> pageList = new ArrayList<Integer>();
 		
-		int total = dao.totalRow();
+		int total = dao.totalRow(loginUser);
 		
 		for(int num = 0; num <= (total -1)/pageCount; num++) {
 			pageList.add(num + 1);

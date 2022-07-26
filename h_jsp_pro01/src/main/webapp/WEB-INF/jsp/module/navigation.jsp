@@ -3,12 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%
-	String url = "";
-	if(request.getAttribute("url") != null) {
-		url = (String)request.getAttribute("url");
-	}
-%>
+
 <header>
 	<nav class="top-nav">
 		<ul class="nav">
@@ -35,18 +30,24 @@
 				</ul>
 			</li>
 			<c:if test="${not empty sessionScope.loginData }">
-				<li class="nav-item ${fn:contains(url, 'emps') ? 'active' : ''}">
-					<c:url var="m5" value="/emps" />
-					<a class="nav-link" href="${m5 }">직원</a>
-				</li>
-				<li class="nav-item ${fn:contains(url, 'depts') ? 'active' : ''}">
-					<c:url var="m6" value="/depts" />
-					<a class="nav-link" href="${m6 }">부서</a>
-				</li>
-				<li class="nav-item ${fn:contains(url, 'locs') ? 'active' : ''}">
-					<c:url var="m7" value="/locs" />
-					<a class="nav-link" href="${m7 }">지역</a>
-				</li>
+				<c:if test="${sessionScope.permData.employees.pRead}">
+					<li class="nav-item ${fn:contains(url, 'emps') ? 'active' : ''}">
+						<c:url var="m5" value="/emps" />
+						<a class="nav-link" href="${m5 }">직원</a>
+					</li>
+				</c:if>
+				<c:if test="${sessionScope.permData.departments.pRead}">
+					<li class="nav-item ${fn:contains(url, 'depts') ? 'active' : ''}">
+						<c:url var="m6" value="/depts" />
+						<a class="nav-link" href="${m6 }">부서</a>
+					</li>
+				</c:if>
+				<c:if test="${sessionScope.permData.locations.pRead}">
+					<li class="nav-item ${fn:contains(url, 'locs') ? 'active' : ''}">
+						<c:url var="m7" value="/locs" />
+						<a class="nav-link" href="${m7 }">지역</a>
+					</li>
+				</c:if>
 			</c:if>
 		</ul>
 		<c:if test="${not empty sessionScope.loginData }">

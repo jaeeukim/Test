@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.util.Parameter;
 import dept.model.DeptDTO;
@@ -33,12 +34,14 @@ public class EmpsController extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
 		int page = param.defaultIntValue(request, "page", "1");
 		int pageCount = param.defaultSessionIntValue(request, "pageCount", "10");				
 		
-		
-		List<EmpDTO> datas = service.getEmpPage(page, pageCount);
-		List<Integer> pageList = service.getPageList(pageCount);
+		// session을 추가해서 해당 부서내용만 조회가능하게 만듦
+		List<EmpDTO> datas = service.getEmpPage(session, page, pageCount);
+		List<Integer> pageList = service.getPageList(session, pageCount);
 		// List<EmpDTO> datas = service.getEmpAll();
 		
 		request.setAttribute("datas", datas);

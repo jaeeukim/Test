@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
+import login.model.PermDTO;
 
 
 @WebServlet("/depts/add")
@@ -19,6 +21,20 @@ public class DeptAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private DeptService service = new DeptService();
+	
+//	@Override
+//	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		// req.getMethod(); // post냐 get이냐 구분
+//
+//		HttpSession session = req.getSession();
+//		PermDTO perm = ((Map<String, PermDTO>)session.getAttribute("permData")).get("departments");
+//		
+//		if(perm.ispRead()) {
+//			super.service(req, resp);			
+//		} else {
+//			resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+//		}
+//	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String view = "/WEB-INF/jsp/dept/add.jsp";

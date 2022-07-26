@@ -20,6 +20,6 @@ public class UrlFilter extends HttpFilter implements Filter {
 		request.setAttribute("url", url);
 		chain.doFilter(request, response);
 	}
-
+	
 
 }

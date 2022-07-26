@@ -14,12 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 // 원하는 경로를 싸그리 집어 넣는다
-@WebFilter(
-		urlPatterns = {
-				"/depts", "/locs", "/emps",
-				"/depts/*", "/locs/*", "/emps/*"
-		}
-)
+//@WebFilter(
+//		filterName = "LoginFilter",
+//		urlPatterns = {
+//				"/myInfo",
+//				"/depts", "/locs", "/emps",
+//				"/depts/*", "/locs/*", "/emps/*"
+//		}
+//)
 
 //로그인 하지 않으면 정보를 볼 수없게 하는 필터 
 public class LoginFilter extends HttpFilter implements Filter {
