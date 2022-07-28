@@ -29,16 +29,16 @@
 	<header></header>
 	<section class="container"> 
 		<div class="mt-3">
-			<form action="/board/add" method="post">
+			<form action="/jsp01/board/add" method="post">
 				<div class="mb-3">
-					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요.">
+					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title }">
 				</div>
 				<div class="mb-3">
 					<textarea class="form-control" id="id_content" name="content"
-					      rows="5" placeholder="내용을 입력하세요.">	</textarea>
+					      rows="5" placeholder="내용을 입력하세요.">${param.content }</textarea>
 				</div>
 				<div class="text-end">
-					<button type="button" class="btn btn-danger" onclick="formCheck(this.form);" data-bs-toggle="modal"  data-bs-target="#errorModal">저장</button>
+					<button type="button" class="btn btn-primary" onclick="formCheck(this.form);">저장</button>
 				</div>
 			</form>
 		</div>
@@ -46,19 +46,28 @@
 		  	<div class="modal-dialog">
 			    <div class="modal-content">
 				      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">오류</h5>
+					        <h5 class="modal-title" id="errorModalLabel">오류</h5>
 					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				       	 	제목은 공란이 올 수 없습니다. 반드시 제목을 입력하세요.
+				      		<c:choose>
+				      			<c:when test="${empty errorMsg }">
+						       	 	제목은 공란이 올 수 없습니다. 반드시 제목을 입력하세요.
+								</c:when>				      			
+				      		</c:choose>
 				      </div>
 				      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">확인</button>
 				      </div>
 				    </div>
 			  </div>
 		</div>
 	</section>
 	<footer></footer>
+	<c:if test="${not empty errorMsg}">
+		<script type="text/javascript">
+			var modal = 
+		</script>
+	</c:if>
 </body>
 </html>
