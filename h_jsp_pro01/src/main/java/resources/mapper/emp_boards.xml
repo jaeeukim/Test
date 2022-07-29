@@ -29,4 +29,44 @@
 		VALUES(EMP_BOARDS_SEQ.NEXTVAL, #{title}, #{content}, #{empId}, SYSDATE)
 	</insert>
 
+	<select id="selectData" resultType="empBoardDto">
+		SELECT ID, TITLE, CONTENT
+			 , EMPID, CREATEDATE
+			 , VIEW_CNT as viewCnt, "LIKE"
+	      FROM EMP_BOARDS
+	     WHERE ID = #{id}
+	</select>
+	<update id="updateViewCnt" parameterType="empBoardDto">
+		UPDATE EMP_BOARDS
+		   SET VIEW_CNT = #{viewCnt} + 1
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="updateLike" parameterType="empBoardDto">
+		UPDATE EMP_BOARDS
+		   SET "LIKE" = #{like} + 1
+		 WHERE ID = #{id}
+	</update>
+	 <!--date1은 마지막조회날짜/ date2는 마지막 좋아요 날짜 -->
+	<select id="selectStatis" resultType="empBoardStatisDto" parameterType="empBoardDto">
+		SELECT ID, EMPID, BID
+			 , ISVIEW AS "view"
+			 , LATEST_DATE1 AS latestView	 
+			 , ISLIKE AS "like"
+			 , LATEST_DATE2 AS latestLike
+		  FROM EMP_BOARDS_STATISTICS
+		 WHERE EMPID = #{empId}
+		   AND BID = #{id}
+	</select>
+	<insert id="insertStatis" parameterType="empBoardDto">
+		INSERT INTO EMP_BOARDS_STATISTICS
+		 	   VALUES(EMP_BOARDS_STATISTICS_SEQ.NEXTVAL
+		 	   		, #{empId}, #{id}, 'Y', SYSDATE, 'N', NULL)
+	</insert>
+	<update id="updateStatis" parameterType="empBoardStatisDto">
+		UPDATE EMP_BOARDS_STATISTICS
+		   SET LATEST_DATE1 = SYSDATE
+		 WHERE EMPID = #{empId}
+		   AND BID = #{id}	
+	</update>
 </mapper>

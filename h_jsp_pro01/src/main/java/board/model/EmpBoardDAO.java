@@ -27,8 +27,39 @@ public class EmpBoardDAO {
     	return result == 1 ? true : false;
     }
 
+    public EmpBoardDTO selectData(int id) {
+    	EmpBoardDTO result = session.selectOne("empBoardsMapper.selectData", id);
+    	return result;
+    }
 
-	public void commit() {
+    public boolean updateViewCnt(EmpBoardDTO data) {
+    	int result = session.update("empBoardsMapper.updateViewCnt", data);
+
+    	return result == 1 ? true : false;
+    }
+    
+    public boolean updateLike(EmpBoardDTO data) {
+    	int result = session.update("empBoardsMapper.updateLike", data);
+    	
+    	return result == 1 ? true : false;
+    }
+    
+    public EmpBoardStatisDTO selectStatis(EmpBoardDTO data) {
+    	EmpBoardStatisDTO result = session.selectOne("empBoardsMapper.selectStatis", data);
+    	return result;
+    }
+
+    public boolean insertStatis(EmpBoardDTO data) {
+    	int result = session.insert("empBoardsMapper.insertStatis", data);
+    	return result == 1 ? true : false; 
+    }
+    
+    public boolean updateStatis(EmpBoardStatisDTO data) {
+    	int result = session.update("empBoardsMapper.updateStatis", data);
+    	return result == 1 ? true : false;     	
+    }
+    
+    public void commit() {
 		this.session.commit();
 	}
 	
@@ -39,5 +70,7 @@ public class EmpBoardDAO {
 	public void rollback() {
 		this.session.rollback();
 	}
+
+
 
 }

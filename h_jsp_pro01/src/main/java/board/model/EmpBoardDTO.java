@@ -10,6 +10,8 @@ public class EmpBoardDTO {
 	private String content;
 	private int empId;
 	private Date createDate;
+	private int viewCnt;
+	private int like;
 
 
     public EmpBoardDTO() {   }
@@ -64,5 +66,23 @@ public class EmpBoardDTO {
 		this.createDate = createDate;
 	}
 
+	public int getViewCnt() {
+		return viewCnt;
+	}
+
+
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
+
+	public int getLike() {
+		return like;
+	}
+
+
+	public void setLike(int like) {
+		this.like = like;
+	}
 
 }
