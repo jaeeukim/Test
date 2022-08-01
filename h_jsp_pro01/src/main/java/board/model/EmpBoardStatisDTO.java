@@ -5,7 +5,7 @@ import java.sql.Date;
 public class EmpBoardStatisDTO {
 	private int id;
 	private int empId;
-	private int bid;
+	private int bId;
 	private boolean view;
 	private Date latestView;
 	private boolean like;
@@ -27,12 +27,12 @@ public class EmpBoardStatisDTO {
 		this.empId = empId;
 	}
 	
-	public int getBid() {
-		return bid;
+	public int getBId() {
+		return bId;
 	}
 	
-	public void setBid(int bid) {
-		this.bid = bid;
+	public void setBId(int bId) {
+		this.bId = bId;
 	}
 	
 	public boolean isView() {
@@ -69,7 +69,7 @@ public class EmpBoardStatisDTO {
 	
 	@Override
 	public String toString() {
-		return "EmpBoardStatisDTO [id=" + id + ", empId=" + empId + ", bid=" + bid + ", view=" + view + ", latestView="
+		return "EmpBoardStatisDTO [id=" + id + ", empId=" + empId + ", bId=" + bId + ", view=" + view + ", latestView="
 				+ latestView + ", like=" + like + ", latestLike=" + latestLike + "]";
 	}
 	

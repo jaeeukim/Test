@@ -13,8 +13,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.EmpBoardDTO;
+import board.model.EmpBoardStatisDTO;
 import board.service.EmpBoardService;
 import emps.model.EmpDTO;
 import emps.service.EmpService;
@@ -31,7 +33,6 @@ public class EmpBoardDetailController extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		EmpBoardDTO data = service.getData(Integer.parseInt(id));
-		
 		/*	테이블을 만들었기 때문에 쿠키는 주석처리
 		// 좋아요 올리기 
 		// 1회만 가능하게 하기 위해 작성함 
@@ -59,9 +60,8 @@ public class EmpBoardDetailController extends HttpServlet {
 				service.incViewCnt(data);
 			}
 			*/
-			
 		if(data != null) {
-			service.incViewCnt(data);
+			service.incViewCnt(request.getSession(), data);
 			EmpService empService = new EmpService();
 			EmpDTO empData = empService.getId("" + data.getEmpId());
 			
@@ -87,10 +87,12 @@ public class EmpBoardDetailController extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		StringBuilder sb = new StringBuilder();
+		
 		sb.append("{");
 		if(data != null) {
-			service.incLike(data);
-			sb.append(String.format("\"%s\": \"%s\"", "code", "success"));
+			service.incLike(request.getSession(), data);
+			sb.append(String.format("\"%s\": \"%s\",", "code", "success"));
+			sb.append(String.format("\"%s\": %d", "likeCnt", data.getLike()));
 		}
 		sb.append("}");
 		

@@ -56,17 +56,43 @@
 			 , LATEST_DATE2 AS latestLike
 		  FROM EMP_BOARDS_STATISTICS
 		 WHERE EMPID = #{empId}
-		   AND BID = #{id}
+		   AND BID = #{bId}
 	</select>
-	<insert id="insertStatis" parameterType="empBoardDto">
+	<insert id="insertStatis" parameterType="empBoardStatisDto">
 		INSERT INTO EMP_BOARDS_STATISTICS
 		 	   VALUES(EMP_BOARDS_STATISTICS_SEQ.NEXTVAL
-		 	   		, #{empId}, #{id}, 'Y', SYSDATE, 'N', NULL)
+		 	   		, #{empId}, #{bId}, 'Y', SYSDATE, 'N', NULL)
 	</insert>
 	<update id="updateStatis" parameterType="empBoardStatisDto">
 		UPDATE EMP_BOARDS_STATISTICS
 		   SET LATEST_DATE1 = SYSDATE
 		 WHERE EMPID = #{empId}
-		   AND BID = #{id}	
+		   AND BID = #{bId}	
 	</update>
+	<update id="updateLikeStatis" parameterType="empBoardStatisDto">
+		UPDATE EMP_BOARDS_STATISTICS
+		   SET LATEST_DATE2 = SYSDATE
+		   <choose>
+		   		<when test="like">
+		   			, ISLIKE = 'Y'
+		   		</when>
+		   		<otherwise>
+		   			, ISLIKE = 'N'		   		
+		   		</otherwise>
+		   </choose> 	   	 
+		 WHERE EMPID = #{empId}
+		   AND BID = #{bId}	
+	</update>
+	<select id="boardSelectAll" resultType="empBoardDto">
+		SELECT * FROM EMP_BOARDS
+	</select>
+	<!-- 
+	<select id="boardTotalRow" resultType="_int">
+			SELECT COUNT(*) FROM EMP_BOARDS
+	</select>
+	<select id="boardSelectId" resultMap="empBoardDto">
+		SELECT * FROM EMP_BOARDS
+		 WHERE ID = #{id}
+	</select>
+	 -->
 </mapper>

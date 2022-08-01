@@ -35,9 +35,16 @@
 					<label id="id_like" class="text-secondary text-opacity-75">${data.like}</label>
 				</div>
 			</div>
-		</div>
-		<div class="mb-1 text-end">
-			<button class="btn btn-primary" type="button">수정</button>
+			<div class="mb-1 text-end">
+				<button class="btn btn-primary" type="button" onclick="location.href='../board'">목록</button>			
+				<c:if test="${data.empId eq sessionScope.loginData.empId}">
+					<c:url var="boardModUrl" value="/board/mod">
+						<c:param name="id" value="${data.id}" />
+					</c:url>
+					<button class="btn btn-primary" type="button" onclick="location.href='${boardModUrl}'">수정</button>
+					<button class="btn btn-primary" type="button">삭제</button>
+				</c:if>
+			</div>
 		</div>
 	</section>
 	<footer></footer>
@@ -51,7 +58,7 @@
 				},
 				success: function(data) {
 					if(data.code === "success") {
-						element.innerText = parseInt(element.innerText) + 1;			
+						element.innerText = data.likeCnt;			
 					}
 				}
 			});

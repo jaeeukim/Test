@@ -7,7 +7,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>게시판 등록</title>
+	<title>게시판 수정</title>
 	<link rel="stylesheet" type="text/css" href="/jsp01/static/bs5/css/bootstrap.min.css">
 	<script type="text/javascript" src="/jsp01/static/bs5/js/bootstrap.min.js"></script>
 </head>
@@ -29,7 +29,7 @@
 	<header></header>
 	<section class="container"> 
 		<div class="mt-3">
-			<form action="/jsp01/board/mod" method="post">
+			<form action="/jsp01/board/add" method="post">
 				<div class="mb-3">
 					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title }">
 				</div>

@@ -15,7 +15,7 @@
 <body>
 	<%@ include file="../module/navigation.jsp" %>
 	<h1>locations 조회</h1>
-	<section = class="container">
+	<section class="container">
 		<div>
 			<form action="./locs" method="get">
 				<div>
