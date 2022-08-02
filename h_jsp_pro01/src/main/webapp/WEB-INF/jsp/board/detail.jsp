@@ -24,7 +24,7 @@
 				<label class="pe-3 text-secondary text-opacity-75">${empData.empName }</label>
 				<fmt:formatDate value="${data.createDate}" var="createDate" dateStyle="long"/>			
 				<label class="pe-3 text-secondary text-opacity-75">${createDate }</label>			
-				<label class="pe-3 text-secondary text-opacity-75">${data.viewCnt }</label>			
+				<label class="pe-3 text-secondary text-opacity-75">조회수 : ${data.viewCnt }</label>			
 			</div>
 			<div class="mb-1 border-bottom border-2 border-secondary">
 				<p>${data.content }</p>

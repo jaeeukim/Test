@@ -58,7 +58,7 @@ public class EmpBoardService {
 		
 		boolean result = false;
 		EmpBoardStatisDTO statisData = new EmpBoardStatisDTO();
-		statisData.setId(data.getId());
+		statisData.setBId(data.getId());
 		statisData.setEmpId(empData.getEmpId());   //쿠키 대신 db를 사용해서 필요한 구문
 		
 		statisData = dao.selectStatis(statisData);
@@ -101,13 +101,15 @@ public class EmpBoardService {
 		
 		boolean result = false;
 		EmpBoardStatisDTO statisData = new EmpBoardStatisDTO();
-		statisData.setId(data.getId());
+		statisData.setBId(data.getId());
 		statisData.setEmpId(empData.getEmpId());
 		
 		statisData = dao.selectStatis(statisData);
 		
-		System.out.println(statisData.getBId());
-		System.out.println(statisData.isLike());
+		System.out.println(data.getId() + "/" + empData.getEmpId());
+		
+		System.out.println(statisData);
+		
 		if(statisData.isLike()) {
 			// 추천했음 -> 추천수 -1
 			statisData.setLike(false);

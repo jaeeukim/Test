@@ -44,7 +44,7 @@
 	
 	<update id="updateLike" parameterType="empBoardDto">
 		UPDATE EMP_BOARDS
-		   SET "LIKE" = #{like} + 1
+		   SET "LIKE" = #{like}
 		 WHERE ID = #{id}
 	</update>
 	 <!--date1은 마지막조회날짜/ date2는 마지막 좋아요 날짜 -->
