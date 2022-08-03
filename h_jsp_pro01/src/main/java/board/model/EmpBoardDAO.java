@@ -6,6 +6,7 @@ import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import common.util.Paging;
 import conn.db.DBConn;
 import locs.model.LocsDTO;
 
@@ -69,16 +70,11 @@ public class EmpBoardDAO {
     	}
     }
     
-    public List<EmpBoardDTO> searchPage(int start, int end) {
-    	RowBounds rb = new RowBounds(start, end);
-    	Cursor<EmpBoardDTO> cursor = session.selectCursor("empBoardsMapper.boardSelectAll", null, rb);
+    public void selectPage(Paging paging) {
+    	RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
     	
-    	List<EmpBoardDTO> datas = new ArrayList<EmpBoardDTO>();
-    	Iterator<EmpBoardDTO> iter = cursor.iterator();
-    	while(iter.hasNext()) {
-    		datas.add(iter.next());
-    	}
-    	return datas;
+    	Cursor<Object> cursor = session.selectCursor("empBoardsMapper.boardSelectAll", null, rb);
+    	paging.setPageDatas(cursor.iterator());
     }
     
     public int totalRow() {
@@ -95,6 +91,17 @@ public class EmpBoardDAO {
 		return data;
 	}
 	
+	public boolean deleteStatisData(EmpBoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteStatisData", data.getId());
+		return result == 1 ? true : false;		
+	}
+	
+	public boolean deleteData(EmpBoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteData", data.getId());
+		return result == 1 ? true : false;
+	}
+	
+	
     public void commit() {
 		this.session.commit();
 	}
@@ -106,6 +113,12 @@ public class EmpBoardDAO {
 	public void rollback() {
 		this.session.rollback();
 	}
+
+	public boolean updateData(EmpBoardDTO data) {
+		int result = session.update("empBoardsMapper.updateData", data);
+		return result == 1 ? true : false;
+	}
+
 
 
 

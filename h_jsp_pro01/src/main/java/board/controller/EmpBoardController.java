@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.EmpBoardDTO;
 import board.service.EmpBoardService;
+import common.util.Paging;
 import locs.model.LocsDTO;
 
 @WebServlet("/board")
@@ -47,7 +49,18 @@ public class EmpBoardController extends HttpServlet {
 //				}
 //			}
 //		}
-
+		String view = "/WEB-INF/jsp/board/list.jsp";
+		HttpSession session = request.getSession();
+		
+		String page = request.getParameter("page");
+		String limit = (String)session.getAttribute("limit");
+		
+		if(page == null) page = "1";
+		if(limit == null) limit = "5";
+		
+		Paging pageData = service.getPage(page, limit);
+		request.setAttribute("datas", pageData);
+		
 		boardDatas = new ArrayList<EmpBoardDTO>();
 		
 		boardDatas.addAll(service.getAll());
@@ -56,7 +69,6 @@ public class EmpBoardController extends HttpServlet {
 		
 		request.setAttribute("boardDatas", boardDatas);
 	
-		String view = "/WEB-INF/jsp/board/index.jsp";
 		request.getRequestDispatcher(view).forward(request, response);
 	}
 

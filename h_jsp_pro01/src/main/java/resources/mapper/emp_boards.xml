@@ -86,10 +86,26 @@
 	<select id="boardSelectAll" resultType="empBoardDto">
 		SELECT * FROM EMP_BOARDS
 	</select>
-	<!-- 
 	<select id="boardTotalRow" resultType="_int">
 			SELECT COUNT(*) FROM EMP_BOARDS
 	</select>
+	
+	<delete id="deleteData">
+		DELETE FROM EMP_BOARDS
+		 WHERE ID = #{id}
+	</delete>
+	<delete id="deleteStatisData">
+		DELETE FROM EMP_BOARDS_STATISTICS
+		 WHERE BID = #{id}
+	</delete>
+	
+	<update id="updateData">
+		UPDATE EMP_BOARDS
+		   SET TITLE = #{title}
+		     , CONTENT = #{content}
+		 WHERE ID = #{id}
+	</update>
+	<!-- 
 	<select id="boardSelectId" resultMap="empBoardDto">
 		SELECT * FROM EMP_BOARDS
 		 WHERE ID = #{id}

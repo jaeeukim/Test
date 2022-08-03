@@ -9,6 +9,7 @@ import org.apache.catalina.Session;
 import board.model.EmpBoardDAO;
 import board.model.EmpBoardDTO;
 import board.model.EmpBoardStatisDTO;
+import common.util.Paging;
 import dept.model.DeptDAO;
 import dept.model.DeptDTO;
 import emps.model.EmpDTO;
@@ -131,15 +132,14 @@ public class EmpBoardService {
 		dao.close();
 	}
 
-	public List<EmpBoardDTO> getPage(int pageNumber) {
-		EmpBoardDAO dao = new EmpBoardDAO();		
-		int start, end;
-		start = (pageNumber - 1) * 10;
-		end = start + 10;
-	
-		List<EmpBoardDTO> datas = dao.searchPage(start, end);
-		dao.close();
-		return datas;
+	public Paging getPage(String page, String limit) {
+		EmpBoardDAO dao = new EmpBoardDAO();
+		
+		int totalRows = dao.totalRow();
+		
+		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
+		dao.selectPage(paging);
+		return paging;
 	}
 
 	public List<Integer> getPageList() {
@@ -168,6 +168,35 @@ public class EmpBoardService {
 		List<EmpBoardDTO> datas = dao.searchAll();
 		dao.close();
 		return datas;
+	}
+
+	public boolean remove(EmpBoardDTO data) {
+		EmpBoardDAO dao = new EmpBoardDAO();
+		
+		dao.deleteStatisData(data);
+		boolean result = dao.deleteData(data);
+		
+		if(result) {
+			dao.commit();
+		} else {
+			dao.rollback();
+		}
+		dao.close();
+		return result;
+		
+	}
+
+	public boolean modify(EmpBoardDTO data) {
+		EmpBoardDAO dao = new EmpBoardDAO();
+		boolean result = dao.updateData(data);
+		
+		if(result) {
+			dao.commit();
+		} else {
+			dao.rollback();
+		}
+		dao.close();
+		return result;
 	}
 	
 

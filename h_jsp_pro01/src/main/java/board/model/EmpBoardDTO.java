@@ -2,6 +2,8 @@ package board.model;
 
 import java.util.*;
 
+import emps.model.EmpDTO;
+
 
 public class EmpBoardDTO {
 
@@ -12,9 +14,21 @@ public class EmpBoardDTO {
 	private Date createDate;
 	private int viewCnt;
 	private int like;
+    private EmpDTO empObj;
 
 
-    public EmpBoardDTO() {   }
+
+    public EmpDTO getEmpObj() {
+		return empObj;
+	}
+
+
+	public void setEmpObj(EmpDTO empObj) {
+		this.empObj = empObj;
+	}
+
+
+	public EmpBoardDTO() {   }
 
 
 	public int getId() {
