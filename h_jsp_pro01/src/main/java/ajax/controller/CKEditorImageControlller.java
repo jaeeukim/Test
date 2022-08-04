@@ -37,9 +37,9 @@ public class CKEditorImageControlller extends HttpServlet {
 			System.out.println(realPath);
 			part.write(realPath + part.getSubmittedFileName());
 			
-			sb.append(String.format("\"%s\" : %d, ", "uploaded", 1));
-			sb.append(String.format("\"%s\" : \"%s\", ", "fileName", part.getSubmittedFileName()));
-			sb.append(String.format("\"%s\" : \"%s\"", "url", "/static/img/board/" + part.getSubmittedFileName()));
+			sb.append(String.format("\"%s\": %d, ", "uploaded", 1));
+			sb.append(String.format("\"%s\": \"%s\", ", "fileName", part.getSubmittedFileName()));
+			sb.append(String.format("\"%s\": \"%s\"  ", "url", "/jsp01/static/img/board/" + part.getSubmittedFileName()));
 			
 			
 			
