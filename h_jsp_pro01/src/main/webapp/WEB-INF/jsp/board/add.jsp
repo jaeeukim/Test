@@ -10,6 +10,7 @@
 	<title>게시판 등록</title>
 	<link rel="stylesheet" type="text/css" href="/jsp01/static/bs5/css/bootstrap.min.css">
 	<script type="text/javascript" src="/jsp01/static/bs5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/jsp01/static/ckeditor/ckeditor.js"></script>
 </head>
 <script type="text/javascript">
 	function formCheck(form) 	{
@@ -29,7 +30,7 @@
 	<header></header>
 	<section class="container"> 
 		<div class="mt-3">
-			<form action="/jsp01/board/mod" method="post">
+			<form action="/jsp01/board/add" method="post">
 				<div class="mb-3">
 					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title }">
 				</div>
@@ -66,8 +67,14 @@
 	<footer></footer>
 	<c:if test="${not empty errorMsg}">
 		<script type="text/javascript">
-			var modal = 
+		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+			keyboard: false
+		})
+		modal.show();
 		</script>
 	</c:if>
+	<script type="text/javascript">
+		CKEDITOR.replace("content");
+	</script>
 </body>
 </html>
