@@ -69,13 +69,13 @@ public class Paging {
 	}
 	
 	public boolean hasNextPage() {
-		return this.pages.contains(this.nextPage);
-		// return this.nextPage > this.pages.size() ? false : true; 
+	//	return this.pages.contains(this.nextPage);
+		return this.nextPage > this.pages.size() ? false : true; 
 	}
 	
 	public boolean hasPrevPage() {
-		return this.pages.contains(this.prevPage);
-		// return this.prevPage <= 0 ? false : true;
+	//	return this.pages.contains(this.prevPage);
+		return this.prevPage <= 0 ? false : true;
 	}
 	
 }

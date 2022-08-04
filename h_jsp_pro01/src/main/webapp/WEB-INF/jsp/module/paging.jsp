@@ -19,26 +19,22 @@
 			</c:otherwise>
 		</c:choose>
 		<c:forEach items="${datas.getPages(data.currentPage - 2, data.currentPage + 2)}" var="item">
-				<li class="page-item">
-					<a class="page-link ${currentPage == pageList.get(item-1) ? ' active' : '' }" 
-					href="${pageUrl}?page=${item}">${item}</a>
+				<li class="page-item ${datas.currentPage == item ? ' active' : ''}">
+					<a class="page-link" href="${pageUrl}?page=${item}">${item}</a>
 				</li>
 		</c:forEach>
-
-			<c:choose>
-				<c:when test="${datas.hasNextPage()}">
-					<li class="page-item">
-						<a class="page-link bi bi-caret-right-fill" href="${pageUrl}?page=${datas.nextPage}"></a>				
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled">
-						<a class="page-link bi bi-caret-right-fill" href="#"></a>
-					</li>					
-				</c:otherwise>
-			</c:choose>
-			
-		</li>
+		<c:choose>
+			<c:when test="${datas.hasNextPage()}">
+				<li class="page-item">
+					<a class="page-link bi bi-caret-right-fill" href="${pageUrl}?page=${datas.nextPage}"></a>				
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link bi bi-caret-right-fill" href="#"></a>
+				</li>					
+			</c:otherwise>
+		</c:choose>	
 	</ul>
 </div>
 		<%-- EL/JSTL 사용으로 필요 없어짐.
