@@ -10,6 +10,7 @@
 	<title>게시판 수정 - ${data.title}</title>
 	<link rel="stylesheet" type="text/css" href="/jsp01/static/bs5/css/bootstrap.min.css">
 	<script type="text/javascript" src="/jsp01/static/bs5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/jsp01/static/ckeditor/ckeditor.js"></script>	
 </head>
 <script type="text/javascript">
 	function formCheck(form) 	{
@@ -68,8 +69,16 @@
 	<footer></footer>
 	<c:if test="${not empty errorMsg}">
 		<script type="text/javascript">
-			var modal = 
+			var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+				keyboard: false
+			})
+			modal.show();
 		</script>
 	</c:if>
+	<script type="text/javascript">
+		CKEDITOR.replace("content", {
+			filebrowserUploadUrl: "/jsp01/image/upload?type=image"
+		});
+	</script>
 </body>
 </html>

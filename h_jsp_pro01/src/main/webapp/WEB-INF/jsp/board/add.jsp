@@ -74,7 +74,9 @@
 		</script>
 	</c:if>
 	<script type="text/javascript">
-		CKEDITOR.replace("content");
+		CKEDITOR.replace("content", {
+			filebrowserUploadUrl: "/jsp01/image/upload?type=image"
+		});
 	</script>
 </body>
 </html>

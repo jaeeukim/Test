@@ -16,9 +16,7 @@ import emps.model.EmpDTO;
 import locs.model.LocsDAO;
 import locs.model.LocsDTO;
 
-/**
- * 
- */
+
 public class EmpBoardService {
 
 
@@ -142,9 +140,15 @@ public class EmpBoardService {
 		return paging;
 	}
 
-	public Paging getPage(String page, String limit, String parameter) {
+	public Paging getPage(String page, String limit, String search) {
+		EmpBoardDAO dao = new EmpBoardDAO();
 		
-		return null;
+		int totalRows = dao.totalRow(search);
+		
+		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
+		dao.selectPage(paging, search);
+		
+		return paging;
 	}
 	
 	public List<Integer> getPageList() {
@@ -159,6 +163,7 @@ public class EmpBoardService {
 		return pageList;
 	}
 	
+	/*
 	public EmpBoardDTO getId(int id) {
 		EmpBoardDAO dao = new EmpBoardDAO();		
 				
@@ -167,14 +172,13 @@ public class EmpBoardService {
 		dao.close();
 		return data;
 	}
-	
 	public List<EmpBoardDTO> getAll() {
 		EmpBoardDAO dao = new EmpBoardDAO();		
 		List<EmpBoardDTO> datas = dao.searchAll();
 		dao.close();
 		return datas;
 	}
-
+	*/
 	public boolean remove(EmpBoardDTO data) {
 		EmpBoardDAO dao = new EmpBoardDAO();
 		

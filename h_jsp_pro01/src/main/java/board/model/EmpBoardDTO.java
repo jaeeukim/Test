@@ -16,7 +16,10 @@ public class EmpBoardDTO {
 	private int like;
     private EmpDTO empObj;
 
-
+	public EmpBoardDTO() { }
+	public EmpBoardDTO(int id) {
+		this.id = id;
+	}
 
     public EmpDTO getEmpObj() {
 		return empObj;
@@ -28,7 +31,7 @@ public class EmpBoardDTO {
 	}
 
 
-	public EmpBoardDTO() {   }
+	
 
 
 	public int getId() {

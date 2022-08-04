@@ -73,7 +73,7 @@ public class EmpBoardDAO {
     public void selectPage(Paging paging) {
     	RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
     	
-    	Cursor<Object> cursor = session.selectCursor("empBoardsMapper.boardSelectAll", null, rb);
+    	Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", null, rb);
     	paging.setPageDatas(cursor.iterator());
     }
     
@@ -92,7 +92,7 @@ public class EmpBoardDAO {
     	int rowCount = session.selectOne("empBoardsMapper.boardTotalRow", search);
     	return rowCount;
     }
-    
+    /*
 	public List<EmpBoardDTO> searchAll() {
 		List<EmpBoardDTO> datas = session.selectList("empBoardsMapper.boardSelectAll");
 		return datas;
@@ -102,11 +102,11 @@ public class EmpBoardDAO {
 		return data;
 	}
 	
+     */
 	public boolean updateData(EmpBoardDTO data) {
 		int result = session.update("empBoardsMapper.updateData", data);
 		return result == 1 ? true : false;
 	}
-
 	
 	public boolean deleteStatisData(EmpBoardDTO data) {
 		int result = session.delete("empBoardsMapper.deleteStatisData", data.getId());

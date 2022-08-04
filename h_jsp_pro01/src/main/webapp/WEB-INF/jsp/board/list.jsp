@@ -8,10 +8,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시판</title>
-	<%@ include file="../module/head.jsp" %> 	
 	<link rel="stylesheet" type="text/css" href="/jsp01/static/bs5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<script type="text/javascript" src="/jsp01/static/bs5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/jsp01/static/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header></header>
@@ -20,23 +20,27 @@
 			<c:url value="/board" var="boardUrl" />
 			<form action="${boardUrl}" method="get">
 				<div class="row g-1">
-				</div>
-				<div class="col-8">
-					<c:url value="/board/add" var="boardAddUrl" />
-					<button class="btn btn-outline" type="button" onclick="location.href='${boardAddUrl}'">추가</button>
-				</div>
-				<div class="col-3">
-					<input class="input-text" type="text" name="search" data-required="부서코드를 입력하세요.">
-					<button class="btn btn-outline" type="submit">조회</button>
-					<c:url value="/board" var="boardUrl">
-						<c:param name="pgc" />
-					</c:url>
-					<select class="select-form" onchange="location.href='${boardUrl}' + this.value">
-						<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
-						<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10 개</option>
-						<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15 개</option>
-						<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20 개</option>
-					</select>
+					<div class="col-8">
+						<c:url value="/board/add" var="boardAddUrl" />
+						<button class="btn btn-secondary" type="button" onclick="location.href='${boardAddUrl}'">추가</button>
+					</div>
+					<div class="col-3">
+						<div class="input-group">
+							<input class="form-control" type="text" name="search" data-required="부서코드를 입력하세요.">
+							<button class="btn btn-secondary" type="submit">조회</button>
+							<c:url value="/board" var="boardUrl">
+								<c:param name="pgc" />
+							</c:url>
+						</div>
+					</div>
+					<div>
+						<select class="form-select" onchange="location.href='${boardUrl}' + this.value">
+							<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
+							<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10 개</option>
+							<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15 개</option>
+							<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20 개</option>
+						</select>
+					</div>
 				</div>
 			</form>
 		</div>
