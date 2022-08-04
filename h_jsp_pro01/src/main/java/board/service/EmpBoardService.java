@@ -142,6 +142,11 @@ public class EmpBoardService {
 		return paging;
 	}
 
+	public Paging getPage(String page, String limit, String parameter) {
+		
+		return null;
+	}
+	
 	public List<Integer> getPageList() {
 		EmpBoardDAO dao = new EmpBoardDAO();		
 		
@@ -198,6 +203,6 @@ public class EmpBoardService {
 		dao.close();
 		return result;
 	}
-	
+
 
 }
