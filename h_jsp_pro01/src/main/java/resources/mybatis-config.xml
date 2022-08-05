@@ -18,6 +18,7 @@
 		<typeAlias type="login.model.PermDTO" alias="permDto"/>
 		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
 		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
+		<typeAlias type="comment.model.CommentDTO" alias="commentDto"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -39,5 +40,6 @@
 		<mapper resource="resources/mapper/login.xml"/>
 		<mapper resource="resources/mapper/job.xml"/>
 		<mapper resource="resources/mapper/emp_boards.xml"/>
+		<mapper resource="resources/mapper/comment.xml"/>
 	</mappers>
 </configuration>

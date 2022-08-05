@@ -67,29 +67,37 @@
 		
 		<!-- 댓글기능 -->
 		<div class="mb-3">
-			<div class="mb-1">
-				<div class="card border-light">
-					<div class="card-header">
-						<div class="d-flex justify-content-between">
-							<span><small>Steven King</small></span>
-							<span><small>2022년 08월 04일</small></span>
+			<c:forEach items="${commentDatas}" var="comment">
+				<div class="mb-1">
+					<div class="card border-light">
+						<div class="card-header">
+							<div class="d-flex justify-content-between">
+								<span><small>${comment.empName}</small></span>
+								<span><small>${comment.createDate}</small></span>
+							</div>
 						</div>
-					</div>
-					<div class="card-body">
-						<input type="hidden" name="cid" value="1">
-						<p class="card-text">댓글 양식 확인 중</p>
-						<div class="text-end">
-							<button class="btn btn-sm btn-outline-dark" type="button" onclick="changeModify(this)">수정</button>
-							<button class="btn btn-sm btn-outline-dark" type="button" onclick="commentDelete(this)">삭제</button>
+						<div class="card-body">
+							<input type="hidden" name="cid" value="${comment.id}">
+							<p class="card-text">${comment.content}</p>
+							<c:if test="${sessionScope.loginData.empId eq comment.empId}">
+								<div class="text-end">
+									<button class="btn btn-sm btn-outline-dark" type="button" onclick="changeModify(this)">수정</button>
+									<button class="btn btn-sm btn-outline-dark" type="button" onclick="commentDelete(this)">삭제</button>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
-			</div>
+			</c:forEach>
 			<div class="mb-1">
-				<div class="input-group">
-					<textarea class="form-control" rows="3" placeholder="댓글 작성"></textarea>
-					<button class="btn btn-outline-dark" type="button">작성</button>
-				</div>
+				<c:url var="commentUrl" value="/comment" />
+				<form action="${commentUrl}/add" method="post">
+					<input type="hidden" name="bid" value="${data.id}">
+					<div class="input-group">
+						<textarea class="form-control" name="content" rows="3" placeholder="댓글 작성"></textarea>
+						<button class="btn btn-outline-dark" type="button" onclick="formCheck(this.form);">작성</button>
+					</div>
+				</form>
 			</div>
 		</div>
 		<div class="modal fade" tabindex="-1" id="resultModal">
@@ -111,6 +119,15 @@
 	</section>
 	<footer></footer>
 	<script type="text/javascript">
+		function formCheck(form) {
+			if(form.content.value.trim() === "") {
+				alert("댓글을 입력하세요.");
+			} else {
+				form.submit();	
+			}
+		}
+	
+	
 		function incLike(element, id) {
 			$.ajax({
 				url: "/jsp01/board/detail",
@@ -228,6 +245,12 @@
 		card.remove();
 	}
 </script>
+	<c:if test="${sessionScope.error}">
+		<script type="text/javascript">
+			alert("${sessionScope.error}");
+		</script>
+	</c:if>
+
 </body>
 
 </html>

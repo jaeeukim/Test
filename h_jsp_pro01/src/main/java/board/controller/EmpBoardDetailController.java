@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import board.model.EmpBoardDTO;
 import board.model.EmpBoardStatisDTO;
 import board.service.EmpBoardService;
+import comment.model.CommentDTO;
+import comment.service.CommentService;
 import emps.model.EmpDTO;
 import emps.service.EmpService;
 
@@ -63,13 +65,16 @@ public class EmpBoardDetailController extends HttpServlet {
 		if(data != null) {
 			service.incViewCnt(request.getSession(), data);
 			EmpService empService = new EmpService();
+			CommentService commentService = new CommentService();
+			
 			EmpDTO empData = empService.getId("" + data.getEmpId());
-
+			List<CommentDTO> commentDatas = commentService.getDatas(data.getId());
 			// data.setContent(data.getContent().replace("\r\n", "<br>")); <-ckeditor쓰면서 필요없어짐 
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
-			
+			request.setAttribute("commentDatas",  commentDatas);
+			System.out.println(commentDatas);
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);			
 		}else {
