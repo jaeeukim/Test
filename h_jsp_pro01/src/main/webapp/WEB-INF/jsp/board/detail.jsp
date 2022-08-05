@@ -178,9 +178,9 @@
 		
 		element.addEventListener("click", commentUpdate);
 	}
-	function changeText(element) {
+	function changeText(element, value) {
 		element.innerText = "수정";
-		element.removeEventListener("click", commentUpdate);
+		// element.removeEventListener("click", commentUpdate);
 		
 		var btnDelete = document.createElement("button");
 		btnDelete.innerText = "삭제";
@@ -190,7 +190,6 @@
 		// btnDelete.onclick = "commentDelete(" + element.parentElement.parentElement.firstElementChild.value + ");";	
 		element.parentElement.append(btnDelete);
 		
-		var value = element.parentElement.previousElementSibling.children[0].value;
 		element.parentElement.previousElementSibling.children[0].remove();
 		element.parentElement.previousElementSibling.innerText = value;
 		
@@ -209,14 +208,9 @@
 				content: value
 			},
 			success: function(data) {
-				if(data.code === "success"){
-					alert("수정 되었습니다.");					
-				} else {
-					alert("수정이 실패하였습니다.");
-				}
+				changeText(e.target, data.value);
 			},
 			complete: function(){
-				changeText(e.target); //테스트하려고 complete에 빼둠		
 				e.target.removeEventListener("click", commentUpdate);
 			}
 		});

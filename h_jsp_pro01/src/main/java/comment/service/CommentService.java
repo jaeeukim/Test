@@ -49,4 +49,17 @@ public class CommentService {
 		dao.close();
 		return result;
 	}
+
+	public boolean modify(CommentDTO data) {
+		CommentDAO dao = new CommentDAO();
+		boolean result = dao.updateData(data);
+		
+		if(result) {
+			dao.commit();
+		} else {
+			dao.rollback();
+		}
+		dao.close();
+		return result;
+	}
 }

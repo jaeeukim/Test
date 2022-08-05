@@ -74,7 +74,7 @@ public class EmpBoardDetailController extends HttpServlet {
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
 			request.setAttribute("commentDatas",  commentDatas);
-			System.out.println(commentDatas);
+			
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);			
 		}else {

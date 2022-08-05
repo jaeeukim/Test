@@ -43,6 +43,11 @@ public class CommentDAO {
 		session.close();
 	}
 
+	public boolean updateData(CommentDTO data) {
+		int res = session.update("commentMapper.updateData", data);
+		return res == 1? true : false;
+	}
+
 
 	
 }
