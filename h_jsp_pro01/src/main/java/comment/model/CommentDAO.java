@@ -2,8 +2,10 @@ package comment.model;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import common.util.Paging;
 import conn.db.DBConn;
 
 public class CommentDAO {
@@ -31,6 +33,17 @@ public class CommentDAO {
 		
 	}
 	
+	public int totalRow(int bid) {
+		int result = session.selectOne("commentMapper.getTotalRows", bid);
+		return result;
+	}
+	
+	public void selectPage(Paging paging, int bid) {
+		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
+		org.apache.ibatis.cursor.Cursor<Object> cursor = session.selectCursor("commentMapper.selectDatas", bid, rb);
+		paging.setPageDatas(cursor.iterator());
+	}
+	
 	public void commit() {
 		session.commit();
 	}
@@ -47,6 +60,7 @@ public class CommentDAO {
 		int res = session.update("commentMapper.updateData", data);
 		return res == 1? true : false;
 	}
+
 
 
 	

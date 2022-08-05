@@ -20,6 +20,7 @@ import board.model.EmpBoardStatisDTO;
 import board.service.EmpBoardService;
 import comment.model.CommentDTO;
 import comment.service.CommentService;
+import common.util.Paging;
 import emps.model.EmpDTO;
 import emps.service.EmpService;
 
@@ -68,12 +69,21 @@ public class EmpBoardDetailController extends HttpServlet {
 			CommentService commentService = new CommentService();
 			
 			EmpDTO empData = empService.getId("" + data.getEmpId());
-			List<CommentDTO> commentDatas = commentService.getDatas(data.getId());
+			// List<CommentDTO> commentDatas = commentService.getDatas(data.getId()); <-페이징 쓸예정이라 사라짐
+			
+			String page = request.getParameter("page");
+			String limit = "5";
+			page = page == null ? "1" : page;
+			Paging commentPage = commentService.getPage(page, limit, data.getId());
+			
 			// data.setContent(data.getContent().replace("\r\n", "<br>")); <-ckeditor쓰면서 필요없어짐 
+			
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
-			request.setAttribute("commentDatas",  commentDatas);
+			request.setAttribute("commentPage",  commentPage);
+			// request.setAttribute("commentDatas",  commentDatas); <-페이징사용으로 사라짐
+			
 			
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);			

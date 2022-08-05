@@ -44,4 +44,13 @@
 		   SET CONTENT = #{content}
 		 WHERE ID = #{id}
 	</update>
+	
+	<select id="getTotalRows" resultType="_int">
+		SELECT COUNT(*)
+		  FROM COMMENTS C 
+		 WHERE C.BID = #{bid}
+		   AND C.DELETED = 'N'
+	</select>
+
+	
 </mapper>

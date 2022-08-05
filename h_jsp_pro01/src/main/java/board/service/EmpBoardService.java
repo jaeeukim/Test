@@ -105,9 +105,8 @@ public class EmpBoardService {
 		
 		statisData = dao.selectStatis(statisData);
 		
-		System.out.println(data.getId() + "/" + empData.getEmpId());
-		
-		System.out.println(statisData);
+		// System.out.println(data.getId() + "/" + empData.getEmpId());
+		// System.out.println(statisData);
 		
 		if(statisData.isLike()) {
 			// 추천했음 -> 추천수 -1
@@ -137,6 +136,7 @@ public class EmpBoardService {
 		
 		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
 		dao.selectPage(paging);
+		dao.close();
 		return paging;
 	}
 
@@ -147,7 +147,7 @@ public class EmpBoardService {
 		
 		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
 		dao.selectPage(paging, search);
-		
+		dao.close();
 		return paging;
 	}
 	
