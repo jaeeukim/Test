@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="locsMapper">
+	<resultMap type="locsDto" id="locsDtoMap">
+		<result column="LOCATION_ID" property="locId"/>
+		<result column="STREET_ADDRESS" property="streetAd"/>
+		<result column="POSTAL_CODE" property="posCode"/>
+		<result column="CITY" property="city"/>
+		<result column="STATE_PROVINCE" property="staPro"/>
+		<result column="COUNTRY_ID" property="ctrId"/>
+	</resultMap>
+	<select id="locsSelectAll" resultMap="locsDtoMap">
+		SELECT * FROM LOCATIONS
+	</select>
+	
+	<select id="locsSelectId" resultMap="locsDtoMap">
+		SELECT * FROM LOCATIONS
+		 WHERE LOCATION_ID = #{id}
+	</select>
+	
+	<insert id="locsInsert" parameterType="locsDto">
+		INSERT INTO LOCATIONS VALUES
+		 (#{locId}, #{streetAd}, #{posCode}, #{city}, #{staPro}, #{ctrId})
+	</insert>
+	
+	<select id ="existCtrId" resultType="_int">
+		SELECT COUNT(*) FROM COUNTRIES WHERE COUNTRY_ID = #{ctrId}
+	</select>
+	
+	<update id="locsUpdate" parameterType="locsDto">
+		UPDATE LOCATIONS 
+		   SET STREET_ADDRESS = #{streetAd}
+		     , POSTAL_CODE = #{posCode}
+		     , CITY = #{city}
+		     , STATE_PROVINCE = #{staPro}
+		     , COUNTRY_ID = #{ctrId}
+		 WHERE LOCATION_ID = #{locId}
+	</update>
+	
+	<delete id="locsDelete" parameterType="_int"> 
+		DELETE FROM LOCATIONS
+		 WHERE LOCATION_ID = #{id}
+	
+	</delete>
+	
+	<select id="locsTotalRow" resultType="_int">
+			SELECT COUNT(*) FROM LOCATIONS
+	</select>
+	
+	
+</mapper>
