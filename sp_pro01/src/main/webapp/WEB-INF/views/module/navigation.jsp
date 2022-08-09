@@ -31,15 +31,17 @@
 					</ul>
 				</li>
 				<c:if test="${not empty sessionScope.loginData}">
+					<c:url var="mainUrl" value="/" />
 					<li class="nav-item">
-						<a class="nav-link" href="./emps">직원</a>
+						<a class="nav-link" href="${mainUrl}/board">게시판</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="./depts">부서</a>
+						<a class="nav-link" href="${mainUrl}/emps">직원</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="./locs">지역</a>
+						<a class="nav-link" href="${mainUrl}/depts">부서</a>
 					</li>
+					
 				</c:if>
 			</ul>
 			<div class="d-flex">

@@ -11,34 +11,29 @@ public class EmpDTO {
 	private String empFirstName;
 	private String empLastName;
 	
-	
 	public EmpDTO() {}
 	
 	public EmpDTO(int empId, String empName) {
 		this.empId = empId;
-		this.empName = empName;
+		this.setEmpName(empName);
 	}
 	
 	public String getEmpFirstName() {
 		return empFirstName;
 	}
-
-
+	
 	public void setEmpFirstName(String empFirstName) {
 		this.empFirstName = empFirstName;
 	}
-
-
+	
 	public String getEmpLastName() {
 		return empLastName;
 	}
-
-
+	
 	public void setEmpLastName(String empLastName) {
 		this.empLastName = empLastName;
 	}
-
-
+	
 	public int getEmpId() {
 		return empId;
 	}
@@ -107,13 +102,11 @@ public class EmpDTO {
 	public void setDeptId(String deptId) {
 		this.deptId = Integer.parseInt(deptId);
 	}
-
+	
 	@Override
 	public String toString() {
 		return "EmpDTO [empId=" + empId + ", empName=" + empName + ", email=" + email + ", jobName=" + jobName
 				+ ", jobId=" + jobId + ", deptName=" + deptName + ", deptId=" + deptId + ", empFirstName="
 				+ empFirstName + ", empLastName=" + empLastName + "]";
 	}
-	
-
 }

@@ -13,13 +13,13 @@
 </head>
 <body>
 	<header class="mb-3">
-		<%--  <%@ include file="./module/navigation.jsp" %>  --%>
+		<%@ include file="./module/navigation.jsp" %> 
 	</header>
 	<section class="container">
 		<c:if test="${empty sessionScope.loginData}">
 			<%@ include file="./login/login_m.jsp" %>
 		</c:if>
-		<c:if test="${sessionScope.loginData}">
+		<c:if test="${not empty sessionScope.loginData}">
 			${sessionScope.loginData.empName} 님 환영합니다.
 		</c:if>
 	</section>
