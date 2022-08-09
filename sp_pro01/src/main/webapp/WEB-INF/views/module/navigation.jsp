@@ -31,7 +31,7 @@
 					</ul>
 				</li>
 				<c:if test="${not empty sessionScope.loginData}">
-					<c:url var="mainUrl" value="/" />
+					<c:url var="mainUrl" value="." />
 					<li class="nav-item">
 						<a class="nav-link" href="${mainUrl}/board">게시판</a>
 					</li>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="empBoardsMapper">
-	<resultMap type="empBoardDto" id="empBoardMap">
+<mapper namespace="boardMapper">
+	<resultMap type="boardDto" id="boardMap">
 		<constructor>
 			<idArg column="ID" javaType="_int" />
 		</constructor>
@@ -17,13 +17,24 @@
 			<result column="EMPNAME" property="empName" />
 		</association>
 	</resultMap>
+	<select id="selectAll" resultMap="boardMap"> 
+		SELECT B.ID, B.TITLE
+		     , B.EMPID
+		     , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPNAME
+		     , B.CREATEDATE
+		     , B.VIEW_CNT, B."LIKE"
+		  FROM EMP_BOARDS B
+		  JOIN EMPLOYEES E
+		    ON B.EMPID = E.EMPLOYEE_ID
+		 ORDER BY ID DESC
+	</select>
 	<!-- 
 		seq를 적용하는 또 다른 방식 (직접 시퀀스 생성) ->쓰지말고 로직 참고용으로 사용
 		service에서 getNextSeq호출하는 방식으로 진행되어야함 
 	<select id="getNextSeq" resultType="_int">
 		SELECT EMP_BOARDS_SEQ FROM DUAL
 	</select>	
-	<insert id="insertDataAutoSeq" parameterType="empBoardDTO" 
+	<insert id="insertDataAutoSeq" parameterType="boardDto" 
 		useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
 		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE)
 		<choose>
@@ -38,32 +49,32 @@
 	 -->
 	
 	
-	<insert id="insertData" parameterType="empBoardDTO" 
+	<insert id="insertData" parameterType="boardDto" 
 		useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
 		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE) 
 		VALUES(EMP_BOARDS_SEQ.NEXTVAL, #{title}, #{content}, #{empId}, SYSDATE)
 	</insert>
 
-	<select id="selectData" resultType="empBoardDto">
+	<select id="selectData" resultType="boardDto">
 		SELECT ID, TITLE, CONTENT
 			 , EMPID, CREATEDATE
 			 , VIEW_CNT as viewCnt, "LIKE"
 	      FROM EMP_BOARDS
 	     WHERE ID = #{id}
 	</select>
-	<update id="updateViewCnt" parameterType="empBoardDto">
+	<update id="updateViewCnt" parameterType="boardDto">
 		UPDATE EMP_BOARDS
 		   SET VIEW_CNT = #{viewCnt} + 1
 		 WHERE ID = #{id}
 	</update>
 	
-	<update id="updateLike" parameterType="empBoardDto">
+	<update id="updateLike" parameterType="boardDto">
 		UPDATE EMP_BOARDS
 		   SET "LIKE" = #{like}
 		 WHERE ID = #{id}
 	</update>
 	 <!--date1은 마지막조회날짜/ date2는 마지막 좋아요 날짜 -->
-	<select id="selectStatis" resultType="empBoardStatisDto" parameterType="empBoardDto">
+	<select id="selectStatis" resultType="boardStatisDto" parameterType="boardDto">
 		SELECT ID, EMPID, BID
 			 , ISVIEW AS "view"
 			 , LATEST_DATE1 AS latestView	 
@@ -73,18 +84,18 @@
 		 WHERE EMPID = #{empId}
 		   AND BID = #{bId}
 	</select>
-	<insert id="insertStatis" parameterType="empBoardStatisDto">
+	<insert id="insertStatis" parameterType="boardStatisDto">
 		INSERT INTO EMP_BOARDS_STATISTICS
 		 	   VALUES(EMP_BOARDS_STATISTICS_SEQ.NEXTVAL
 		 	   		, #{empId}, #{bId}, 'Y', SYSDATE, 'N', NULL)
 	</insert>
-	<update id="updateStatis" parameterType="empBoardStatisDto">
+	<update id="updateStatis" parameterType="boardStatisDto">
 		UPDATE EMP_BOARDS_STATISTICS
 		   SET LATEST_DATE1 = SYSDATE
 		 WHERE EMPID = #{empId}
 		   AND BID = #{bId}	
 	</update>
-	<update id="updateLikeStatis" parameterType="empBoardStatisDto">
+	<update id="updateLikeStatis" parameterType="boardStatisDto">
 		UPDATE EMP_BOARDS_STATISTICS
 		   SET LATEST_DATE2 = SYSDATE
 		   <choose>
@@ -98,7 +109,7 @@
 		 WHERE EMPID = #{empId}
 		   AND BID = #{bId}	
 	</update>
-	<select id="selectPage" resultMap="empBoardMap" parameterType="String">
+	<select id="selectPage" resultMap="boardMap" parameterType="String">
 		SELECT B.ID, B.TITLE
 		     , B.EMPID
 		     , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPNAME
@@ -112,7 +123,7 @@
 		</if>
 		 ORDER BY ID DESC
 	</select>
-	<select id="boardSelectAll" resultType="empBoardDto">
+	<select id="boardSelectAll" resultType="boardDto">
 		SELECT * FROM EMP_BOARDS
 	</select>
 	<select id="boardTotalRow" resultType="_int" parameterType="String">
@@ -138,7 +149,7 @@
 		 WHERE ID = #{id}
 	</update>
 	<!-- 
-	<select id="boardSelectId" resultMap="empBoardDto">
+	<select id="boardSelectId" resultMap="boardDto">
 		SELECT * FROM EMP_BOARDS
 		 WHERE ID = #{id}
 	</select>
