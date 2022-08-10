@@ -29,7 +29,7 @@ public class BoardService {
     	return datas;
     }
     
-    @Transactional
+    @Transactional 	//이 메서드가 종료되기전까지 session을 유지시켜줌 (xml설정 필요)
 	public Paging getPage(int page, int limit) {
 		int totalRows = dao.getTotalRows();
 		

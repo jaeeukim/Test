@@ -48,7 +48,8 @@
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
 	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!-- @Transactional 을 찾아서 transactionManager로 관리시키는거 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/> 
 </beans:beans>
 	
 	
