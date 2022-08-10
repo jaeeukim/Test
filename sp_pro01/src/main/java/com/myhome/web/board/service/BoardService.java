@@ -6,9 +6,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myhome.web.board.model.BoardDAO;
 import com.myhome.web.board.model.BoardDTO;
+import com.myhome.web.common.util.Paging;
 
 
 
@@ -27,7 +29,25 @@ public class BoardService {
     	return datas;
     }
     
-    public int add(BoardDTO data) {
+    @Transactional
+	public Paging getPage(int page, int limit) {
+		int totalRows = dao.getTotalRows();
+		
+		Paging paging = new Paging(page, limit, totalRows);
+		dao.selectPage(paging);
+		return paging;
+	}
+	
+	/*
+	 * 	
+	public BoardDTO getData(int id) {
+		
+		BoardDTO data = dao.selectData(id);
+		
+		return data;
+	}
+	
+	  public int add(BoardDTO data) {
     	
     	// 직접 스퀀스 생성할때 필요함
     	// int seq = dao.getNextSeq();
@@ -42,15 +62,6 @@ public class BoardService {
     	dao.rollback();
         return 0;
     }
-
-	public BoardDTO getData(int id) {
-		
-		BoardDTO data = dao.selectData(id);
-		
-		return data;
-	}
-	
-	/*
 	public void incViewCnt(HttpSession session, BoardDTO data) {
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
 		BoardDAO dao = new BoardDAO();
@@ -127,15 +138,7 @@ public class BoardService {
 		}
 	}
 
-	public Paging getPage(String page, String limit) {
-		
-		int totalRows = dao.totalRow();
-		
-		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
-		dao.selectPage(paging);
-		dao.close();
-		return paging;
-	}
+
 
 	public Paging getPage(String page, String limit, String search) {
 		

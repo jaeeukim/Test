@@ -5,14 +5,22 @@ import java.util.*;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.myhome.web.board.controller.BoardController;
+import com.myhome.web.common.util.Paging;
 
 
 
 @Repository
 public class BoardDAO {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
+	
 	@Autowired
 	private SqlSession session;
 
@@ -20,7 +28,20 @@ public class BoardDAO {
 		List<BoardDTO> result = session.selectList("boardMapper.selectAll");
 		return result;
 	}
-
+	
+    public int getTotalRows() {
+    	int rowCount = session.selectOne("boardMapper.getTotalRows");
+    	return rowCount;
+    }
+    
+    public void selectPage(Paging paging) {
+    	logger.info("selectPage(paging={})", paging);
+    	RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
+    	Cursor<Object> cursor = session.selectCursor("boardMapper.selectPage", null, rb);
+    	paging.setPageDatas(cursor.iterator());
+    }
+    
+    /*
     public int getNextSeq() {
     	int result = session.selectOne("empBoardsMapper.getNextSeq");
     	return result;
@@ -71,24 +92,17 @@ public class BoardDAO {
     		return updateStatis(data);     	    		
     	}
     }
-    /*
-    public void selectPage(Paging paging) {
-    	RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
-    	
-    	Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", null, rb);
-    	paging.setPageDatas(cursor.iterator());
-    }
+    */
     
+    /*
+
 	public void selectPage(Paging paging, String search) {
 		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
 		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", search, rb);
 		paging.setPageDatas(cursor.iterator());
 	}
 	
-    public int totalRow() {
-    	int rowCount = session.selectOne("empBoardsMapper.boardTotalRow");
-    	return rowCount;
-    }
+
     
     public int totalRow(String search) {
     	int rowCount = session.selectOne("empBoardsMapper.boardTotalRow", search);

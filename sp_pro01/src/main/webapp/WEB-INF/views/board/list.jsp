@@ -31,7 +31,7 @@
 							<input class="form-control" type="text" name="search" data-required="부서코드를 입력하세요.">
 							<button class="btn btn-secondary" type="submit">조회</button>
 							<c:url value="/board" var="boardUrl">
-								<c:param name="pgc" />
+								<c:param name="pageCount" />
 							</c:url>
 						</div>
 					</div>

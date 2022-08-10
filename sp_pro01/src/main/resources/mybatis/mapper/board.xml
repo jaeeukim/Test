@@ -126,7 +126,7 @@
 	<select id="boardSelectAll" resultType="boardDto">
 		SELECT * FROM EMP_BOARDS
 	</select>
-	<select id="boardTotalRow" resultType="_int" parameterType="String">
+	<select id="getTotalRows" resultType="_int" parameterType="String">
 			SELECT COUNT(*) FROM EMP_BOARDS
 			<if test="search != null">
 				WHERE TITLE LIKE '%' || #{search} || '%'
