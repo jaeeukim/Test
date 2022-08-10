@@ -54,7 +54,11 @@
 		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE) 
 		VALUES(EMP_BOARDS_SEQ.NEXTVAL, #{title}, #{content}, #{empId}, SYSDATE)
 	</insert>
-
+	<insert id="insertDataAutoSeq" parameterType="boardDto" useGeneratedKeys="true"
+		keyProperty="id" keyColumn="ID">
+		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE)
+			 VALUES(EMP_BOARDS_SEQ.NEXTVAL, #{title}, #{content}, #{empId}, SYSDATE)
+	</insert>
 	<select id="selectData" resultType="boardDto">
 		SELECT ID, TITLE, CONTENT
 			 , EMPID, CREATEDATE
@@ -62,6 +66,7 @@
 	      FROM EMP_BOARDS
 	     WHERE ID = #{id}
 	</select>
+	
 	<update id="updateViewCnt" parameterType="boardDto">
 		UPDATE EMP_BOARDS
 		   SET VIEW_CNT = #{viewCnt} + 1

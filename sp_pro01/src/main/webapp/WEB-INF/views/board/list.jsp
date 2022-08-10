@@ -82,12 +82,12 @@
 				</c:if>
 			</tbody>
 		</table>
-		<%--
 		<nav>
-			<c:url var="pageUrl" value="/board" />
-			<%@ include file="../module/paging.jsp" %>
+			<c:url value="/board" var="boardUrl"/>
+			<jsp:include page="../module/paging.jsp">
+				<jsp:param value="${boardUrl }" name="url"/>
+			</jsp:include>
 		</nav>
-		 --%>
 	</section>
 	<footer></footer>
 </body>

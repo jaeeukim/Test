@@ -4,21 +4,28 @@ import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.myhome.web.board.controller.BoardController;
 import com.myhome.web.board.model.BoardDAO;
 import com.myhome.web.board.model.BoardDTO;
+import com.myhome.web.board.vo.BoardVO;
 import com.myhome.web.common.util.Paging;
+import com.myhome.web.emp.model.EmpDTO;
 
 
 
 @Service
 public class BoardService {
+	private static final Logger logger = LoggerFactory.getLogger(BoardService.class);
 
 	@Autowired
 	private BoardDAO dao;
+	
 
 	
     public BoardService() {
@@ -38,30 +45,40 @@ public class BoardService {
 		return paging;
 	}
 	
-	/*
-	 * 	
-	public BoardDTO getData(int id) {
-		
-		BoardDTO data = dao.selectData(id);
-		
-		return data;
-	}
-	
-	  public int add(BoardDTO data) {
+    public BoardDTO getData(int id) {    	
+    	BoardDTO data = dao.selectData(id);
+    	return data;
+    }
+    
+    public int add(EmpDTO empDto, BoardVO data) {
+		logger.info("add(empDto={}, data={})", empDto, data);
+
+    	BoardDTO boardDto = new BoardDTO();
+    	boardDto.setTitle(data.getTitle());
+    	boardDto.setContent(data.getContent());
+    	boardDto.setEmpId(empDto.getEmpId());
     	
-    	// 직접 스퀀스 생성할때 필요함
-    	// int seq = dao.getNextSeq();
-    	// data.setId(seq);
-    	
-    	boolean result = dao.insertData(data);
+    	boolean result = dao.insertData(boardDto);
     	
     	if(result) {
-    		dao.commit();
-    		return data.getId();
+    		return boardDto.getId();
     	}
-    	dao.rollback();
-        return 0;
+    	return 0;
     }
+    
+	public boolean modify(BoardDTO data) {
+		boolean result = dao.updateData(data);
+		return result;
+	}
+    
+    
+    
+    
+    
+    
+	/*
+	 * 	
+	
 	public void incViewCnt(HttpSession session, BoardDTO data) {
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
 		BoardDAO dao = new BoardDAO();
@@ -191,16 +208,7 @@ public class BoardService {
 		
 	}
 	
-	public boolean modify(BoardDTO data) {
-		boolean result = dao.updateData(data);
-		
-		if(result) {
-			dao.commit();
-		} else {
-			dao.rollback();
-		}
-		return result;
-	}
+
 	*/
 
 }
