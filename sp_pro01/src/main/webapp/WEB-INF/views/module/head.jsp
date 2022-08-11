@@ -6,5 +6,6 @@
 <c:url var="bs5" value="/resources/bs5" />
 <c:url var="jQuery" value="/resources/js" />
 <link type="text/css" rel="stylesheet" href="${bs5}/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>

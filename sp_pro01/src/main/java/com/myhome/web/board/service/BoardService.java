@@ -1,5 +1,6 @@
 package com.myhome.web.board.service;
 
+import java.sql.SQLDataException;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myhome.web.board.controller.BoardController;
 import com.myhome.web.board.model.BoardDAO;
 import com.myhome.web.board.model.BoardDTO;
+import com.myhome.web.board.model.BoardStatisDTO;
 import com.myhome.web.board.vo.BoardVO;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
@@ -67,56 +69,74 @@ public class BoardService {
     }
     
 	public boolean modify(BoardDTO data) {
+		logger.info("modify(date={})", data);
 		boolean result = dao.updateData(data);
 		return result;
 	}
     
-    
-    
-    
-    
-    
-	/*
-	 * 	
+	@Transactional
+	public boolean remove(BoardDTO data) {
+		logger.info("remove(date={})", data);
+		dao.deleteStatisData(data);
+		boolean result = dao.deleteData(data);
+		
+		return result;
+		
+	}
 	
-	public void incViewCnt(HttpSession session, BoardDTO data) {
-		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
-		BoardDAO dao = new BoardDAO();
+    @Transactional
+	public void incViewCnt(EmpDTO empDto, BoardDTO data) {
 		
 		boolean result = false;
 		BoardStatisDTO statisData = new BoardStatisDTO();
 		statisData.setBId(data.getId());
-		statisData.setEmpId(empData.getEmpId());   //쿠키 대신 db를 사용해서 필요한 구문
+		statisData.setEmpId(empDto.getEmpId());   //쿠키 대신 db를 사용해서 필요한 구문
 		
 		statisData = dao.selectStatis(statisData);
 		if(statisData == null) {
 			result = dao.updateViewCnt(data);
+			if(!result) {
+				throw new RuntimeException("BoardService.incViewCnt 조회 수 업데이트 작업중 오류 발생");
+			}
 			statisData = new BoardStatisDTO();
 			statisData.setBId(data.getId());
-			statisData.setEmpId(empData.getEmpId());
+			statisData.setEmpId(empDto.getEmpId());
 			
 			dao.insertStatis(statisData);
+			if(!result) {
+				throw new RuntimeException("BoardService.incViewCnt 통계 정보 추가 작업중 오류 발생");
+			}
 		} else {
 			Date now = new Date();
 			long timeDiff = now.getTime() - statisData.getLatestView().getTime();
 			if(timeDiff / (1000 * 60 * 60 * 24) >= 7) { // 7일이상일때
 				result = dao.updateViewCnt(data);
+				if(!result) {
+					throw new RuntimeException("BoardService.incViewCnt 조회수 업데이트 추가 작업중 오류 발생");
+				}
 				dao.updateStatis(statisData);
+				if(!result) {
+					throw new RuntimeException("BoardService.incViewCnt 통계 정보 업데이트 추가 작업중 오류 발생");
+				}
+				
 			}
 		}
 		if(result) {
 			// db의 테이블 값만 올라갔으므로 data의 viewCnt값도 올려주는 작업을진행한다.
 			data.setViewCnt(data.getViewCnt() + 1); 
-			dao.commit();
-		}else {
-			dao.rollback();
 		}
-	}
-	
-	public void incLike(HttpSession session, BoardDTO data) {
-		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
-		BoardDAO dao = new BoardDAO();		
 		
+		// throw new RuntimeException("RuntimeException이 발생시키면 rollback.");
+		// transaction 진행중 (insert, update, delete)작업이 이루어질 때 rollback용으로 만들면 좋다 
+	}
+
+    
+	
+	
+	@Transactional(rollbackFor = SQLDataException.class)
+	public void incLike(EmpDTO empDto, BoardDTO data) throws SQLDataException {
+		logger.info("incLike(empDto={}, data={})", empDto, data);
+
 		// 1. EMP_BOARDS_STATISTICS 테이블에서 추천했던 기록찾음
 		// 2. 찾은 기록에서 ISLIKE 컬럼의 값에 따라 다음의 작업을 진행한다
 		//	 (조회해야 추천할 수 있기때문에 값을 못찾을 수 없다!!)
@@ -128,12 +148,9 @@ public class BoardService {
 		boolean result = false;
 		BoardStatisDTO statisData = new BoardStatisDTO();
 		statisData.setBId(data.getId());
-		statisData.setEmpId(empData.getEmpId());
+		statisData.setEmpId(empDto.getEmpId());
 		
 		statisData = dao.selectStatis(statisData);
-		
-		// System.out.println(data.getId() + "/" + empData.getEmpId());
-		// System.out.println(statisData);
 		
 		if(statisData.isLike()) {
 			// 추천했음 -> 추천수 -1
@@ -144,18 +161,19 @@ public class BoardService {
 			statisData.setLike(true);
 			data.setLike(data.getLike() + 1);
 		}
-		dao.updateStatis(statisData, "like");
-		result = dao.updateLike(data);
-		
-		
-		if(result) {
-			dao.commit();
-		}else {
-			dao.rollback();
+		result = dao.updateStatis(statisData, "like");
+		if(!result) {
+			throw new SQLDataException("BoardService.incLike - 추천 통계 업데이트 중 문제 발생");
 		}
+		result = dao.updateLike(data);
+		if(!result) {
+			throw new SQLDataException("BoardService.incLike - 추천 수 업데이트 중 문제 발생");
+		}
+	
 	}
 
-
+	/*
+	 * 	
 
 	public Paging getPage(String page, String limit, String search) {
 		
@@ -193,22 +211,6 @@ public class BoardService {
 		return datas;
 	}
 	*/
-	/*
-	public boolean remove(BoardDTO data) {
-		
-		dao.deleteStatisData(data);
-		boolean result = dao.deleteData(data);
-		
-		if(result) {
-			dao.commit();
-		} else {
-			dao.rollback();
-		}
-		return result;
-		
-	}
-	
 
-	*/
 
 }

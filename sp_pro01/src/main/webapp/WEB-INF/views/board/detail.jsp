@@ -8,10 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${data.title}</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<link rel="stylesheet" type="text/css" href="/jsp01/static/bs5/css/bootstrap.min.css">
-	<script type="text/javascript" src="/jsp01/static/bs5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/static/js/jquery-3.6.0.min.js"></script>
+	<jsp:include page="../module/head.jsp" />
 </head>
 <body>
 	<header>
@@ -136,7 +133,7 @@
 				</div>
 			</c:forEach>
 			<div class="mb-1">
-				<c:url var="commentUrl" value="/comment" />
+				<c:url var="commentUrl" value="/board/comment" />
 				<form action="${commentUrl}/add" method="post">
 					<input type="hidden" name="bid" value="${data.id}">
 					<div class="input-group">
@@ -176,7 +173,7 @@
 	
 		function incLike(element, id) {
 			$.ajax({
-				url: "/jsp01/board/detail",
+				url: "${boardUrl}/like",
 				type: "post",
 				data: {
 					id: id
@@ -184,6 +181,17 @@
 				success: function(data) {
 					if(data.code === "success") {
 						element.innerText = data.likeCnt;			
+					}else {
+						var myModal = new bootstrap.Modal(document.getElementById("resultModal"), {
+							keyboard: false
+						});
+						
+						var title = myModal._element.querySelector(".modal-title");
+						var body = myModal._element.querySelector(".modal-body");
+						title.innerText = data.title;
+						body.innerHTML = "<p>" + data.message + "</p>"
+						
+						myModal.show();
 					}
 				}
 			});
@@ -192,7 +200,7 @@
 	function boardDelete(boardId) {
 		$.ajax({
 			type: "post",
-			url: "/jsp01/board/delete",
+			url: "${boardUrl}/delete",
 			data: {
 				id: boardId
 			},

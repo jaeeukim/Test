@@ -47,6 +47,7 @@ public class BoardDAO {
     }
     
     public boolean insertData(BoardDTO data) {
+    	logger.info("insertData(data={})", data);
     	int result = 0;
     	if(data.getId() == 0) {
     		result = session.insert("boardMapper.insertDataAutoSeq", data);    		
@@ -57,42 +58,33 @@ public class BoardDAO {
     }
     
 	public boolean updateData(BoardDTO data) {
+		logger.info("updateData(data={})", data);
 		int result = session.update("boardMapper.updateData", data);
 		return result == 1 ? true : false;
 	}
+    	
+	public boolean deleteData(BoardDTO data) {
+		logger.info("deleteData(data={})", data);
+		int result = session.delete("boardMapper.deleteData", data.getId());
+		return result == 1 ? true : false;
+	}  
     
-    
-    
-    
-    
-    
-    
-    
-    /*
-    public int getNextSeq() {
-    	int result = session.selectOne("boardMapper.getNextSeq");
-    	return result;
-    }
-
-
-
-
-
-    public boolean updateViewCnt(BoardDTO data) {
-    	int result = session.update("boardMapper.updateViewCnt", data);
-    	return result == 1 ? true : false;
-    }
-    
-    public boolean updateLike(BoardDTO data) {
-    	int result = session.update("boardMapper.updateLike", data);
-    	return result == 1 ? true : false;
-    }
+	public boolean deleteStatisData(BoardDTO data) {
+		logger.info("deleteStatisData(data={})", data);
+		int result = session.delete("boardMapper.deleteStatisData", data.getId());
+		return result >= 0 ? true : false;		
+	}
     
     public BoardStatisDTO selectStatis(BoardStatisDTO data) {
     	BoardStatisDTO result = session.selectOne("boardMapper.selectStatis", data);
     	return result;
     }
-
+    
+    public boolean updateViewCnt(BoardDTO data) {
+    	int result = session.update("boardMapper.updateViewCnt", data);
+    	return result == 1 ? true : false;
+    }
+    
     public boolean insertStatis(BoardStatisDTO data) {
     	int result = session.insert("boardMapper.insertStatis", data);
     	return result == 1 ? true : false; 
@@ -101,8 +93,8 @@ public class BoardDAO {
     public boolean updateStatis(BoardStatisDTO data) {
     	int result = session.update("boardMapper.updateStatis", data);
     	return result == 1 ? true : false;     	
-    }
-
+    }   
+    
     public boolean updateStatis(BoardStatisDTO data, String type) {
     	if(type.equals("like")) {
     		int result = session.update("boardMapper.updateLikeStatis", data);    		
@@ -110,7 +102,25 @@ public class BoardDAO {
     	} else {
     		return updateStatis(data);     	    		
     	}
+    }   
+    
+    public boolean updateLike(BoardDTO data) {
+    	int result = session.update("boardMapper.updateLike", data);
+    	return result == 1 ? true : false;
     }
+    /*
+    public int getNextSeq() {
+    	int result = session.selectOne("boardMapper.getNextSeq");
+    	return result;
+    }
+
+
+    
+
+
+
+
+
     */
     
     /*
@@ -139,19 +149,8 @@ public class BoardDAO {
 	
    
 
-	
-	public boolean deleteStatisData(BoardDTO data) {
-		int result = session.delete("boardMapper.deleteStatisData", data.getId());
-		return result >= 0 ? true : false;		
-	}
-	
-	public boolean deleteData(BoardDTO data) {
-		int result = session.delete("boardMapper.deleteData", data.getId());
-		return result == 1 ? true : false;
-	}  
-	*/
-	
-    public void commit() {
+
+	public void commit() {
 		this.session.commit();
 	}
 	
@@ -162,6 +161,8 @@ public class BoardDAO {
 	public void rollback() {
 		this.session.rollback();
 	}
+	*/
+	
 
 
 

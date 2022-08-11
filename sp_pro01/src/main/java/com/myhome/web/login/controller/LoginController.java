@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,14 @@ public class LoginController {
 	
 	@Autowired
 	private DeptService deptService;
+	
+	@GetMapping(value="/login")
+	public String login(Model model) {
+		List<DeptDTO> deptDatas = deptService.getAll();
+		model.addAttribute("deptDatas", deptDatas);
+		return "login/login";
+	}
+	
 	
 	// 로그인
 	@RequestMapping(value="/login", method=RequestMethod.POST)
