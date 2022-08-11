@@ -286,13 +286,25 @@
 					card.remove();
 				}
 			}
-			
 		})
-		
-		
 		card.remove();
 	}
 </script>
+	<c:if test="${not empty sessionScope.commentError}">
+		<script type="text/javascript">
+			var myModal = new bootstrap.Modal(document.getElementById("resultModal"), {
+				keyboard: false					
+			});
+			
+			var title = myModal._element.querySelector(".modal-title");
+			var body = myModal._element.querySelector(".modal-body");
+			title.innerText = "오류";
+			body.innerHTML = "<p>" + "${sessionScope.commentError}"+ "</p>";
+				
+			myModal.show();
+		</script>
+		<c:remove var="commentError" scope="session" />
+	</c:if>	
 	<c:if test="${sessionScope.error}">
 		<script type="text/javascript">
 			alert("${sessionScope.error}");

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.myhome.web.board.model.BoardDTO;
 import com.myhome.web.board.service.BoardService;
 import com.myhome.web.board.vo.BoardVO;
+import com.myhome.web.comment.model.CommentDTO;
+import com.myhome.web.comment.service.CommentService;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
 
@@ -35,6 +38,10 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
+	@Autowired
+	private CommentService commentService;
+	
+
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String getData(Model model, HttpSession session
 				, @RequestParam(defaultValue="1", required=false) int page //필수는아닌데 기본값은1
@@ -220,6 +227,26 @@ public class BoardController {
 		}
 		return json.toJSONString();
 	}
-
+	
+	// 댓글 추가 기능
+	@PostMapping(value="/comment/add")
+	public String commentAdd(Model model, HttpSession session
+				, @SessionAttribute("loginData") EmpDTO empDto
+				, @RequestParam int bid
+				, @RequestParam String content) {
+		
+		CommentDTO data = new CommentDTO();
+		data.setbId(bid);
+		data.setContent(content);
+		data.setEmpId(empDto.getEmpId());
+		
+		boolean result = commentService.add(data);
+		if(result) {
+			return "redirect:/board/detail?id=" + bid;			
+		} else {
+			session.setAttribute("commentError", "댓글 추가 작업 중 문제가 발생");
+			return "redirect:/board/detail?id=" + bid;			
+		}
+	}
 	 
 }
