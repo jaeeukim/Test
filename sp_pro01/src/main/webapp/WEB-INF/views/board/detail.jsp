@@ -250,12 +250,13 @@
 	}
 	
 	function commentUpdate(e) {
+		
 		var cid = e.target.parentElement.parentElement.firstElementChild.value;
 		var value = e.target.parentElement.previousElementSibling.children[0].value;
 		
 		
 		$.ajax({
-			url: "/jsp01/comment/modify",
+			url: "${boardUrl}/comment/modify",
 			type: "post",
 			data: {
 				id: cid,
@@ -275,7 +276,7 @@
 		var card = element.parentElement.parentElement.parentElement.parentElement;
 		
 		$.ajax({
-			url: "/jsp01/comment/delete",
+			url: "${boardUrl}/comment/delete",
 			type: "post",
 			data: {
 				id: cid

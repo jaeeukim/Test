@@ -2,6 +2,7 @@ package com.myhome.web.comment.model;
 
 import java.util.List;
 
+import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class CommentDAO {
 	
 	public void selectPage(Paging paging, int bid) {
 		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
-		org.apache.ibatis.cursor.Cursor<Object> cursor = session.selectCursor("commentMapper.selectDatas", bid, rb);
+		Cursor<Object> cursor = session.selectCursor("commentMapper.selectDatas", bid, rb);
 		paging.setPageDatas(cursor.iterator());
 	}
 

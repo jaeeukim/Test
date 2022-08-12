@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myhome.web.comment.model.CommentDAO;
 import com.myhome.web.comment.model.CommentDTO;
@@ -40,7 +41,8 @@ public class CommentService {
 		boolean result = dao.updateData(data);
 		return result;
 	}
-
+	
+	@Transactional
 	public Paging getPage(String page, String limit, int bid) {
 		int totalRows = dao.totalRow(bid);
 		

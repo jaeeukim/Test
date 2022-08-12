@@ -3,6 +3,7 @@ package com.myhome.web.board.controller;
 import java.sql.SQLDataException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -73,6 +74,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public String getDetail(Model model
+			, HttpServletRequest request
 			, @RequestParam int id
 			, @SessionAttribute("loginData") EmpDTO empDto) {
 			
@@ -84,6 +86,14 @@ public class BoardController {
 		} else {
 			service.incViewCnt(empDto, data);
 			model.addAttribute("data", data);
+			
+			String page = request.getParameter("page");
+			String limit = "5";
+			page = page == null ? "1" : page;
+			Paging commentPage = commentService.getPage(page, limit, id);
+			
+			model.addAttribute("commentPage", commentPage);
+			
 			return "board/detail";			
 		}
 		
@@ -248,5 +258,9 @@ public class BoardController {
 			return "redirect:/board/detail?id=" + bid;			
 		}
 	}
+	
+	
+	
+	
 	 
 }
