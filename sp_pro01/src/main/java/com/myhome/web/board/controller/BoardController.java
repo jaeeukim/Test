@@ -1,9 +1,11 @@
 package com.myhome.web.board.controller;
 
+import java.io.IOException;
 import java.sql.SQLDataException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -259,8 +261,67 @@ public class BoardController {
 		}
 	}
 	
+	// 댓글 수정 기능
+	@PostMapping(value="/comment/modify", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String commendModify(Model model
+					, HttpServletResponse response
+					, @SessionAttribute("loginData") EmpDTO empDto
+					, @RequestParam int id
+					, @RequestParam String content) throws Exception {
+		logger.info("commentModify(empDto={})", empDto);
+		CommentDTO data = commentService.getData(id);
+
+		if(empDto.getEmpId() == data.getEmpId()) {
+			boolean result = commentService.modify(data);
+			if(result) {
+				return "redirect:/board/detail?id=" + data.getbId();
+			} else {
+				return "board/modify";
+			}
+		} else {
+			model.addAttribute("error", "해당 작업을 수행 할 권한이 없습니다.");
+			return "error/permissions";
+		}
+	}
 	
-	
-	
+	// 댓글 삭제 기능
+	@PostMapping(value="/comment/delete", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String commentDelete(Model model
+			, HttpServletResponse response
+			, @SessionAttribute("loginData") EmpDTO empDto
+			, @RequestParam int id) throws Exception {
+
+		CommentDTO data = commentService.getData(id);
+		
+		JSONObject json = new JSONObject();
+		
+		if(data == null) {
+			// 이미 삭제가 되었음.
+			json.put("title", "삭제가 된 데이터");
+			json.put("message", "해당 데이터는 이미 삭제가 되었습니다.");
+			return json.toJSONString();
+		} else {
+			if(data.getEmpId() == empDto.getEmpId()) {
+				// 삭제 가능
+				boolean result = commentService.remove(data);
+				if(result) {
+					json.put("title", "삭제 완료");
+					json.put("message", "삭제 처리가 완료되었습니다.");
+					return json.toJSONString();
+				} else {
+					json.put("title", "삭제 실패");
+					json.put("message", "삭제 작업중 알 수 없는 문제가 발생하였습니다.");
+					return json.toJSONString();
+				}
+			} else {
+				// 작성자 불일치 - 삭제 불가 - 권한 없음
+				json.put("title", "삭제 불가");
+				json.put("message", "해당 데이터를 삭제할 권한이 없습니다.");
+				return json.toJSONString();
+			}
+		}		
+	}
 	 
 }

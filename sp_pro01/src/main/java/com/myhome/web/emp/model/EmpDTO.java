@@ -102,11 +102,11 @@ public class EmpDTO {
 	public void setDeptId(String deptId) {
 		this.deptId = Integer.parseInt(deptId);
 	}
-	
-	@Override
-	public String toString() {
-		return "EmpDTO [empId=" + empId + ", empName=" + empName + ", email=" + email + ", jobName=" + jobName
-				+ ", jobId=" + jobId + ", deptName=" + deptName + ", deptId=" + deptId + ", empFirstName="
-				+ empFirstName + ", empLastName=" + empLastName + "]";
-	}
+//	
+//	@Override
+//	public String toString() {
+//		return "EmpDTO [empId=" + empId + ", empName=" + empName + ", email=" + email + ", jobName=" + jobName
+//				+ ", jobId=" + jobId + ", deptName=" + deptName + ", deptId=" + deptId + ", empFirstName="
+//				+ empFirstName + ", empLastName=" + empLastName + "]";
+//	}
 }
