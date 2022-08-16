@@ -39,6 +39,9 @@
 					<textarea class="form-control" id="id_content" name="content"
 					      rows="5" placeholder="내용을 입력하세요.">${param.content }</textarea>
 				</div>
+				<div class="mb-3">
+					<input class="form-control" id="id_content" name="upload" multiple>
+				</div>
 				<div class="text-end">
 					<button type="button" class="btn btn-primary" onclick="formCheck(this.form);">저장</button>
 				</div>
