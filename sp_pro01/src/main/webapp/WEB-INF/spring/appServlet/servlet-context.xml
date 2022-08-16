@@ -55,6 +55,16 @@
 		
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/> <!-- 모든url주소에 대해서 아레 interceptor를 동작하게 하겠다 -->
+			<beans:bean class="com.myhome.web.interceptor.LoggingInterceptor"></beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:bean class="com.myhome.web.interceptor.AdminInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>

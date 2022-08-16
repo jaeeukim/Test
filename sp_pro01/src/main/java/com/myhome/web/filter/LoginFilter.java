@@ -24,10 +24,18 @@ public class LoginFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest)request).getSession();
+		
+		String qs = "";
+		if(((HttpServletRequest)request).getQueryString() != null) {
+			qs = "?" + ((HttpServletRequest)request).getQueryString();			
+		}
+			
+		String path =((HttpServletRequest)request).getRequestURI();
+		
 		if(session.getAttribute("loginData") != null) {
 			chain.doFilter(request, response);			
 		} else {
-			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "/login");			
+			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "/login?url=" + path + qs);			
 		}
 		
 	}
