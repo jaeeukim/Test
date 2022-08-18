@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myhome.web.board.model.BoardDTO;
 import com.myhome.web.board.service.BoardService;
@@ -32,6 +33,8 @@ import com.myhome.web.comment.model.CommentDTO;
 import com.myhome.web.comment.service.CommentService;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
+import com.myhome.web.upload.model.FileUploadDTO;
+import com.myhome.web.upload.service.fileUploadService;
 
 @Controller
 @RequestMapping(value="/board")
@@ -44,7 +47,9 @@ public class BoardController {
 	@Autowired
 	private CommentService commentService;
 	
-
+	@Autowired
+	private fileUploadService fileuploadService;
+	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String getData(Model model, HttpSession session
 				, @RequestParam(defaultValue="1", required=false) int page //필수는아닌데 기본값은1
@@ -112,14 +117,23 @@ public class BoardController {
 	
 	 // 추가 저장 요청
 	 @PostMapping(value="/add")
-	 public String add(@ModelAttribute BoardVO boardVo
-			 , @SessionAttribute(name="loginData", required=true) EmpDTO empDto) {
+	 public String add(HttpServletRequest request
+			 , @ModelAttribute BoardVO boardVo
+			 , @SessionAttribute(name="loginData", required=true) EmpDTO empDto
+			 , @RequestParam("upload") MultipartFile[] files) throws Exception {
 	 	// @SessionAttribute사용으로 밑에 줄이 필요없어짐!
 		// EmpDTO empDto = (EmpDTO)session.getAttribute("loginData"); 
 		 logger.info("add(boardVo={}, empDto={})", boardVo, empDto);
+		 
 		 int id = service.add(empDto, boardVo);
 		 
 		 if(id > 0) {
+			 if(files.length > 0) {
+				 String location = request.getServletContext().getRealPath("/resources/upload/board");
+				 String url = "/static/upload/baord";
+				 FileUploadDTO fileUploadDto = new FileUploadDTO(id, location, url);
+				 // int result = fileUploadService.upload(files, fileUploadDto);  
+			 }
 			 return "redirect:/board/detail?id=" + id;			 
 		 } else {
 			 return "board/add";

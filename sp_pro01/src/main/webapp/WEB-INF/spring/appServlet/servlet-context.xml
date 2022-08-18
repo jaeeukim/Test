@@ -52,6 +52,9 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/> 
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- file 3개의 최대 크기를 5Mb(*3) = 15Mb 로 지정 -->
+		<beans:property name="maxUploadSize" value="15728640"></beans:property>
+		<beans:property name="maxInMemorySize" value="15728640"></beans:property>
 		
 	</beans:bean>
 	

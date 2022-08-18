@@ -24,6 +24,32 @@
 		}
 		form.submit();
 	}
+	
+	function uploadCheck(element) {
+		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+			keyboard: false
+		});
+		var title = modal._element.querySelector(".modal-title");
+		var body = modal._element.querySelector(".modal-body");
+		
+		if(element.files.length > 3) {
+			title.innerText = "파일 업로드 제한";
+			body.innerText = "파일 업로드는 최대 3개까지만 할 수 있습니다.";
+			element.value = "";
+			modal.show();
+			return;
+		}
+		
+		for(file of element.files) {
+			if(file.size / 1000 / 1000 > 5.0) {
+				title.innerText = "파일 크기 제한";
+				body.innerText = "파일은 최대 5MB 를 초과할 수 없습니다.";
+				element.value = "";
+				modal.show();
+				return;
+			}
+		}
+	}
 </script>
 
 <body>
@@ -31,7 +57,7 @@
 	<section class="container"> 
 		<div class="mt-3">	
 			<c:url var="boardModifuUrl" value="/board/modify"/>
-			<form action="${boardModifuUrl}" method="post">
+			<form action="${boardModifuUrl}" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="id" value="${data.id}"> <!-- paramter전달하려고 사용하는 pk값 -->
 				<div class="mb-3">
 					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${data.title }">
@@ -39,6 +65,9 @@
 				<div class="mb-3">
 					<textarea class="form-control" id="id_content" name="content"
 					      rows="5" placeholder="내용을 입력하세요.">${data.content }</textarea>
+				</div>
+				<div class="mb-3">
+					<input class="form-control" type="file" name="upload" onchange="uploadCheck(this);" multiple>
 				</div>
 				<div class="text-end">
 					<button type="button" class="btn btn-primary" onclick="formCheck(this.form);">저장</button>
