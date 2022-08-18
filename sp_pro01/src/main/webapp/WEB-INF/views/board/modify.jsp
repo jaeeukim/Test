@@ -67,6 +67,16 @@
 					      rows="5" placeholder="내용을 입력하세요.">${data.content }</textarea>
 				</div>
 				<div class="mb-3">
+					<ul class="list-group">
+						<c:forEach items="${fileDatas}" var="file">
+							<li class="text-truncate list-group-item">
+								<c:url var="downUrl" value="${file.url}/${file.uuidName}" />
+								<a class="link-info text-decoration-none" href="${downUrl}" download="${file.fileName}">${file.fileName}</a>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div class="mb-3">
 					<input class="form-control" type="file" name="upload" onchange="uploadCheck(this);" multiple>
 				</div>
 				<div class="text-end">

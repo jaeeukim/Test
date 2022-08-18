@@ -2,6 +2,8 @@ package com.myhome.web.upload.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,11 @@ public class fileUploadService {
 	@Autowired
 	private FileUploadDAO dao;
 	
+	public List<FileUploadDTO> getDatas(int bId) {
+		List<FileUploadDTO> datas = dao.selectDatas(bId);
+		return datas;
+	}
+	
 	private boolean _upload(MultipartFile file, FileUploadDTO data) throws Exception {
 		File directory = new File(data.getLocation());
 		if(!directory.exists()) {
@@ -26,12 +33,15 @@ public class fileUploadService {
 			return false;
 		}
 		
+		UUID uuid = UUID.nameUUIDFromBytes(file.getBytes());
+		
 		data.setFileName(file.getOriginalFilename());
+		data.setUuidName(uuid.toString());
 		data.setFileSize(file.getSize());
 		
 		boolean result = dao.insertData(data);
 		if(result) {				// separatorChar는 '/'나 '|' 구별해서 들어가게 함
-			file.transferTo(new File(data.getLocation() + File.separatorChar+ file.getOriginalFilename()));
+			file.transferTo(new File(data.getLocation() + File.separatorChar + data.getUuidName()));
 		}
 		return result;
 	}

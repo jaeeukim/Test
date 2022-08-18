@@ -48,7 +48,7 @@ public class BoardController {
 	private CommentService commentService;
 	
 	@Autowired
-	private fileUploadService fileuploadService;
+	private fileUploadService fileUploadService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String getData(Model model, HttpSession session
@@ -86,6 +86,7 @@ public class BoardController {
 			, @SessionAttribute("loginData") EmpDTO empDto) {
 			
 		BoardDTO data = service.getData(id);
+		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data == null) {
 			model.addAttribute("error", "해당데이터는 존재하지 않습니다.");
@@ -93,13 +94,16 @@ public class BoardController {
 		} else {
 			service.incViewCnt(empDto, data);
 			model.addAttribute("data", data);
+			model.addAttribute("fileDatas", fileDatas);
 			
+			/* 댓글 페이징
 			String page = request.getParameter("page");
 			String limit = "5";
 			page = page == null ? "1" : page;
 			Paging commentPage = commentService.getPage(page, limit, id);
 			
 			model.addAttribute("commentPage", commentPage);
+			*/
 			
 			return "board/detail";			
 		}
@@ -128,11 +132,11 @@ public class BoardController {
 		 int id = service.add(empDto, boardVo);
 		 
 		 if(id > 0) {
-			 if(files.length > 0) {
+			 if(!files[0].getOriginalFilename().isEmpty()) {
 				 String location = request.getServletContext().getRealPath("/resources/upload/board");
 				 String url = "/static/upload/baord";
 				 FileUploadDTO fileUploadDto = new FileUploadDTO(id, location, url);
-				 // int result = fileUploadService.upload(files, fileUploadDto);  
+				 int result = fileUploadService.upload(files, fileUploadDto);
 			 }
 			 return "redirect:/board/detail?id=" + id;			 
 		 } else {
@@ -149,8 +153,11 @@ public class BoardController {
 			 , @RequestParam int id) {
 		 
 		BoardDTO data = service.getData(id);
+		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
+
 		if(empDto.getEmpId() == data.getEmpId()) {
 			model.addAttribute("data", data);
+			model.addAttribute("fileDatas", fileDatas);
 			
 			return "board/modify";
 		} else {			

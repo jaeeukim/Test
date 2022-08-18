@@ -38,11 +38,12 @@ public class FileUploadController {
 		logger.info("image(files={}, type={})", files, type);
 		
 		JSONObject json = new JSONObject();
+		String realPath = request.getServletContext().getRealPath("/resources");
 		
+		/*
 		PrintWriter out = response.getWriter();
 		Part part = request.getPart("image");
 		
-		String realPath = request.getServletContext().getRealPath("/resources");
 		
 	
 		if(!part.getSubmittedFileName().isEmpty()) {	// 업로드가 된 이미지가 있는지 체크
@@ -55,6 +56,7 @@ public class FileUploadController {
 			out.println("}");
 		}
 		out.flush();
+		 */
 		
 		
 		for(MultipartFile file:files) {
@@ -65,7 +67,6 @@ public class FileUploadController {
 			System.out.println("getSize() : " + file.getSize() / 1000);
 			file.transferTo(new File(realPath + "/img/board/" + file.getOriginalFilename()));
 		}
-		
 		
 		return json.toJSONString();
 	}

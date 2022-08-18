@@ -5,8 +5,10 @@
 	<insert id="insertData" parameterType="fileUploadDto">
 		INSERT INTO UPLOADFILES
 		    VALUES(UPLOADFILES_SEQ.NEXTVAL
-		         , #{bId}, #{fileName}, #{location}
+		         , #{bId}, #{fileName}, #{uuidName}, #{location}
 		         , #{url}, #{fileSize})
 	</insert>
-
+	<select id="selectDatas" resultType="fileUploadDto">
+		SELECT * FROM UPLOADFILES WHERE BID = #{bId}
+	</select>
 </mapper>
