@@ -63,7 +63,7 @@ public class BoardController {
 		} 
 		// List<BoardDTO> datas = service.getAll();
 		
-		Paging pageData = service.getPage(page, Integer.parseInt((session.getAttribute("pageCount").toString())));
+		Paging pageData = service.getPage(session, page, Integer.parseInt((session.getAttribute("pageCount").toString())));
 		
 		model.addAttribute("pageData", pageData);
 		model.addAttribute("datas", pageData.getPageDatas());
@@ -81,10 +81,11 @@ public class BoardController {
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public String getDetail(Model model
 			, HttpServletRequest request
+			, HttpSession session
 			, @RequestParam int id
 			, @SessionAttribute("loginData") EmpDTO empDto) {
 			
-		BoardDTO data = service.getData(id);
+		BoardDTO data = service.getData(session, id);
 		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 		
 		if(data == null) {
@@ -144,10 +145,11 @@ public class BoardController {
 	// 수정 폼 요청
 	 @GetMapping(value="/modify")
 	 public String modify(Model model
+			 , HttpSession session
 			 , @SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			 , @RequestParam int id) {
 		 
-		BoardDTO data = service.getData(id);
+		BoardDTO data = service.getData(session, id);
 		List<FileUploadDTO> fileDatas = fileUploadService.getDatas(id);
 
 		if(empDto.getEmpId() == data.getEmpId()) {
@@ -165,14 +167,15 @@ public class BoardController {
 	// 수정저장 요청
 	 @PostMapping(value="/modify")
 	 public String modify(Model model
+			 , HttpSession session
 			 , @SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			 , @ModelAttribute BoardVO boardVo) {
 		
-		BoardDTO data = service.getData(boardVo.getId()); 
+		BoardDTO data = service.getData(session, boardVo.getId()); 
 		if(empDto.getEmpId() == data.getEmpId()) {
 			data.setTitle(boardVo.getTitle());
 			data.setContent(boardVo.getContent());
-			boolean result = service.modify(data);
+			boolean result = service.modify(session, data);
 			
 			if(result) {
 				return "redirect:/board/detail?id=" + data.getId();
@@ -191,9 +194,9 @@ public class BoardController {
 	@PostMapping(value="/delete", produces = "application/json; charset=UTF-8")
 	@ResponseBody //ajax로 인해 responsebody와 produces가 필요함
 	public String delete(@SessionAttribute("loginData") EmpDTO empDto
-			, @RequestParam int id){
+			, HttpSession session, @RequestParam int id){
 		
-		BoardDTO data = service.getData(id);
+		BoardDTO data = service.getData(session, id);
 		JSONObject json = new JSONObject();
 		
 		if(data == null) {
@@ -204,7 +207,7 @@ public class BoardController {
 		} else {
 			if(data.getEmpId() == empDto.getEmpId()) {
 				// 삭제
-				boolean result = service.remove(data);
+				boolean result = service.remove(session, data);
 				if(result) {
 					// 삭제 성공
 					json.put("title", "삭제 완료");
@@ -233,8 +236,8 @@ public class BoardController {
 	@PostMapping(value="/like", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String like(@SessionAttribute("loginData") EmpDTO empDto
-			, @RequestParam int id) {
-		BoardDTO data = service.getData(id);
+			, HttpSession session, @RequestParam int id) {
+		BoardDTO data = service.getData(session, id);
 		
 		JSONObject json = new JSONObject();
 		
@@ -243,7 +246,7 @@ public class BoardController {
 			json.put("message", "데이터가 존재하지 않습니다.");
 		} else {
 			try {
-				service.incLike(empDto, data);
+				service.addLike(session, empDto, data);
 				json.put("code", "noData");
 				json.put("message", "데이터 처리가 완료되었습니다.");
 				json.put("likeCnt", data.getLike());				

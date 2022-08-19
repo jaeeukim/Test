@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -44,11 +45,17 @@ public class LoggingAOP {
 			logger.info("    {}:{}", arg.getClass().getName(), arg.toString());
 		}
 	}
-	/*
-	// after 코드는 controller가 종료되는 시점에 출력될 것
-	@After(value="loggingCut()")  
-	public void afterControllerLogging(Joinpoint joinPoint) throws Exception {
-		logger.info("AOP 테스트 중");
+	
+	// after 코드는 종료되는 시점에 출력
+	@After(value="loggingMvcCut()")  
+	public void afterLogging(JoinPoint joinPoint) throws Exception {
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss.SSS");
+		logger.info("[{}] {} {}", dateFormat.format(date), joinPoint.getThis().toString() ,joinPoint.getSignature().getName());
+		
+		for(Object arg: joinPoint.getArgs()) {
+			logger.info("    {}:{}", arg.getClass().getName(), arg.toString());
+		}
 	}
-	*/
+
 }

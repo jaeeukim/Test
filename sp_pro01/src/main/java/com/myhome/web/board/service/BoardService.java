@@ -34,13 +34,13 @@ public class BoardService {
     public BoardService() {
     }
 
-    public List<BoardDTO> getAll() {
+    public List<BoardDTO> getAll(HttpSession session) {
     	List<BoardDTO> datas = dao.selectAll();
     	return datas;
     }
     
     @Transactional 	//이 메서드가 종료되기전까지 session을 유지시켜줌 (xml설정 필요)
-	public Paging getPage(int page, int limit) {
+	public Paging getPage(HttpSession session, int page, int limit) {
 		int totalRows = dao.getTotalRows();
 		
 		Paging paging = new Paging(page, limit, totalRows);
@@ -48,7 +48,7 @@ public class BoardService {
 		return paging;
 	}
 	
-    public BoardDTO getData(int id) {    	
+    public BoardDTO getData(HttpSession session, int id) {    	
     	BoardDTO data = dao.selectData(id);
     	return data;
     }
@@ -68,13 +68,13 @@ public class BoardService {
     	return 0;
     }
     
-	public boolean modify(BoardDTO data) {
+	public boolean modify(HttpSession session, BoardDTO data) {
 		boolean result = dao.updateData(data);
 		return result;
 	}
     
 	@Transactional
-	public boolean remove(BoardDTO data) {
+	public boolean remove(HttpSession session, BoardDTO data) {
 		dao.deleteStatisData(data);
 		boolean result = dao.deleteData(data);
 		
@@ -129,10 +129,12 @@ public class BoardService {
 	}
 
     
-	
+	public void addLike(HttpSession session, EmpDTO empDto, BoardDTO data) throws SQLDataException{
+		this.incLike(empDto, data);
+	}
 	
 	@Transactional(rollbackFor = SQLDataException.class)
-	public void incLike(EmpDTO empDto, BoardDTO data) throws SQLDataException {
+	private void incLike(EmpDTO empDto, BoardDTO data) throws SQLDataException {
 		// 1. EMP_BOARDS_STATISTICS 테이블에서 추천했던 기록찾음
 		// 2. 찾은 기록에서 ISLIKE 컬럼의 값에 따라 다음의 작업을 진행한다
 		//	 (조회해야 추천할 수 있기때문에 값을 못찾을 수 없다!!)

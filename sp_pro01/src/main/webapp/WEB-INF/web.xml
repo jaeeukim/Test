@@ -24,6 +24,18 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!-- 
+	<error-page>
+		<error-code>401</error-code>
+		<location>/WEB-INF/view/error/401.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/view/error/403.jsp</location>
+	</error-page>
+	 -->
 
 	<!-- filter -->
 	<filter>
