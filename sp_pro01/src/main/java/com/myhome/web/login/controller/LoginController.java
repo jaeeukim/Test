@@ -27,7 +27,8 @@ import com.myhome.web.login.vo.LoginVO;
 
 @Controller
 public class LoginController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	// AOP에서 logger사용으로 불필요
+	// private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private LoginService service;
@@ -46,9 +47,7 @@ public class LoginController {
 	// 로그인
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(Model model, LoginVO loginVo, String url, String deptRe
-			, HttpServletRequest request,HttpSession session, HttpServletResponse response) {
-		logger.info("login({}, {}, {}, {})", loginVo.getEmpId(), loginVo.getDeptId(), loginVo.getEmpName(), deptRe);
-		
+			, HttpServletRequest request,HttpSession session, HttpServletResponse response) {		
 		boolean result = service.login(session, loginVo);
 		
 		if(result) {

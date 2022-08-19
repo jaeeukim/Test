@@ -18,9 +18,7 @@ import com.myhome.web.common.util.Paging;
 
 @Repository
 public class BoardDAO {
-	
-	private static final Logger logger = LoggerFactory.getLogger(BoardDAO.class);
-	
+		
 	@Autowired
 	private SqlSession session;
 
@@ -35,7 +33,6 @@ public class BoardDAO {
     }
     
     public void selectPage(Paging paging) {
-    	logger.info("selectPage(paging={})", paging);
     	RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
     	Cursor<Object> cursor = session.selectCursor("boardMapper.selectPage", null, rb);
     	paging.setPageDatas(cursor.iterator());
@@ -47,7 +44,6 @@ public class BoardDAO {
     }
     
     public boolean insertData(BoardDTO data) {
-    	logger.info("insertData(data={})", data);
     	int result = 0;
     	if(data.getId() == 0) {
     		result = session.insert("boardMapper.insertDataAutoSeq", data);    		
@@ -58,19 +54,16 @@ public class BoardDAO {
     }
     
 	public boolean updateData(BoardDTO data) {
-		logger.info("updateData(data={})", data);
 		int result = session.update("boardMapper.updateData", data);
 		return result == 1 ? true : false;
 	}
     	
 	public boolean deleteData(BoardDTO data) {
-		logger.info("deleteData(data={})", data);
 		int result = session.delete("boardMapper.deleteData", data.getId());
 		return result == 1 ? true : false;
 	}  
     
 	public boolean deleteStatisData(BoardDTO data) {
-		logger.info("deleteStatisData(data={})", data);
 		int result = session.delete("boardMapper.deleteStatisData", data.getId());
 		return result >= 0 ? true : false;		
 	}

@@ -14,15 +14,14 @@ import com.myhome.web.emp.model.EmpDTO;
 
 @Repository
 public class LoginDAO{
-
-	private static final Logger logger = LoggerFactory.getLogger(LoginDAO.class);
+	// AOP에서 logger사용으로 불필요
+	// private static final Logger logger = LoggerFactory.getLogger(LoginDAO.class);
 
 	@Autowired
 	private SqlSession session;
 	private String mapper = "loginMapper.%s";
 		
 	public EmpDTO selectEmployee(EmpDTO data) {
-		logger.info("selectEmployee({})", data);
 		String mapId = String.format(mapper, "selectEmployee");
 		EmpDTO result = session.selectOne(mapId, data);
 		return result;

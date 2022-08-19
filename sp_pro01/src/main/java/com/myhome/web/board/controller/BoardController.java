@@ -39,7 +39,8 @@ import com.myhome.web.upload.service.fileUploadService;
 @Controller
 @RequestMapping(value="/board")
 public class BoardController {
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	//AOP 사용으로 controller에서 logger 사용이 불필요해짐
+	// private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired
 	private BoardService service;
@@ -53,9 +54,7 @@ public class BoardController {
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String getData(Model model, HttpSession session
 				, @RequestParam(defaultValue="1", required=false) int page //필수는아닌데 기본값은1
-				, @RequestParam(defaultValue="0", required=false) int pageCount) { 
-		logger.info("getData(page={}, pageCount={})", page, pageCount);
-		
+				, @RequestParam(defaultValue="0", required=false) int pageCount) { 	
 		if(session.getAttribute("pageCount") == null) {
 			session.setAttribute("pageCount", 5);			
 		}
@@ -114,8 +113,6 @@ public class BoardController {
 	// 추가 폼 요청
 	@GetMapping(value="/add")
 	public String add(@SessionAttribute(name="loginData", required=true) EmpDTO empDto) {
-		logger.info("add({})", empDto);
-
 		return "board/add";
 	}
 	
@@ -126,15 +123,13 @@ public class BoardController {
 			 , @SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			 , @RequestParam("upload") MultipartFile[] files) throws Exception {
 	 	// @SessionAttribute사용으로 밑에 줄이 필요없어짐!
-		// EmpDTO empDto = (EmpDTO)session.getAttribute("loginData"); 
-		 logger.info("add(boardVo={}, empDto={})", boardVo, empDto);
-		 
+		// EmpDTO empDto = (EmpDTO)session.getAttribute("loginData"); 		 
 		 int id = service.add(empDto, boardVo);
 		 
 		 if(id > 0) {
 			 if(!files[0].getOriginalFilename().isEmpty()) {
 				 String location = request.getServletContext().getRealPath("/resources/upload/board");
-				 String url = "/static/upload/baord";
+				 String url = "/static/upload/board";
 				 FileUploadDTO fileUploadDto = new FileUploadDTO(id, location, url);
 				 int result = fileUploadService.upload(files, fileUploadDto);
 			 }
@@ -290,7 +285,6 @@ public class BoardController {
 					, @SessionAttribute("loginData") EmpDTO empDto
 					, @RequestParam int id
 					, @RequestParam String content) throws Exception {
-		logger.info("commentModify(empDto={})", empDto);
 		CommentDTO data = commentService.getData(id);
 
 		if(empDto.getEmpId() == data.getEmpId()) {

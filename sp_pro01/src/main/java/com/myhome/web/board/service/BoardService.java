@@ -23,7 +23,8 @@ import com.myhome.web.emp.model.EmpDTO;
 
 @Service
 public class BoardService {
-	private static final Logger logger = LoggerFactory.getLogger(BoardService.class);
+	// AOP에서 logger 등록되어서 불필요해짐
+	// private static final Logger logger = LoggerFactory.getLogger(BoardService.class);
 
 	@Autowired
 	private BoardDAO dao;
@@ -53,7 +54,6 @@ public class BoardService {
     }
     
     public int add(EmpDTO empDto, BoardVO data) {
-		logger.info("add(empDto={}, data={})", empDto, data);
 
     	BoardDTO boardDto = new BoardDTO();
     	boardDto.setTitle(data.getTitle());
@@ -69,14 +69,12 @@ public class BoardService {
     }
     
 	public boolean modify(BoardDTO data) {
-		logger.info("modify(date={})", data);
 		boolean result = dao.updateData(data);
 		return result;
 	}
     
 	@Transactional
 	public boolean remove(BoardDTO data) {
-		logger.info("remove(date={})", data);
 		dao.deleteStatisData(data);
 		boolean result = dao.deleteData(data);
 		
@@ -135,8 +133,6 @@ public class BoardService {
 	
 	@Transactional(rollbackFor = SQLDataException.class)
 	public void incLike(EmpDTO empDto, BoardDTO data) throws SQLDataException {
-		logger.info("incLike(empDto={}, data={})", empDto, data);
-
 		// 1. EMP_BOARDS_STATISTICS 테이블에서 추천했던 기록찾음
 		// 2. 찾은 기록에서 ISLIKE 컬럼의 값에 따라 다음의 작업을 진행한다
 		//	 (조회해야 추천할 수 있기때문에 값을 못찾을 수 없다!!)
