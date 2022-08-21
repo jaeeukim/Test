@@ -130,7 +130,7 @@ public class BoardController {
 		 if(id > 0) {
 			 if(!files[0].getOriginalFilename().isEmpty()) {
 				 String location = request.getServletContext().getRealPath("/resources/upload/board");
-				 String url = "/static/upload/board";
+				 String url = "/resources/upload/board";  //강사님 경로는 static임 폴더명이 달라서 다르게 설정함
 				 FileUploadDTO fileUploadDto = new FileUploadDTO(id, location, url);
 				 int result = fileUploadService.upload(files, fileUploadDto);
 			 }
