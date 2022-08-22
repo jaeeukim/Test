@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -35,10 +36,8 @@ public class PermissionAOP {
 	@Pointcut(value="execution(public * com.myhome.web.*.service.*Service.remove*(javax.servlet.http.HttpSession, ..))")
 	private void permDeleteCut() {}
 
-	
-	@Before(value="permSelectCut()")
-	public void beforePoermSelect(JoinPoint joinPoint) throws Exception{
-		HttpSession session = (HttpSession)joinPoint.getArgs()[0];
+	private PermDTO getPermission(JoinPoint joinPoint) {
+		HttpSession session = (HttpSession) joinPoint.getArgs()[0];
 		EmpDTO empData = (EmpDTO) session.getAttribute("loginData");
 		
 		String name = joinPoint.getSignature().toShortString().split("\\.")[0];
@@ -50,23 +49,60 @@ public class PermissionAOP {
 		
 		boolean result = dao.selectData(data);
 		if(result) {
-			if(!data.ispRead()) {
-				throw new HttpClientErrorException(HttpStatus.FORBIDDEN, "읽기 권한이 없습니다.");
+			return data;
+		} else {
+			return null;
+		}
+	
+	}
+	
+	@Before(value="permSelectCut()")
+	public void beforePoermSelect(JoinPoint joinPoint) throws Exception{
+		PermDTO perm = getPermission(joinPoint);
+		
+		if(perm != null) {
+			if(!perm.ispRead()) {
+				throw new PermissionDeniedDataAccessException("읽기 권한이 없습니다.", null);
 			}
 		}else {
-			throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "로그인 정보가 없습니다.");
+			throw new PermissionDeniedDataAccessException("로그인 정보가 없습니다.", null);
 		}
 	}
 	
 	@Before(value="permInsertCut()")
 	public void beforePoermInsert(JoinPoint joinPoint) throws Exception{
-		
+		PermDTO perm = getPermission(joinPoint);
+		if(perm != null) {
+			if(!perm.ispAdd()) {
+				throw new PermissionDeniedDataAccessException("쓰기 권한이 없습니다.", null);
+			}
+		} else {
+			throw new PermissionDeniedDataAccessException("로그인 정보가 없습니다.", null);
+		}		
 	}
 
 	@Before(value="permUpdateCut()")
 	public void beforePoermUpdate(JoinPoint joinPoint) throws Exception{
-		
+		PermDTO perm = getPermission(joinPoint);
+		if(perm != null) {
+			if(!perm.ispUpdate()) {
+				throw new PermissionDeniedDataAccessException("수정 권한이 없습니다.", null);
+			}
+		} else {
+			throw new PermissionDeniedDataAccessException("로그인 정보가 없습니다.", null);
+		}		
 	}
 	
+	@Before(value="permDeleteCut()")
+	public void beforePoermDelete(JoinPoint joinPoint) throws Exception{
+		PermDTO perm = getPermission(joinPoint);
+		if(perm != null) {
+			if(!perm.ispDelete()) {
+				throw new PermissionDeniedDataAccessException("삭제 권한이 없습니다.", null);
+			}
+		} else {
+			throw new PermissionDeniedDataAccessException("로그인 정보가 없습니다.", null);
+		}		
+	}
 	
 }
