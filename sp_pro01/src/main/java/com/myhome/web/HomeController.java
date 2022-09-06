@@ -4,10 +4,14 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +30,10 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
+	private JavaMailSender javaMailSender;
+	
+	
+	@Autowired
 	private DeptService deptService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -41,6 +49,40 @@ public class HomeController {
 		// view (views안에 경로만 작성해주면 됨_jsp생략가능)
 		// servlet-context.xml에서 정의되어있기 때문
 		return "index";
+	}
+	
+	@RequestMapping(value="/question", method=RequestMethod.POST)
+	public String question(String sender, String context) {
+		JavaMailSender mailSender = null;
+		JavaMailSenderImpl senderImpl = new JavaMailSenderImpl();
+		senderImpl.setHost("smtp.gmail.com"); 			senderImpl.setPort(587);
+		senderImpl.setUsername("riqque530@gmail.com");  senderImpl.setPassword("ceaconastemyysub"); //생성한 웹비밀번호
+
+		
+		Properties prop = new Properties();
+		prop.put("mail.smtp.auth", true);
+		prop.put("mail.smtp.starttls.enable", true);
+		prop.put("mail.smtp.ssl.protocols", "TLSv1.3");
+		
+		senderImpl.setJavaMailProperties(prop);
+		
+		mailSender = senderImpl;
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		
+		String[] to = {"riqque530@gmail.com"};	 // 받는사람
+		String[] cc = {};						 // 참조
+		String[] bcc = {};						 // 숨은 참조
+		message.setTo(to);
+		message.setCc(cc);
+		message.setBcc(bcc);
+		
+		
+		message.setSubject("[" + sender + "] 님의 문의"); 	// 제목
+		message.setText(context);							// 내용
+			
+		mailSender.send(message);							// 전송
+		return "redirect:/question";
 	}
 	
 }
