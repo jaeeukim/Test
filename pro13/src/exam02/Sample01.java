@@ -31,8 +31,8 @@ public class Sample01 {
 		try (FileWriter fw = new FileWriter(f)){
 			
 			for(int i = 0; i < iArr.length; i++) {
-//				fw.write(iArr[i]); // 깨져서 보임
-				fw.write(Integer.valueOf(iArr[i]).toString() + " ");				
+//				fw.write(iArr[i]); // 깨져서 보임 (int형)
+				fw.write(Integer.valueOf(iArr[i]).toString() + " ");		// valueOf사용으로 Integer 
 			}
 			
 			fw.flush();
