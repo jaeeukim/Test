@@ -63,16 +63,16 @@ public class Sample01 {
 		}
 		
 		File f3 = new File("C:/Users/USER/eclipse/jee-2021-12/eclipse/my_folder");
-		f3.mkdir();
+		f3.mkdir();	// 디렉토리 생성
 		
 		File f4 = new File("C:/Users/USER/eclipse/jee-2021-12/eclipse/my_file");
 		f4.delete();
 		
 		File f5 = new File("C:/Users/USER/eclipse/jee-2021-12/eclipse/");
-		String[] fileList1 = f5.list();
+		String[] fileList1 = f5.list();		// .list() 파일 이름 목록 반환
 		System.out.println(Arrays.toString(fileList1));
 		
-		File[] fileList2 = f5.listFiles();
+		File[] fileList2 = f5.listFiles();	// .listFiles() 파일 목록 반환 (경로 형식)
 		System.out.println(Arrays.toString(fileList2));
 		
 		for(int i = 0; i < fileList2.length; i++) {
