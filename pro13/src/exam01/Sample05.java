@@ -28,7 +28,7 @@ public class Sample05 {
 			
 			fw.write("한글로도 쓰기\n");
 			
-			fw.flush();
+			fw.flush();			// flush()는 버퍼 출력스트림에서만 의미가 있다 
 		} catch (FileNotFoundException e) {
 			System.out.println("파일 쓰기 작업을 위한 파일을 찾을 수 없습니다.");
 			e.printStackTrace();
